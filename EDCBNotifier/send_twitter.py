@@ -2,20 +2,24 @@
 # Twitter でメッセージを送信する
 
 import os
-from twitter import Twitter as TwitterTool
-from twitter import OAuth
+from twitter import Twitter as PTT
+from twitter import OAuth as PTTOAuth
 
 class Twitter:
 
     def __init__(self, consumer_key, consumer_secret, access_token, access_token_secret):
 
         # 初期化
-        self.twitter = TwitterTool(auth = OAuth(access_token, access_token_secret, consumer_key, consumer_secret))
-        self.upload = TwitterTool(domain = 'upload.twitter.com', auth = OAuth(access_token, access_token_secret, consumer_key, consumer_secret))
+        self.twitter = PTT(auth = PTTOAuth(access_token, access_token_secret, consumer_key, consumer_secret))
+        self.upload = PTT(domain = 'upload.twitter.com', auth = PTTOAuth(access_token, access_token_secret, consumer_key, consumer_secret))
+        
+        # 自分の情報を取得
+        self.accountinfo = self.twitter.account.verify_credentials()
 
-    def sendMessage(self, message, image = None):
+    # ツイートを送信する
+    def sendTweet(self, message, image = None):
 
-        if (image != None and os.path.isfile(image)) :
+        if (image != None and os.path.isfile(image)):
 
             # 画像を読み込み
             with open(image, 'rb') as imagefile:
@@ -32,6 +36,71 @@ class Twitter:
 
             # テキストのみ送信
             response = self.twitter.statuses.update(status = message)
+
+        # レスポンスを返す
+        return response
+
+    # ダイレクトメッセージを送信する
+    def sendDirectMessage(self, message, image = None, destination = None):
+
+        if (destination == None):
+
+            # 自分自身のID
+            recipient_id = self.accountinfo['id']
+
+        else:
+
+            # スクリーンネームからIDを取得する
+            recipient_id = self.twitter.users.show(screen_name = destination)['id']
+
+        if (image != None and os.path.isfile(image)):
+
+            # 画像を読み込み
+            with open(image, 'rb') as imagefile:
+
+                imagedata = imagefile.read()
+
+            # 画像をアップロードして media_id を取得
+            media_id = self.upload.media.upload(media = imagedata)['media_id_string']
+
+            # 画像とテキストを送信
+            # 新 API になって仕様が変わったらしい
+            response = self.twitter.direct_messages.events.new(_json = {
+                'event': {
+                    'type': 'message_create',
+                    'message_create': {
+                        'target': {
+                            'recipient_id': recipient_id
+                        },
+                        'message_data': {
+                            'text': message,
+                            'attachment': {
+                                'type': 'media',
+                                'media': {
+                                    'id': media_id
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+
+        else:
+
+            # テキストのみ送信
+            response = self.twitter.direct_messages.events.new(_json = {
+                'event': {
+                    'type': 'message_create',
+                    'message_create': {
+                        'target': {
+                            'recipient_id': recipient_id
+                        },
+                        'message_data': {
+                            'text': message
+                        }
+                    }
+                }
+            })
 
         # レスポンスを返す
         return response

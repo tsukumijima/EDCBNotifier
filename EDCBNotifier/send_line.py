@@ -11,6 +11,7 @@ class Line:
 
         self.access_token = access_token
 
+    # メッセージを送信する
     def sendMessage(self, message, image = None):
 
         url = 'https://notify-api.line.me/api/notify'
@@ -19,7 +20,7 @@ class Line:
         # メッセージ
         payload = {'message': message}
 
-        if (image != None and os.path.isfile(image)) :
+        if (image != None and os.path.isfile(image)):
 
             # 画像とテキストを送信
             files = {'imageFile': open(image, 'rb')}
