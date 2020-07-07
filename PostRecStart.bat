@@ -1,17 +1,17 @@
 
-rem // ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚’éžè¡¨ç¤ºã«ã™ã‚‹
+rem // ƒEƒCƒ“ƒhƒE‚ð”ñ•\Ž¦‚É‚·‚é
 rem _EDCBX_HIDE_
 
-rem // ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’ç’°å¢ƒå¤‰æ•°ã«æ¸¡ã™
-rem // ã“ã†ã™ã‚‹ã“ã¨ã§ Python å´ã§ã‚‚ç’°å¢ƒå¤‰æ•°ã‚’å‚ç…§ã§ãã‚‹
+rem // ƒpƒ‰ƒ[ƒ^‚ðŠÂ‹«•Ï”‚É“n‚·
+rem // ‚±‚¤‚·‚é‚±‚Æ‚Å Python ‘¤‚Å‚àŠÂ‹«•Ï”‚ðŽQÆ‚Å‚«‚é
 rem _EDCBX_DIRECT_
 
-rem // è¦–è´äºˆç´„ãªã‚‰çµ‚äº†
+rem // Ž‹’®—\–ñ‚È‚çI—¹
 if "%RecMode%" == "4" (
     goto :eof
 )
 
-rem // Python ã«æŠ•ã’ã‚‹
-python .\EDCBNotifier\EDCBNotifier.py PostRecStart
+rem // Python ‚É“Š‚°‚é
+python %~dp0\EDCBNotifier\EDCBNotifier.py PostRecStart
 
 exit

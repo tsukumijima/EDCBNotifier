@@ -1,5 +1,6 @@
 
 import os
+import sys
 import requests
 import datetime
 from pprint import pprint
@@ -8,7 +9,21 @@ import config
 import send_line
 import send_twitter
 
-message = str(datetime.datetime.now()) + ': EDCBNotifier のテストです'
+# 引数を受け取る
+if (len(sys.argv) > 1):
+
+    caller = sys.argv[1] # 呼び出し元のバッチファイルの名前
+    print('引数: ' + caller)
+
+    # メッセージをセット
+    message = 'EDCBNotifier ' + str(datetime.datetime.now()) + ': ' + config.NOTIFY_MESSAGE[caller]
+
+else:
+
+    # 引数がないので終了    
+    print('引数がありません。')
+    sys.exit(1)
+
 
 # 送信する画像
 if (config.NOTIFY_IMAGE != None and os.path.isfile(config.NOTIFY_IMAGE)):

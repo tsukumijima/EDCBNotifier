@@ -34,6 +34,29 @@ NOTIFY_TWITTER_TYPE = 'Tweet'
 
 NOTIFY_TWITTER_DESTINATION = None
 
+# ===================  メッセージ  ===================
+
+# 改行を入れる場合は文字列内に \n といれてください
+
+NOTIFY_MESSAGE = {
+
+    # 予約を追加したとき（ PostAddReserve.bat が実行されたとき）に送信するメッセージ
+    'PostAddReserve': '予約を追加しました。',
+
+    # 予約を変更したとき（ PostChgReserve.bat が実行されたとき）に送信するメッセージ
+    'PostChgReserve': '予約を変更しました。',
+
+    # 録画を開始したとき（ PostRecStart.bat が実行されたとき）に送信するメッセージ
+    'PostRecStart': '録画を開始しました。',
+
+    # 録画を終了したとき（ PostRecEnd.bat が実行されたとき）に送信するメッセージ
+    'PostRecEnd': '録画を終了しました。',
+
+    # 更新通知が送られたとき（ PostNotify.bat が実行されたとき）に送信するメッセージ
+    'PostNotify': '更新を通知します。',
+
+}
+
 # ==================  LINE Notify  ==================
 
 # LINE Notify のアクセストークン
