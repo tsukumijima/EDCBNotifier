@@ -12,7 +12,7 @@ class Line:
         self.access_token = access_token
 
     # メッセージを送信する
-    def sendMessage(self, message, image = None):
+    def send_message(self, message, image = None):
 
         url = 'https://notify-api.line.me/api/notify'
         headers = {'Authorization': 'Bearer ' + self.access_token}

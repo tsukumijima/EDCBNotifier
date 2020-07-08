@@ -17,7 +17,7 @@ class Twitter:
         self.accountinfo = self.twitter.account.verify_credentials()
 
     # ツイートを送信する
-    def sendTweet(self, message, image = None):
+    def send_tweet(self, message, image = None):
 
         if (image != None and os.path.isfile(image)):
 
@@ -41,7 +41,7 @@ class Twitter:
         return response
 
     # ダイレクトメッセージを送信する
-    def sendDirectMessage(self, message, image = None, destination = None):
+    def send_direct_message(self, message, image = None, destination = None):
 
         if (destination == None):
 
