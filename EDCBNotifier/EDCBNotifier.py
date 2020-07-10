@@ -6,6 +6,7 @@ import datetime
 from pprint import pprint
 
 import config
+import utils
 import sendline
 import sendtwitter
 
@@ -18,7 +19,7 @@ if (len(sys.argv) > 1):
     if (caller in config.NOTIFY_MESSAGE):
 
         # メッセージをセット
-        message = 'EDCBNotifier ' + str(datetime.datetime.now()) + ': ' + config.NOTIFY_MESSAGE[caller]
+        message = str(datetime.datetime.now()) + ': ' + config.NOTIFY_MESSAGE[caller]
 
     else:
 
@@ -31,6 +32,17 @@ else:
     # 引数がないので終了    
     print('引数がありません。')
     sys.exit(1)
+
+print(os.environ)
+
+# マクロを取得
+macros = utils.get_macro(os.environ)
+
+# マクロでメッセージを置換
+for macro, macro_value in macros.items():
+
+    # $$ で囲われた文字を置換する
+    message = message.replace('$' + macro + '$', macro_value)
 
 
 # 送信する画像

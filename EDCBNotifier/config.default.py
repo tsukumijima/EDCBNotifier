@@ -37,23 +37,28 @@ NOTIFY_TWITTER_DESTINATION = None
 # ===================  メッセージ  ===================
 
 # 改行を入れる場合は文字列内に \n といれてください
+# https://github.com/xtne6f/EDCB/blob/70b2331aadb328eb347fe0c4e4e23c8e91d286b7/Document/Readme_EpgTimer.txt#L929-L1008 と
+# https://github.com/xtne6f/EDCB/blob/4c3bd5be3dc49607aa821d728105955c03fba4db/Document/Readme_Mod.txt#L451-L475 に記載されているマクロが使えます
+# また、独自にいくつかのマクロを追加しています。
+# ・$HashTag$ … 放送局名をハッシュタグに置換したもの (ハッシュタグは utils.py で定義されている) 
+# ・$NotifyName$ … 更新通知タイプを $NofityID$ から取得したもの（$NofityID$ = 1 … EPGデータ更新 2 … 予約情報更新 3 … 録画結果情報更新）
 
 NOTIFY_MESSAGE = {
 
     # 予約を追加したとき（ PostAddReserve.bat が実行されたとき）に送信するメッセージ
-    'PostAddReserve': '予約を追加しました。',
+    'PostAddReserve': '予約追加: $SDYY$/$SDMM$/$SDDD$($SDW$) $STHH$:$STMM$～$ETHH$:$ETMM$ $Title$ $ServiceName$',
 
     # 予約を変更したとき（ PostChgReserve.bat が実行されたとき）に送信するメッセージ
-    'PostChgReserve': '予約を変更しました。',
+    'PostChgReserve': '予約変更: $SDYY$/$SDMN$/$SDDD$($SDW$) $STHH$:$STMM$～$ETHH$:$ETMM$ $Title$ $ServiceName$',
 
     # 録画を開始したとき（ PostRecStart.bat が実行されたとき）に送信するメッセージ
-    'PostRecStart': '録画を開始しました。',
+    'PostRecStart': '録画開始: $SDYY$/$SDMM$/$SDDD$($SDW$) $STHH$:$STMM$～$ETHH$:$ETMM$ $Title$ $ServiceName$',
 
     # 録画を終了したとき（ PostRecEnd.bat が実行されたとき）に送信するメッセージ
-    'PostRecEnd': '録画を終了しました。',
+    'PostRecEnd': '録画終了: $SDYY$/$SDMM$/$SDDD$($SDW$) $STHH$:$STMM$～$ETHH$:$ETMM$ $Title$ $ServiceName$ \n Drop: $Drops$ Scramble: $Scrambles$ Comment: $Result$',
 
     # 更新通知が送られたとき（ PostNotify.bat が実行されたとき）に送信するメッセージ
-    'PostNotify': '更新を通知します。',
+    'PostNotify': '通知: $NotifyName$',
 
 }
 
