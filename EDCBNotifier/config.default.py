@@ -37,34 +37,39 @@ NOTIFY_TWITTER_DESTINATION = None
 # ===================  メッセージ  ===================
 
 # 改行を入れる場合は文字列内に \n と入力してください
+# 
 # https://github.com/xtne6f/EDCB/blob/70b2331aadb328eb347fe0c4e4e23c8e91d286b7/Document/Readme_EpgTimer.txt#L929-L1008 と
 # https://github.com/xtne6f/EDCB/blob/4c3bd5be3dc49607aa821d728105955c03fba4db/Document/Readme_Mod.txt#L451-L475 に記載されているマクロが使えます
+# マクロは $$ で囲んでください (ex: $ServiceName$)
 # 
 # また、独自にいくつかのマクロを追加しています
 # ・$HashTag$ … 放送局名から取得したハッシュタグ (ハッシュタグは utils.py にて定義) 
 # ・$NotifyName$ … $NofityID$ から取得した更新通知タイプ（$NofityID$ = 1 … EPGデータ更新 2 … 予約情報更新 3 … 録画結果情報更新）
+# ・$ServiceNameHankaku$ … $ServiceName$（放送局名）の英数字を半角に変換したもの
+# ・$TitleHankaku$ … $Title$（番組タイトル）の英数字を半角に変換したもの
+# ・$Title2Hankaku$ … $Title2$（番組タイトル・[]で囲まれている部分を削除したもの）の英数字を半角に変換したもの
 
 NOTIFY_MESSAGE = {
 
     # 予約を追加したとき（ PostAddReserve.bat が実行されたとき）に送信するメッセージ
-    'PostAddReserve': '➕ 予約追加: $SDYYYY$/$SDMM$/$SDDD$($SDW$) $HashTag$ \n' +
-                      '$STHH$:$STMM$～$ETHH$:$ETMM$ $Title$',
+    'PostAddReserve': '➕ 予約追加: $SDYYYY$/$SDMM$/$SDDD$($SDW$) $ServiceNameHankaku$ $HashTag$ \n' +
+                      '$STHH$:$STMM$～$ETHH$:$ETMM$ $TitleHankaku$',
 
     # 予約を変更したとき（ PostChgReserve.bat が実行されたとき）に送信するメッセージ
-    'PostChgReserve': '📢 予約変更: $SDYYYY$/$SDMM$/$SDDD$($SDW$) $HashTag$ \n' +
-                      '$STHH$:$STMM$～$ETHH$:$ETMM$ $Title$',
+    'PostChgReserve': '📢 予約変更: $SDYYYY$/$SDMM$/$SDDD$($SDW$) $ServiceNameHankaku$ $HashTag$ \n' +
+                      '$STHH$:$STMM$～$ETHH$:$ETMM$ $TitleHankaku$',
 
     # 録画を開始したとき（ PostRecStart.bat が実行されたとき）に送信するメッセージ
-    'PostRecStart': '🔴 録画開始: $SDYYYY$/$SDMM$/$SDDD$($SDW$) $HashTag$ \n' +
-                    '$STHH$:$STMM$～$ETHH$:$ETMM$ $Title$',
+    'PostRecStart':   '🔴 録画開始: $SDYYYY$/$SDMM$/$SDDD$($SDW$) $ServiceNameHankaku$ $HashTag$ \n' +
+                      '$STHH$:$STMM$～$ETHH$:$ETMM$ $TitleHankaku$',
 
     # 録画を終了したとき（ PostRecEnd.bat が実行されたとき）に送信するメッセージ
-    'PostRecEnd': '🟥 録画終了: $SDYYYY$/$SDMM$/$SDDD$($SDW$) $HashTag$ \n' +
-                  '$STHH$:$STMM$～$ETHH$:$ETMM$ $Title$ \n' +
-                  'Drop: $Drops$ Scramble: $Scrambles$ Comment: $Result$',
+    'PostRecEnd':     '🟥 録画終了: $SDYYYY$/$SDMM$/$SDDD$($SDW$) $ServiceNameHankaku$ $HashTag$ \n' +
+                      '$STHH$:$STMM$～$ETHH$:$ETMM$ $TitleHankaku$ \n' +
+                      'Drop: $Drops$ Scramble: $Scrambles$ Comment: $Result$',
 
     # 更新通知が送られたとき（ PostNotify.bat が実行されたとき）に送信するメッセージ
-    'PostNotify': '🔔 通知: $NotifyName$',
+    'PostNotify':     '🔔 通知: $NotifyName$',
 
 }
 

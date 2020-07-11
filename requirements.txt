@@ -1,2 +1,3 @@
 requests>=2.23.0
 twitter>=1.18.0
+jaconv>=0.2.4

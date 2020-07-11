@@ -1,6 +1,8 @@
 
 # Utils
 
+import jaconv
+
 
 # 環境変数に格納されているマクロを取得してdictで返す
 # environ には os.environ を渡す
@@ -10,11 +12,14 @@ def get_macro(environ):
     macro_default = '--'
 
     # マクロテーブル
+    # 一部のみ利用できる、もしくは利用できないマクロも含む（注釈あり）
     macro_table = {
 
-        'FilePath': environ.get('FilePath', macro_default),
-        'FolderPath': environ.get('FolderPath', macro_default),
-        'FileName': environ.get('FileName', macro_default),
+        # 標準マクロ
+
+        'FilePath': environ.get('FilePath', macro_default), # PostRecEnd.bat と 録画後実行 bat のみ
+        'FolderPath': environ.get('FolderPath', macro_default), # PostRecEnd.bat と 録画後実行 bat のみ
+        'FileName': environ.get('FileName', macro_default), # PostRecEnd.bat と 録画後実行 bat のみ
         'Title': environ.get('Title', macro_default),
         'Title2': environ.get('Title2', macro_default),
         'SDYYYY': environ.get('SDYYYY', macro_default),
@@ -76,24 +81,33 @@ def get_macro(environ):
         'DUM': environ.get('DUM', macro_default),
         'DUSS': environ.get('DUSS', macro_default),
         'DUS': environ.get('DUS', macro_default),
-        'Drops': environ.get('Drops', macro_default),
-        'Scrambles': environ.get('Scrambles', macro_default),
-        'Result': environ.get('Result', macro_default),
-        'TitleF': environ.get('TitleF', macro_default),
-        'Title2F': environ.get('Title2F', macro_default),
-        'Genre': environ.get('Genre', macro_default),
-        'Genre2': environ.get('Genre2', macro_default),
-        'AddKey': environ.get('AddKey', macro_default),
-        'SubTitle': environ.get('SubTitle', macro_default),
-        'SubTitle2': environ.get('SubTitle2', macro_default),
+        'Drops': environ.get('Drops', macro_default), # PostRecEnd.bat と 録画後実行 bat のみ
+        'Scrambles': environ.get('Scrambles', macro_default), # PostRecEnd.bat と 録画後実行 bat のみ
+        'Result': environ.get('Result', macro_default), # PostRecEnd.bat と 録画後実行 bat のみ
+        'TitleF': environ.get('TitleF', macro_default), # PostRecEnd.bat と 録画後実行 bat のみ
+        'Title2F': environ.get('Title2F', macro_default), # PostRecEnd.bat と 録画後実行 bat のみ
+        'Genre': environ.get('Genre', macro_default), # 利用不可（RecName_Macro.dll のみ）
+        'Genre2': environ.get('Genre2', macro_default), # 利用不可（RecName_Macro.dll のみ）
+        'AddKey': environ.get('AddKey', macro_default), # PostRecEnd.bat と 録画後実行 bat のみ
+        'SubTitle': environ.get('SubTitle', macro_default), # 利用不可（RecName_Macro.dll のみ）
+        'SubTitle2': environ.get('SubTitle2', macro_default), # 利用不可（RecName_Macro.dll のみ）
+
+        # xtne6f 版で追加されたマクロ
         
-        'ReserveID': environ.get('ReserveID', macro_default),
-        'RecMode': environ.get('RecMode', macro_default),
-        'ReserveComment': environ.get('ReserveComment', macro_default),
-        'NotifyID': environ.get('NotifyID', macro_default),
+        'BatFileTag': environ.get('BatFileTag', macro_default), # PostRecEnd.bat と 録画後実行 bat のみ（？）
+        'RecInfoID': environ.get('ReserveID', macro_default), # PostRecEnd.bat のみ
+        'ReserveID': environ.get('ReserveID', macro_default), # PostRecEnd.bat 以外のみ
+        'RecMode': environ.get('RecMode', macro_default), # PostRecEnd.bat 以外のみ
+        'ReserveComment': environ.get('ReserveComment', macro_default), # PostRecEnd.bat 以外のみ
+        'NotifyID': environ.get('NotifyID', macro_default), # PostNotify.bat のみ
+
+        # EDCBNotifier 独自マクロ
         
-        'HashTag': get_hashtag(environ.get('ServiceName', macro_default)),
+        'HashTag': get_hashtag(jaconv.z2h(environ.get('ServiceName', macro_default), digit=True, ascii=True, kana=False)),
         'NotifyName': get_notify_name(environ.get('NotifyID', macro_default)),
+        'ServiceNameHankaku': jaconv.z2h(environ.get('ServiceName', macro_default), digit=True, ascii=True, kana=False),
+        'TitleHankaku': jaconv.z2h(environ.get('Title', macro_default), digit=True, ascii=True, kana=False),
+        'Title2Hankaku': jaconv.z2h(environ.get('Title2', macro_default), digit=True, ascii=True, kana=False),
 
     }
 
@@ -101,59 +115,64 @@ def get_macro(environ):
 
 
 # 放送局名からハッシュタグを取得する
-# BS-TBS が TBS と判定されるといったことがないよう BS 局を先に判定する
+# BS-TBS が TBS と判定されるといったことがないよう BS・CS 局を先に判定する
+# service_name には半角に変換済みの放送局名が入るので注意
 # 参考: https://nyanshiba.com/blog/dtv-edcb-twitter
 def get_hashtag(service_name):
 
-    # BS
+    # BS・CS
 
-    if 'ＮＨＫＢＳ１' in service_name:
+    if 'NHKBS1' in service_name:
 
         hashtag = '#nhkbs1'
 
-    elif 'ＮＨＫＢＳプレミアム' in service_name:
+    elif 'NHKBSプレミアム' in service_name:
 
         hashtag = '#nhkbsp'
 
-    elif 'ＢＳ日テレ' in service_name:
+    elif 'BS日テレ' in service_name:
 
         hashtag = '#bsntv'
 
-    elif 'ＢＳ朝日' in service_name:
+    elif 'BS朝日' in service_name:
 
         hashtag = '#bsasahi'
 
-    elif 'ＢＳ－ＴＢＳ' in service_name:
+    elif 'BS-TBS' in service_name:
 
         hashtag = '#bstbs'
 
-    elif 'ＢＳテレ東' in service_name:
+    elif 'BSテレ東' in service_name:
 
         hashtag = '#bstvtokyo'
 
-    elif 'ＢＳフジ' in service_name:
+    elif 'BSフジ' in service_name:
 
         hashtag = '#bsfuji'
 
-    elif 'ＢＳ１１イレブン' in service_name:
+    elif 'BS11イレブン' in service_name:
 
         hashtag = '#bs11'
 
-    elif 'ＢＳ１２トゥエルビ' in service_name:
+    elif 'BS12トゥエルビ' in service_name:
 
         hashtag = '#bs12'
 
+    elif 'AT-X' in service_name:
+
+        hashtag = '#at_x'
+
     # 地デジ
     
-    elif 'ＮＨＫ総合' in service_name:
+    elif 'NHK総合' in service_name:
 
         hashtag = '#nhk'
 
-    elif 'ＮＨＫＥテレ' in service_name:
+    elif 'NHKEテレ' in service_name:
 
         hashtag = '#etv'
 
-    elif 'ｔｖｋ' in service_name:
+    elif 'tvk' in service_name:
 
         hashtag = '#tvk'
 
@@ -169,7 +188,7 @@ def get_hashtag(service_name):
 
         hashtag = '#tvasahi'
 
-    elif 'ＴＢＳ' in service_name:
+    elif 'TBS' in service_name:
 
         hashtag = '#tbs'
 
@@ -181,7 +200,7 @@ def get_hashtag(service_name):
 
         hashtag = '#fujitv'
 
-    elif 'ＴＯＫＹＯ　ＭＸ' in service_name:
+    elif 'TOKYO MX' in service_name:
 
         hashtag = '#tokyomx'
 
