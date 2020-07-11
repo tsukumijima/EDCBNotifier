@@ -2,7 +2,6 @@
 import os
 import sys
 import requests
-import datetime
 from pprint import pprint
 
 import config
@@ -19,7 +18,7 @@ if (len(sys.argv) > 1):
     if (caller in config.NOTIFY_MESSAGE):
 
         # メッセージをセット
-        message = str(datetime.datetime.now()) + ': ' + config.NOTIFY_MESSAGE[caller]
+        message = config.NOTIFY_MESSAGE[caller]
 
     else:
 

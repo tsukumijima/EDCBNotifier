@@ -107,11 +107,11 @@ def get_hashtag(service_name):
 
     # BS
 
-    if 'ＢＳ１' in service_name:
+    if 'ＮＨＫＢＳ１' in service_name:
 
         hashtag = '#nhkbs1'
 
-    elif 'ＢＳプレミアム' in service_name:
+    elif 'ＮＨＫＢＳプレミアム' in service_name:
 
         hashtag = '#nhkbsp'
 
@@ -135,11 +135,11 @@ def get_hashtag(service_name):
 
         hashtag = '#bsfuji'
 
-    elif 'ＢＳ１１' in service_name:
+    elif 'ＢＳ１１イレブン' in service_name:
 
         hashtag = '#bs11'
 
-    elif 'ＢＳ１２' in service_name:
+    elif 'ＢＳ１２トゥエルビ' in service_name:
 
         hashtag = '#bs12'
 
