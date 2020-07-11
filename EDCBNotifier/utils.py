@@ -146,15 +146,15 @@ def get_hashtag(service_name):
 # NotifyID から NotifyName を取得する
 def get_notify_name(notify_id):
 
-    if notify_id == 1:
+    if notify_id == '1':
 
         notify_name = 'EPGデータ更新'
 
-    elif notify_id == 2:
+    elif notify_id == '2':
 
         notify_name = '予約情報更新'
 
-    elif notify_id == 3:
+    elif notify_id == '3':
 
         notify_name = '録画結果情報更新'
 
