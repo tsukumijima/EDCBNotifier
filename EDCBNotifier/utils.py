@@ -101,15 +101,65 @@ def get_macro(environ):
 
 
 # 放送局名からハッシュタグを取得する
+# BS-TBS が TBS と判定されるといったことがないよう BS 局を先に判定する
+# 参考: https://nyanshiba.com/blog/dtv-edcb-twitter
 def get_hashtag(service_name):
 
-    if 'ＮＨＫ総合' in service_name:
+    # BS
+
+    if 'ＢＳ１' in service_name:
+
+        hashtag = '#nhkbs1'
+
+    elif 'ＢＳプレミアム' in service_name:
+
+        hashtag = '#nhkbsp'
+
+    elif 'ＢＳ日テレ' in service_name:
+
+        hashtag = '#bsntv'
+
+    elif 'ＢＳ朝日' in service_name:
+
+        hashtag = '#bsasahi'
+
+    elif 'ＢＳ－ＴＢＳ' in service_name:
+
+        hashtag = '#bstbs'
+
+    elif 'ＢＳテレ東' in service_name:
+
+        hashtag = '#bstvtokyo'
+
+    elif 'ＢＳフジ' in service_name:
+
+        hashtag = '#bsfuji'
+
+    elif 'ＢＳ１１' in service_name:
+
+        hashtag = '#bs11'
+
+    elif 'ＢＳ１２' in service_name:
+
+        hashtag = '#bs12'
+
+    # 地デジ
+    
+    elif 'ＮＨＫ総合' in service_name:
 
         hashtag = '#nhk'
 
     elif 'ＮＨＫＥテレ' in service_name:
 
         hashtag = '#etv'
+
+    elif 'ｔｖｋ' in service_name:
+
+        hashtag = '#tvk'
+
+    elif 'チバテレ' in service_name:
+
+        hashtag = '#chibatv'
 
     elif '日テレ' in service_name:
 
@@ -163,3 +213,9 @@ def get_notify_name(notify_id):
         notify_name = '更新なし'
 
     return notify_name
+    
+
+# バージョン情報
+def get_version():
+
+    return '1.0.0'
