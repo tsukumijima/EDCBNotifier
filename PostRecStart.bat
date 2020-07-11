@@ -1,3 +1,5 @@
+@echo off
+chcp 932 > nul
 
 rem // ウインドウを非表示にする
 rem _EDCBX_HIDE_
