@@ -60,11 +60,11 @@ NOTIFY_MESSAGE = {
                       '$STHH$:$STMM$～$ETHH$:$ETMM$ $TitleHankaku$',
 
     # 録画を開始したとき（ PostRecStart.bat が実行されたとき）に送信するメッセージ
-    'PostRecStart':   '🔴 録画開始: $SDYYYY$/$SDMM$/$SDDD$($SDW$) $ServiceNameHankaku$ $HashTag$ \n' +
+    'PostRecStart':   '⏺ 録画開始: $SDYYYY$/$SDMM$/$SDDD$($SDW$) $ServiceNameHankaku$ $HashTag$ \n' +
                       '$STHH$:$STMM$～$ETHH$:$ETMM$ $TitleHankaku$',
 
     # 録画を終了したとき（ PostRecEnd.bat が実行されたとき）に送信するメッセージ
-    'PostRecEnd':     '🟥 録画終了: $SDYYYY$/$SDMM$/$SDDD$($SDW$) $ServiceNameHankaku$ $HashTag$ \n' +
+    'PostRecEnd':     '⏹ 録画終了: $SDYYYY$/$SDMM$/$SDDD$($SDW$) $ServiceNameHankaku$ $HashTag$ \n' +
                       '$STHH$:$STMM$～$ETHH$:$ETMM$ $TitleHankaku$ \n' +
                       'Drop: $Drops$ Scramble: $Scrambles$ Comment: $Result$',
 
