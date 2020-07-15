@@ -6,14 +6,22 @@ from pprint import pprint
 
 import config
 import utils
-import sendline
-import sendtwitter
+from sendline import Line
+from sendtwitter import Twitter
+
+
+# ヘッダー
+header = '+' * 60 + '\n'
+header += '+{:^58}+\n'.format('EDCBNotifier version ' + utils.get_version())
+header += '+' * 60 + '\n'
+print('\n' + header)
+
 
 # 引数を受け取る
 if (len(sys.argv) > 1):
 
     caller = sys.argv[1] # 呼び出し元のバッチファイルの名前
-    print('引数: ' + caller)
+    print('Param: ' + caller, end = '\n\n')
 
     if (caller in config.NOTIFY_MESSAGE):
 
@@ -23,16 +31,13 @@ if (len(sys.argv) > 1):
     else:
 
         # 引数が不正なので終了    
-        print('引数が不正です。')
-        sys.exit(1)
+        utils.error('引数が不正です。')
 
 else:
 
-    # 引数がないので終了    
-    print('引数がありません。')
-    sys.exit(1)
+    # 引数がないので終了
+    utils.error('引数がありません。')
 
-print(os.environ)
 
 # マクロを取得
 macros = utils.get_macro(os.environ)
@@ -60,21 +65,23 @@ else:
     # 画像なし
     image = None
 
-print(message)
+
+print('Message: ' + message.replace('\n', '\n         '), end = '\n\n')
+
 
 # LINE Notify にメッセージを送信
 if (config.NOTIFY_TYPE == 'ALL' or config.NOTIFY_TYPE == 'LINE'):
 
-    line = sendline.Line(config.LINE_ACCESS_TOKEN)
+    line = Line(config.LINE_ACCESS_TOKEN)
 
     result_line = line.send_message(message, image = image)
 
-    print(result_line)
+    print(result_line, end = '\n\n')
 
 # Twitter にメッセージを送信
 if (config.NOTIFY_TYPE == 'ALL' or config.NOTIFY_TYPE == 'Twitter'):
 
-    twitter = sendtwitter.Twitter(
+    twitter = Twitter(
         config.TWITTER_CONSUMER_KEY, 
         config.TWITTER_CONSUMER_SECRET, 
         config.TWITTER_ACCESS_TOKEN, 
@@ -91,4 +98,4 @@ if (config.NOTIFY_TYPE == 'ALL' or config.NOTIFY_TYPE == 'Twitter'):
         # ダイレクトメッセージで送信
         result_twitter = twitter.send_direct_message(message, image = image, destination = config.NOTIFY_TWITTER_DESTINATION)
 
-    print(result_twitter)
+    print(result_twitter, end = '\n\n')

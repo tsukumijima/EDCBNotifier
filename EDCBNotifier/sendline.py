@@ -20,16 +20,16 @@ class Line:
         # メッセージ
         payload = {'message': message}
 
-        if (image != None and os.path.isfile(image)):
+        if image != None and os.path.isfile(image):
 
             # 画像とテキストを送信
             files = {'imageFile': open(image, 'rb')}
-            response = requests.post(url, headers=headers, params=payload, files=files)
+            response = requests.post(url, headers = headers, params = payload, files = files)
 
         else:
 
             # テキストのみ送信
-            response = requests.post(url, headers=headers, params=payload)
+            response = requests.post(url, headers = headers, params = payload)
 
         # print(response)
         # print(response.json())

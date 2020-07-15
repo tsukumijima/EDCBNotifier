@@ -1,7 +1,9 @@
 
 # Utils
 
+import sys
 import jaconv
+import colorama
 
 
 # 環境変数に格納されているマクロを取得してdictで返す
@@ -232,6 +234,14 @@ def get_notify_name(notify_id):
         notify_name = '更新なし'
 
     return notify_name
+
+
+# エラー出力
+def error(message):
+
+    colorama.init(autoreset=True)
+    print(colorama.Fore.RED + 'Error: ' + message, end = '\n\n')
+    sys.exit(1)
     
 
 # バージョン情報
