@@ -1,38 +1,48 @@
 
 # ====================  環境設定  ====================
 
+# [] で囲われている部分は配列 (list)
+# {} で囲われている部分は辞書 (dict)
+# 文字列は必ずシングルクオート ('') で囲うこと
+# ハッシュ (#) をつけるとコメントになる (// はコメントにならない)
+# 文字コード UTF-8 (BOM なし)・改行コード LF 以外で保存すると動作しなくなるので注意（メモ帳は基本的に NG）
+# できれば VSCode などのシンタックスハイライトのあるエディタでの編集を推奨
+
+
 # 通知タイプ
-# LINE・Twitter・ALL から設定
-# ex: NOTIFY_TYPE = 'LINE'
-# ex: NOTIFY_TYPE = 'Twitter'
-# ex: NOTIFY_TYPE = 'ALL'
+# LINE (LINE Notify)・Tweet (ツイート)・DirectMessage (ダイレクトメッセージ) から設定
+# [] 内にカンマ区切りで複数設定できる
 
-NOTIFY_TYPE = 'ALL'
+# ex (LINE): NOTIFY_TYPE = ['LINE']
+# ex (ツイート): NOTIFY_TYPE = ['Tweet']
+# ex (ダイレクトメッセージ): NOTIFY_TYPE = ['DirectMessage']
+# ex (LINE とツイート): NOTIFY_TYPE = ['LINE', 'Tweet']
+# ex (LINE とダイレクトメッセージ): NOTIFY_TYPE = ['LINE', 'DirectMessage']
+# ex (全て): NOTIFY_TYPE = ['LINE', 'Tweet', 'DirectMessage']
 
-# 通知時に同時に送信する画像
-# フルパスで指定する
-# config.py と同じ階層に置く場合はファイル名だけの指定でもOK
-# None (シングルクオートはつけない) に設定した場合は通知を送信しない
+NOTIFY_TYPE = ['LINE', 'Tweet', 'DirectMessage']
+
+
+# 通知時に同時に送信する画像 (フルパスで指定)
+# 画像を config.py と同じ階層に置く場合はファイル名だけの指定でも OK
+# 画像サイズが大きすぎると送れない場合があるので注意
+# None (シングルクオートはつけない) に設定した場合は画像を送信しない
+
 # ex: NOTIFY_IMAGE = 'C:\Users\Test\Pictures\image.jpg'
 # ex: NOTIFY_IMAGE = 'image.jpg'
 # ex: NOTIFY_IMAGE = None
 
 NOTIFY_IMAGE = None
 
-# Twitter の通知方法
-# Tweet (ツイート) または DirectMessage (ダイレクトメッセージ) を設定
-# ex: NOTIFY_TWITTER_TYPE = 'Tweet'
-# ex: NOTIFY_TWITTER_TYPE = 'DirectMessage'
 
-NOTIFY_TWITTER_TYPE = 'Tweet'
-
-# ダイレクトメッセージの宛先 (スクリーンネームで指定)
-# 上の設定で DirectMessage (ダイレクトメッセージ) を指定した場合に利用される
+# ダイレクトメッセージの宛先 (スクリーンネーム (@ から始まる ID) で指定)
+# 上の設定で DirectMessage (ダイレクトメッセージ) を設定した場合に適用される
 # None (シングルクオートはつけない) に設定した場合は自分宛てに送信する
-# ex: NOTIFY_TWITTER_DESTINATION = 'AbeShinzo'
-# ex: NOTIFY_TWITTER_DESTINATION = None
 
-NOTIFY_TWITTER_DESTINATION = None
+# ex: NOTIFY_DIRECTMESSAGE_TO = 'AbeShinzo'
+# ex: NOTIFY_DIRECTMESSAGE_TO = None
+
+NOTIFY_DIRECTMESSAGE_TO = None
 
 # ===================  メッセージ  ===================
 
