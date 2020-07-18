@@ -6,7 +6,7 @@ import requests
 from pprint import pprint
 
 import config
-import utils
+from utils import Utils
 from sendline import Line
 from sendtwitter import Twitter
 
@@ -14,6 +14,7 @@ from sendtwitter import Twitter
 def main():
 
     # ヘッダー
+    utils = Utils()
     header = '+' * 60 + '\n'
     header += '+{:^58}+\n'.format('EDCBNotifier version ' + utils.get_version())
     header += '+' * 60 + '\n'
