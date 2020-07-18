@@ -3,6 +3,7 @@ import os
 import sys
 import datetime
 import requests
+import colorama
 from pprint import pprint
 
 import config
@@ -14,6 +15,7 @@ from sendtwitter import Twitter
 def main():
 
     # ヘッダー
+    colorama.init(autoreset = True)
     utils = Utils()
     header = '+' * 60 + '\n'
     header += '+{:^58}+\n'.format('EDCBNotifier version ' + utils.get_version())
@@ -37,12 +39,12 @@ def main():
         else:
 
             # 引数が不正なので終了    
-            utils.error('Error: Invalid argument.')
+            utils.error('Invalid argument.')
 
     else:
 
         # 引数がないので終了
-        utils.error('Error: Argument does not exist.')
+        utils.error('Argument does not exist.')
 
 
     # マクロを取得
@@ -83,18 +85,17 @@ def main():
         try:
             result_line = line.send_message(message, image = image)
         except Exception as error:
-            result_line_print = 'Error: ' + error.args[0]
+            print('[LINE Notify] Result: Failed')
+            print('[LINE Notify] ' + colorama.Fore.RED + 'Error: ' + error.args[0], end = '\n\n')
         else:
             if result_line['status'] != 200:
                 # ステータスが 200 以外（失敗）
-                result_line_print = 'Error: ' + result_line['message']
+                print('[LINE Notify] Result: Failed (Code: ' + str(result_line['status']) + ')')
+                print('[LINE Notify] ' + colorama.Fore.RED + 'Error: ' + result_line['message'], end = '\n\n')
             else:
                 # ステータスが 200（成功）
-                result_line_print = 'Message: ' + result_line['message']
-
-            print('[LINE Notify] Status Code: ' + str(result_line['status']))
-
-        print('[LINE Notify] ' + result_line_print, end = '\n\n')
+                print('[LINE Notify] Result: Success (Code: ' + str(result_line['status']) + ')')
+                print('[LINE Notify] Message: ' + result_line['message'], end = '\n\n')
 
 
     # Twitter にツイートを送信
@@ -112,7 +113,7 @@ def main():
             result_tweet = twitter.send_tweet(message, image = image)
         except Exception as error:
             print('[Tweet] Result: Failed')
-            print('[Tweet] Error: ' + error.args[0], end = '\n\n')
+            print('[Tweet] ' + colorama.Fore.RED + 'Error: ' + error.args[0], end = '\n\n')
         else:
             print('[Tweet] Result: Success')
             print('[Tweet] Tweet: https://twitter.com/i/status/' + str(result_tweet['id']), end = '\n\n')
@@ -133,7 +134,7 @@ def main():
             result_directmessage = twitter.send_direct_message(message, image = image, destination = config.NOTIFY_DIRECTMESSAGE_TO)
         except Exception as error:
             print('[DirectMessage] Result: Failed')
-            print('[DirectMessage] Error: ' + error.args[0], end = '\n\n')
+            print('[DirectMessage] ' + colorama.Fore.RED + 'Error: ' + error.args[0], end = '\n\n')
         else:
             print('[DirectMessage] Result: Success')
             print('[DirectMessage] Message: https://twitter.com/messages/' + 

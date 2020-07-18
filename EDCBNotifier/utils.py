@@ -240,7 +240,6 @@ class Utils:
     # エラー出力
     def error(self, message):
 
-        colorama.init(autoreset = True)
         print(colorama.Fore.RED + 'Error: ' + message, end = '\n\n')
         sys.exit(1)
         

@@ -3,7 +3,6 @@
 
 import os
 import requests
-from pprint import pprint
 
 class Line:
 
