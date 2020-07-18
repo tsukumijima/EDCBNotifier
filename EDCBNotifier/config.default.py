@@ -44,6 +44,15 @@ NOTIFY_IMAGE = None
 
 NOTIFY_DIRECTMESSAGE_TO = None
 
+
+# ログをファイルに保存するかどうか
+# True に設定した場合、ログを config.py と同じフォルダの EDCBNotifier.log に保存する（コンソールに表示しない・前回のログは上書きされる）
+# False に設定した場合、ログを保存しない（コンソールに表示する）
+# True・False にはシングルクオートをつけず、最初の文字は大文字で始める (true・false は NG)
+
+NOTIFY_LOG = True
+
+
 # ===================  メッセージ  ===================
 
 # 改行を入れる場合は文字列内に \n と入力してください
@@ -83,10 +92,12 @@ NOTIFY_MESSAGE = {
 
 }
 
+
 # ==================  LINE Notify  ==================
 
 # LINE Notify のアクセストークン
 LINE_ACCESS_TOKEN = 'YOUR_LINE_ACCESS_TOKEN'
+
 
 # ==================  Twitter API  ==================
 

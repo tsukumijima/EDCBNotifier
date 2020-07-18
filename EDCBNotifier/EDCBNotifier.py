@@ -13,10 +13,15 @@ from sendtwitter import Twitter
 
 
 def main():
-
-    # ヘッダー
+    
+    # 初期化
     colorama.init(autoreset = True)
     utils = Utils()
+    if config.NOTIFY_LOG:
+        # 標準出力をファイルに変更
+        sys.stdout = open(os.path.dirname(__file__) + '/' + 'EDCBNotifier.log', mode = 'w', encoding = 'utf-8')
+
+    # ヘッダー
     header = '+' * 60 + '\n'
     header += '+{:^58}+\n'.format('EDCBNotifier version ' + utils.get_version())
     header += '+' * 60 + '\n'
