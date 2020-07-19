@@ -2,10 +2,17 @@
 # Utils
 
 import sys
+import datetime
 import jaconv
 import colorama
 
 class Utils:
+
+    def __init__(self):
+
+        # 実行時刻
+        self.time = datetime.datetime.now()
+
 
     # 環境変数に格納されているマクロを取得してdictで返す
     # environ には os.environ を渡す
@@ -111,6 +118,19 @@ class Utils:
             'ServiceNameHankaku': jaconv.z2h(environ.get('ServiceName', macro_default), digit = True, ascii = True, kana = False),
             'TitleHankaku': jaconv.z2h(environ.get('Title', macro_default), digit = True, ascii = True, kana = False),
             'Title2Hankaku': jaconv.z2h(environ.get('Title2', macro_default), digit = True, ascii = True, kana = False),
+            'TimeYYYY': self.time.strftime('%Y'),
+            'TimeYY': self.time.strftime('%y'),
+            'TimeMM': self.time.strftime('%m'),
+            'TimeM': str(int(self.time.strftime('%m'))),
+            'TimeDD': self.time.strftime('%d'),
+            'TimeD': str(int(self.time.strftime('%d'))),
+            'TimeW': self.get_exection_day(),
+            'TimeHH': self.time.strftime('%H'),
+            'TimeH': str(int(self.time.strftime('%H'))),
+            'TimeII': self.time.strftime('%M'),
+            'TimeI': str(int(self.time.strftime('%M'))),
+            'TimeSS': self.time.strftime('%S'),
+            'TimeS': str(int(self.time.strftime('%S'))),
 
         }
 
@@ -242,7 +262,19 @@ class Utils:
 
         print(colorama.Fore.RED + 'Error: ' + message, end = '\n\n')
         sys.exit(1)
-        
+
+
+    # 実行時刻
+    def get_exection_time(self):
+        return self.time
+
+
+    # 実行曜日
+    # 参考: https://note.nkmk.me/python-datetime-day-locale-function/
+    def get_exection_day(self):
+        weeklist = ['月', '火', '水', '木', '金', '土', '日']
+        return weeklist[self.time.weekday()]
+
 
     # バージョン情報
     def get_version(self):

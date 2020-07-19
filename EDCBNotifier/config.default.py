@@ -67,6 +67,13 @@ NOTIFY_LOG = True
 # ・$ServiceNameHankaku$ … $ServiceName$（放送局名）の英数字を半角に変換したもの
 # ・$TitleHankaku$ … $Title$（番組タイトル）の英数字を半角に変換したもの
 # ・$Title2Hankaku$ … $Title2$（番組タイトル・[]で囲まれている部分を削除したもの）の英数字を半角に変換したもの
+# ・$TimeYYYY$ … 実行時刻の上2桁付き西暦年 (ex: 2020 (年))  $TimeYY$ … 実行時刻の上2桁なし西暦年 (ex: 20 (年))
+# ・$TimeMM$ … 実行時刻の2桁固定の月 (ex: 07 (月))  $TimeM$ … 実行時刻の月 (ex: 7 (月))
+# ・$TimeDD$ … 実行時刻の2桁固定の日 (ex: 09 (日))  $TimeD$ … 実行時刻の日 (ex: 9 (日))
+# ・$TimeW$ … 実行時刻の曜日 (ex: 火 (曜日))
+# ・$TimeHH$ … 実行時刻の2桁固定の時 (24時間) (ex: 06 (時))  $TimeH$ … 実行時刻の日 (ex: 6 (時))
+# ・$TimeII$ … 実行時刻の2桁固定の分 (ex: 08 (分))  $TimeI$ … 実行時刻の分 (ex: 8 (分))
+# ・$TimeSS$ … 実行時刻の2桁固定の秒 (ex: 02 (秒))  $TimeS$ … 実行時刻の分 (ex: 2 (秒))
 
 NOTIFY_MESSAGE = {
 
@@ -88,7 +95,7 @@ NOTIFY_MESSAGE = {
                       'Drop: $Drops$ Scramble: $Scrambles$ Comment: $Result$',
 
     # 更新通知が送られたとき（ PostNotify.bat が実行されたとき）に送信するメッセージ
-    'PostNotify':     '🔔 通知: $NotifyName$',
+    'PostNotify':     '🔔 通知: $NotifyName$ ($TimeMM$/$TimeDD$ $TimeHH$:$TimeII$:$TimeSS$)',
 
 }
 

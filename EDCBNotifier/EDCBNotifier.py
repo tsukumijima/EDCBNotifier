@@ -1,7 +1,6 @@
 
 import os
 import sys
-import datetime
 import requests
 import colorama
 from pprint import pprint
@@ -27,7 +26,7 @@ def main():
     header += '+' * 60 + '\n'
     print('\n' + header)
 
-    print('Time: ' + str(datetime.datetime.now()), end = '\n\n')
+    print('Time: ' + str(utils.get_exection_time()), end = '\n\n')
 
 
     # 引数を受け取る
