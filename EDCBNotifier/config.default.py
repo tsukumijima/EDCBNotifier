@@ -23,6 +23,26 @@
 NOTIFY_TYPE = ['LINE', 'Tweet', 'DirectMessage']
 
 
+# 通知を行うイベント
+# 通知イベントのオン・オフを指定できる（たとえば頻度の多い PostNotify だけ通知しない設定も可能）
+# ここで設定したイベントだけが通知される（通知オフ） 設定されなかったイベントは通知されない（通知オフ）
+# 各 .bat ファイルを配置しないことでも通知イベントのオン・オフは可能だが、できるだけこの設定を使うことを推奨
+
+# PostAddReserve … 予約を追加したとき ( PostAddReserve.bat が実行されたとき)
+# PostChgReserve … 予約を変更したとき ( PostChgReserve.bat が実行されたとき)
+# PostRecStart … 録画を開始したとき（ PostRecStart.bat が実行されたとき）
+# PostRecEnd … 録画を終了したとき（ PostRecEnd.bat が実行されたとき）
+# PostNotify … 更新通知が送られたとき（ PostNotify.bat が実行されたとき）
+
+# ex (全て通知): NOTIFY_EVENT = ['PostAddReserve', 'PostChgReserve', 'PostRecStart', 'PostRecEnd', 'PostNotify']
+# ex (PostNotify 以外を通知): NOTIFY_EVENT = ['PostAddReserve', 'PostChgReserve', 'PostRecStart', 'PostRecEnd']
+# ex (予約の追加・変更を通知): NOTIFY_EVENT = ['PostAddReserve', 'PostChgReserve']
+# ex (録画の開始・終了を通知): NOTIFY_EVENT = ['PostRecStart', 'PostRecEnd']
+# ex (録画結果だけ通知): NOTIFY_EVENT = ['PostRecEnd'] 
+
+NOTIFY_EVENT = ['PostAddReserve', 'PostChgReserve', 'PostRecStart', 'PostRecEnd', 'PostNotify']
+
+
 # 通知時に同時に送信する画像 (フルパスで指定)
 # 画像を config.py と同じ階層に置く場合はファイル名だけの指定でも OK
 # 画像サイズが大きすぎると送れない場合があるので注意

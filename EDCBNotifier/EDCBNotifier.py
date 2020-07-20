@@ -33,12 +33,18 @@ def main():
     if (len(sys.argv) > 1):
 
         caller = sys.argv[1] # 呼び出し元のバッチファイルの名前
-        print('Param: ' + caller, end = '\n\n')
+        print('Event: ' + caller, end = '\n\n')
 
-        if (caller in config.NOTIFY_MESSAGE):
+        # NOTIFY_MESSAGE にあるイベントでかつ通知がオンになっていれば
+        if (caller in config.NOTIFY_MESSAGE and caller in config.NOTIFY_EVENT):
 
             # メッセージをセット
             message = config.NOTIFY_MESSAGE[caller]
+
+        elif caller in config.NOTIFY_MESSAGE:
+
+            print('Info: ' + caller + ' notification is off, so it ends.', end = '\n\n')
+            sys.exit(0)
 
         else:
 
