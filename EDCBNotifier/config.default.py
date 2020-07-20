@@ -69,8 +69,9 @@ NOTIFY_DIRECTMESSAGE_TO = None
 # True に設定した場合、ログを config.py と同じフォルダの EDCBNotifier.log に保存する（コンソールに表示しない・前回のログは上書きされる）
 # False に設定した場合、ログを保存しない（コンソールに表示する）
 # True・False にはシングルクオートをつけず、最初の文字は大文字で始める (true・false は NG)
+# うまく通知されないときに True にしてみるといいかも
 
-NOTIFY_LOG = True
+NOTIFY_LOG = False
 
 
 # ===================  メッセージ  ===================
@@ -82,7 +83,7 @@ NOTIFY_LOG = True
 # マクロは $$ で囲んでください (ex: $ServiceName$)
 # 
 # また、独自にいくつかのマクロを追加しています
-# ・$HashTag$ … 放送局名から取得したハッシュタグ (ハッシュタグは utils.py にて定義) 
+# ・$HashTag$ … 放送局名から取得したハッシュタグ (ハッシュタグは utils.py の get_hashtag() メソッドで定義) 
 # ・$NotifyName$ … $NofityID$ から取得した更新通知タイプ（$NofityID$ = 1 … EPGデータ更新 2 … 予約情報更新 3 … 録画結果情報更新）
 # ・$ServiceNameHankaku$ … $ServiceName$（放送局名）の英数字を半角に変換したもの
 # ・$TitleHankaku$ … $Title$（番組タイトル）の英数字を半角に変換したもの
