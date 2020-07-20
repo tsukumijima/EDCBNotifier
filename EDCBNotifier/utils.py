@@ -2,9 +2,9 @@
 # Utils
 
 import sys
+import colorama
 import datetime
 import jaconv
-import colorama
 
 class Utils:
 

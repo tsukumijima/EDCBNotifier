@@ -3,15 +3,15 @@
 
 # [] で囲われている部分は配列 (list)
 # {} で囲われている部分は辞書 (dict)
-# 文字列は必ずシングルクオート ('') で囲うこと
-# ハッシュ (#) をつけるとコメントになる (// はコメントにならない)
+# 文字列は必ずシングルクオート ('') で囲んでください
+# ハッシュ (#) をつけるとコメントになります (// はコメントにならない)
 # 文字コード UTF-8 (BOM なし)・改行コード LF 以外で保存すると動作しなくなるので注意（メモ帳は基本的に NG）
-# できれば VSCode などのシンタックスハイライトのあるエディタでの編集を推奨
+# できれば VSCode などのシンタックスハイライトのあるエディタでの編集を推奨します
 
 
 # 通知タイプ
 # LINE (LINE Notify)・Tweet (ツイート)・DirectMessage (ダイレクトメッセージ) から設定
-# [] 内にカンマ区切りで複数設定できる
+# [] 内にカンマ区切りで複数設定できます
 
 # ex (LINE): NOTIFY_TYPE = ['LINE']
 # ex (ツイート): NOTIFY_TYPE = ['Tweet']
@@ -24,9 +24,9 @@ NOTIFY_TYPE = ['LINE', 'Tweet', 'DirectMessage']
 
 
 # 通知を行うイベント
-# 通知イベントのオン・オフを指定できる（たとえば頻度の多い PostNotify だけ通知しない設定も可能）
-# ここで設定したイベントだけが通知される（通知オフ） 設定されなかったイベントは通知されない（通知オフ）
-# 各 .bat ファイルを配置しないことでも通知イベントのオン・オフは可能だが、できるだけこの設定を使うことを推奨
+# 通知イベントのオン・オフを指定できます（たとえば頻度の多い PostNotify だけ通知しない設定も可能）
+# ここで設定したイベントだけが通知されます（通知オフ） 設定されなかったイベントは通知されない（通知オフ）
+# 各 .bat ファイルを配置しないことでも通知イベントのオン・オフは可能ですが、できるだけこの設定を使うことを推奨します
 
 # PostAddReserve … 予約を追加したとき ( PostAddReserve.bat が実行されたとき)
 # PostChgReserve … 予約を変更したとき ( PostChgReserve.bat が実行されたとき)
@@ -46,7 +46,7 @@ NOTIFY_EVENT = ['PostAddReserve', 'PostChgReserve', 'PostRecStart', 'PostRecEnd'
 # 通知時に同時に送信する画像 (フルパスで指定)
 # 画像を config.py と同じ階層に置く場合はファイル名だけの指定でも OK
 # 画像サイズが大きすぎると送れない場合があるので注意
-# None (シングルクオートはつけない) に設定した場合は画像を送信しない
+# None (シングルクオートはつけない) に設定した場合は画像を送信しません
 
 # ex: NOTIFY_IMAGE = 'C:\Users\Test\Pictures\image.jpg'
 # ex: NOTIFY_IMAGE = 'image.jpg'
@@ -56,8 +56,8 @@ NOTIFY_IMAGE = None
 
 
 # ダイレクトメッセージの宛先 (スクリーンネーム (@ から始まる ID) で指定)
-# 上の設定で DirectMessage (ダイレクトメッセージ) を設定した場合に適用される
-# None (シングルクオートはつけない) に設定した場合は自分宛てに送信する
+# 上の設定で DirectMessage (ダイレクトメッセージ) を設定した場合に適用されます
+# None (シングルクオートはつけない) に設定した場合は自分宛てに送信します
 
 # ex: NOTIFY_DIRECTMESSAGE_TO = 'AbeShinzo'
 # ex: NOTIFY_DIRECTMESSAGE_TO = None
@@ -66,10 +66,10 @@ NOTIFY_DIRECTMESSAGE_TO = None
 
 
 # ログをファイルに保存するかどうか
-# True に設定した場合、ログを config.py と同じフォルダの EDCBNotifier.log に保存する（コンソールに表示しない・前回のログは上書きされる）
-# False に設定した場合、ログを保存しない（コンソールに表示する）
-# True・False にはシングルクオートをつけず、最初の文字は大文字で始める (true・false は NG)
-# うまく通知されないときに True にしてみるといいかも
+# True に設定した場合、ログを config.py と同じフォルダの EDCBNotifier.log に保存します（コンソールに表示しない・前回のログは上書きされる）
+# False に設定した場合、ログを保存しません（コンソールに表示する）
+# True・False にはシングルクオートをつけず、大文字で始めてください (true・false は NG)
+# うまく通知されないときに True にしてログを確認してみるといいかも
 
 NOTIFY_LOG = False
 
@@ -77,6 +77,7 @@ NOTIFY_LOG = False
 # ===================  メッセージ  ===================
 
 # 改行を入れる場合は文字列内に \n と入力してください
+# 文字列は + で連結できます
 # 
 # https://github.com/xtne6f/EDCB/blob/70b2331aadb328eb347fe0c4e4e23c8e91d286b7/Document/Readme_EpgTimer.txt#L929-L1008 と
 # https://github.com/xtne6f/EDCB/blob/4c3bd5be3dc49607aa821d728105955c03fba4db/Document/Readme_Mod.txt#L451-L475 に記載されているマクロが使えます

@@ -1,8 +1,8 @@
 
 import os
 import sys
-import requests
 import colorama
+import requests
 from pprint import pprint
 
 import config
