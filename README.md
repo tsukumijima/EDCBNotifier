@@ -49,22 +49,32 @@ LINE Notify のアクセストークンの作成には LINE へのログイン�
 
 LINE Notify へ通知しない場合は必要ありませんが、後述の Twitter の開発者アカウントを作成するよりも遥かに手順が簡単なので、やっておくことをおすすめします（さほど手間もかかりません）。
 
-![Screenshot](https://user-images.githubusercontent.com/39271166/88357766-640c9480-cda7-11ea-9533-55d832b2284d.png)
+![Screenshot](https://user-images.githubusercontent.com/39271166/88371964-03de1880-cdd0-11ea-9768-e582d669e6f7.png)
 
 [LINE Notify](https://notify-bot.line.me/ja/) にアクセスし、右上の［ログイン］から LINE へログインします（いつも使っているアカウントで構いません）。
 
-![Screenshot](https://user-images.githubusercontent.com/39271166/88358109-a8e4fb00-cda8-11ea-8d11-a885bce9dc6a.png)
+![Screenshot](https://user-images.githubusercontent.com/39271166/88371966-0476af00-cdd0-11ea-85a9-9162a23f49ef.png)
 
 ログインできたら、右上のメニューから［マイページ］に移動します。
 
-![Screenshot](https://user-images.githubusercontent.com/39271166/88369705-8ca68580-cdcb-11ea-82c8-f8eb363adfdf.png)
+![Screenshot](https://user-images.githubusercontent.com/39271166/88371969-06407280-cdd0-11ea-9e70-ed5b796d79e0.png)
 
 下の方にある「アクセストークンの発行(開発者向け)」へ行き、［トークンを発行する］をクリックします。
 
 ![Screenshot](https://user-images.githubusercontent.com/39271166/88370184-81a02500-cdcc-11ea-8147-772f3ceb9662.png)
 
 トークン名は LINE Notify で通知が送られてきたときに \[EDCBNotifier\] のように付加される文字列です（ユニークである必要はないらしい）。  
-通知を送信するトークルームは［1:1 でLINE Notifyから通知を受ける］か、任意のグループ LINE を選択してください。ここでは「1:1 でLINE Notifyから通知を受ける」を選択します。 
+通知を送信するトークルームは［1:1 でLINE Notifyから通知を受ける］か、任意のグループ LINE を選択してください。  
+ここでは「1:1 でLINE Notifyから通知を受ける」（現在ログインしているアカウントに届く）を選択します。 
+
+![Screenshot](https://user-images.githubusercontent.com/39271166/88371432-fbd1a900-cdce-11ea-8e9f-2067360c32b9.png)
+
+［発行する］をクリックするとアクセストークンが発行されるので、［コピー］をクリックしてクリップボードにコピーします。  
+アクセストークンはこの画面を閉じると二度と表示されない（一度解除し同じ内容でもう一度発行することはできるがアクセストークンは変わる）ので、どこかにメモしておくと良いでしょう。
+
+![Screenshot](https://user-images.githubusercontent.com/39271166/88371444-fecc9980-cdce-11ea-8293-b9a8bf765422.png)
+
+画面を閉じると LINE Notify と設定したトークルームが連携されているはずです。
 
 ## License
 [MIT Licence](LICENSE.txt)
