@@ -40,5 +40,31 @@ Twitter への通知はツイートでの通知に加え、ダイレクトメッ
 設定ファイルは Python スクリプトなので、Python の知識があればメッセージをより高度にカスタマイズすることもできそうです。  
 EDCB からのマクロに加えて、放送局名から取得したハッシュタグや更新通知タイプ、放送局名やタイトル名の英数字の半角変換など、独自のマクロも用意しています。
 
+## Usage
+
+LINE Notify へ通知する場合は LINE Notify のアクセストークンが、Twitter へ通知する場合は Twitter API アプリが必須になります。  
+LINE Notify のアクセストークンの作成には LINE へのログインが、Twitter API アプリの作成には Twitter の開発者アカウントがそれぞれ必要です。 
+
+### 1. LINE Notify
+
+LINE Notify へ通知しない場合は必要ありませんが、後述の Twitter の開発者アカウントを作成するよりも遥かに手順が簡単なので、やっておくことをおすすめします（さほど手間もかかりません）。
+
+![Screenshot](https://user-images.githubusercontent.com/39271166/88357766-640c9480-cda7-11ea-9533-55d832b2284d.png)
+
+[LINE Notify](https://notify-bot.line.me/ja/) にアクセスし、右上の［ログイン］から LINE へログインします（いつも使っているアカウントで構いません）。
+
+![Screenshot](https://user-images.githubusercontent.com/39271166/88358109-a8e4fb00-cda8-11ea-8d11-a885bce9dc6a.png)
+
+ログインできたら、右上のメニューから［マイページ］に移動します。
+
+![Screenshot](https://user-images.githubusercontent.com/39271166/88369705-8ca68580-cdcb-11ea-82c8-f8eb363adfdf.png)
+
+下の方にある「アクセストークンの発行(開発者向け)」へ行き、［トークンを発行する］をクリックします。
+
+![Screenshot](https://user-images.githubusercontent.com/39271166/88370184-81a02500-cdcc-11ea-8147-772f3ceb9662.png)
+
+トークン名は LINE Notify で通知が送られてきたときに \[EDCBNotifier\] のように付加される文字列です（ユニークである必要はないらしい）。  
+通知を送信するトークルームは［1:1 でLINE Notifyから通知を受ける］か、任意のグループ LINE を選択してください。ここでは「1:1 でLINE Notifyから通知を受ける」を選択します。 
+
 ## License
 [MIT Licence](LICENSE.txt)
