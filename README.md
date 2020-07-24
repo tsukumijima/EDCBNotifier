@@ -42,12 +42,24 @@ EDCB からのマクロに加えて、放送局名から取得したハッシュ
 
 ## Install
 
-### 1. ダウンロード
+### 1. ダウンロード・配置
 
 ![Screenshot](https://user-images.githubusercontent.com/39271166/88381578-a357d700-cde1-11ea-9f5a-12f559af093a.png)
 
 ［Code］メニュー内の［Download Zip］をクリックし、EDCBNotifier をダウンロードします。  
 または、[こちら](https://github.com/tsukumijima/EDCBNotifier/archive/master.zip) のリンクからでもダウンロードできます。
+
+ダウンロードできたら解凍し、
+
+- EDCBNotifier フォルダ
+- PostAddReserve.bat
+- PostChgReserve.bat
+- PostRecStart.bat
+- PostRecEnd.bat
+- PostNotify.bat
+
+を EDCB 本体 (EpgTimer.exe) があるフォルダに配置します。  
+また、requirements.txt は今後の作業で利用するので、取っておいてください。
 
 ### 2. Python のインストール
 
@@ -62,13 +74,51 @@ EDCBNotifier の実行には Python (Python3) が必要です 。動作確認は
 とくにこだわりがないのであれば、一番上にある Windows (64bit) 用 Python 3.8 の最新版 ( 2020 年 7 月現在の最新は 3.8.5 ) をダウンロードしてください。  
 
 [Python 公式サイト](https://www.python.org/downloads/windows/) からもダウンロードできますが、わかりにくいので前述のサイトからダウンロードすることをおすすめします。  
+Python 公式サイトにも大きいダウンロードボタンがありますが、これは罠です…（OS のビットに関わらず 32bit の インストーラーがダウンロードされる）  
 もし OS が 32bit の方は Windows (32bit) 用をダウンロードしてください（ほとんどいないと思うけど…）。  
 Windows10 では Microsoft Store からもインストールすることができますが、安定していない上にストアアプリの制限の影響で正常に動かないことがあるため、非推奨です。
 
+![Screenshot](https://user-images.githubusercontent.com/39271166/88402926-be890d80-ce06-11ea-87fd-59c80cbd046e.png)
+
+ダウンロードが終わったらインストーラーを実行します。
+［Install Now］と［Custom Install］がありますが、［Custom Install］の方をクリックしてください。  
+このとき、必ず［Add Python 3.8 to PATH］にチェックを入れてから進んでください。
+
+［Option Features］は特にこだわりがなければそのまま進みます。  
+
+![Screenshot](https://user-images.githubusercontent.com/39271166/88402933-c3e65800-ce06-11ea-912f-e46151231e97.png)
+
+［Advanced Options］は［Install for all users］にチェックを入れます（これで AppData 以下に配置されなくなる）。  
+デフォルトでは AppData 以下にユーザーインストールする設定になっていますが、他のユーザーから見れないほかパスが長くなっていろいろ面倒だと思うので、私はおすすめしません。  
+
+［Install for all users］にチェックを入れると［Customize install location］が C:\Program Files\Python38 になりますが、これも C:\Program Files 以外に変更することをおすすめします。  
+これは C:\Program Files 以下にインストールしてしまうと pip でのライブラリのインストールに毎回管理者権限を求められてしまい面倒なためです。  
+私は C:\Applications\Python\Python3.8 にインストールしていますが、とりあえず C:\Program Files 以下と C:\Users 以下でなければよいでしょう。
+
+［Install］をクリックするとインストールが開始されます。  
+［Setup was successful］という画面が表示されればインストール完了です。  
+試しにコマンドプロンプトや PowerShell から `python -V` と実行してみましょう。
+
+### 3. 依存ライブラリのインストール
+
+EDCBNotifier が必要とする colorama・jaconv・requests・twitter の各ライブラリを pip でインストールします。  
+
+コマンドプロンプトや PowerShell を開き、`pip install -r (ダウンロードした EDCBNotifier\requirements.txt)` と実行します。  
+または単に `pip install -r colorama jaconv requests twitter` としても構いません。
+
+エラーなくインストールできれば OK です。
+
+### 4. 設定ファイルの作成
+
+EDCB 内に配置した EDCBNotifier フォルダ内の config.default.py は、設定ファイルのひな形になるファイルです。  
+config.default.py を config.py にコピーしてください（コピーしておかないと設定が読み込めず動きません）。   
+リネームでもかまいませんが、設定をミスったときのために config.default.py は取っておくことを推奨します。
+
+これでインストールは完了です。
 
 ## Usage
 
-EDCBNotifier の設定は EDCBNotifier/config.py にて行います。  
+EDCBNotifier の設定は EDCBNotifier フォルダ内の config.py にて行います。  
 LINE Notify へ通知する場合は LINE Notify のアクセストークンが、Twitter へ通知する場合は Twitter API アプリが必須になります。  
 LINE Notify のアクセストークンの作成には LINE へのログインが、Twitter API アプリの作成には Twitter の開発者アカウントがそれぞれ必要です。 
 
