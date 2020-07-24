@@ -75,10 +75,11 @@ EDCBNotifier の実行には Python (Python3) が必要です 。動作確認は
 
 [Python 公式サイト](https://www.python.org/downloads/windows/) からもダウンロードできますが、わかりにくいので前述のサイトからダウンロードすることをおすすめします。  
 Python 公式サイトにも大きいダウンロードボタンがありますが、これは罠です…（OS のビットに関わらず 32bit の インストーラーがダウンロードされる）  
+
 もし OS が 32bit の方は Windows (32bit) 用をダウンロードしてください（ほとんどいないと思うけど…）。  
 **Windows10 では Microsoft Store からもインストールすることができますが、安定していない上にストアアプリの制限の影響で正常に動かないことがあるため、非推奨です。**
 
-<img src="https://user-images.githubusercontent.com/39271166/88402926-be890d80-ce06-11ea-87fd-59c80cbd046e.png" width="650px">
+<img src="https://user-images.githubusercontent.com/39271166/88402926-be890d80-ce06-11ea-87fd-59c80cbd046e.png" width="600px">
 
 ダウンロードが終わったらインストーラーを実行します。
 ［Install Now］と［Custom Install］がありますが、［Custom Install］の方をクリックしてください。  
@@ -86,12 +87,12 @@ Python 公式サイトにも大きいダウンロードボタンがあります�
 
 ［Option Features］は特にこだわりがなければそのまま進みます。  
 
-<img src="https://user-images.githubusercontent.com/39271166/88402933-c3e65800-ce06-11ea-912f-e46151231e97.png" width="650px">
+<img src="https://user-images.githubusercontent.com/39271166/88402933-c3e65800-ce06-11ea-912f-e46151231e97.png" width="600px">
 
 ［Advanced Options］は **［Install for all users］にチェックを入れます**（これで AppData 以下に配置されなくなる）。  
 デフォルトでは AppData 以下にユーザーインストールする設定になっていますが、他のユーザーから見れないほかパスが長くなっていろいろ面倒だと思うので、私はおすすめしません。  
 
-［Install for all users］にチェックを入れると［Customize install location］が C:\Program Files\Python38 になりますが、**これも C:\Program Files 以外に変更することをおすすめします。**  
+［Install for all users］にチェックを入れると［Customize install location］が C:\Program Files\Python38 になりますが、**これも C:\Program Files 以外に変更します。**  
 これは C:\Program Files 以下にインストールしてしまうと pip でのライブラリのインストールに毎回管理者権限を求められてしまい面倒なためです。  
 私は C:\Applications\Python\Python3.8 にインストールしていますが、とりあえず C:\Program Files 以下と C:\Users 以下でなければよいでしょう（別バージョンを入れることも考え Python\Python3.8 のような階層にしておくのがおすすめ）。
 
@@ -111,7 +112,8 @@ EDCBNotifier が必要とする colorama・jaconv・requests・twitter の各ラ
 ### 4. 設定ファイルの作成
 
 EDCB 内に配置した EDCBNotifier フォルダ内の config.default.py は、設定ファイルのひな形になるファイルです。  
-config.default.py を config.py にコピーしてください（コピーしておかないと設定が読み込めず動きません）。   
+config.default.py を config.py にコピーしてください（コピーしておかないと設定が読み込めず動きません）。
+
 リネームでもかまいませんが、設定をミスったときのために config.default.py は取っておくことを推奨します。
 
 これでインストールは完了です。
@@ -126,7 +128,7 @@ LINE Notify のアクセストークンの作成には LINE へのログイン�
 
 ### 2. LINE Notify
 
-LINE Notify へ通知しない場合は必要ありませんが、後述の Twitter の開発者アカウントを作成するよりも遥かに手順が簡単なので、やっておくことをおすすめします（さほど手間もかかりません）。
+LINE Notify へ通知しない場合は必要ありませんが、後述する Twitter の開発者アカウントを作成する手順よりもはるかに簡単なので、やっておくことをおすすめします（さほど手間もかかりません）。
 
 ![Screenshot](https://user-images.githubusercontent.com/39271166/88371964-03de1880-cdd0-11ea-9768-e582d669e6f7.png)
 
@@ -142,7 +144,7 @@ LINE Notify へ通知しない場合は必要ありませんが、後述の Twit
 
 ![Screenshot](https://user-images.githubusercontent.com/39271166/88370184-81a02500-cdcc-11ea-8147-772f3ceb9662.png)
 
-トークン名は LINE Notify で通知が送られてきたときに \[EDCBNotifier\] のように付加される文字列です（ユニークである必要はないらしい）。  
+トークン名は LINE Notify で通知が送られてきたときに \[EDCBNotifier\] のように付加される文字列です（LINE Notify 全体でユニークである必要はないらしい）。  
 通知を送信するトークルームは［1:1 でLINE Notifyから通知を受ける］か、任意のグループ LINE を選択してください。  
 ここでは「1:1 でLINE Notifyから通知を受ける」（現在ログインしているアカウントに届く）を選択します。 
 
@@ -154,6 +156,12 @@ LINE Notify へ通知しない場合は必要ありませんが、後述の Twit
 ![Screenshot](https://user-images.githubusercontent.com/39271166/88371444-fecc9980-cdce-11ea-8293-b9a8bf765422.png)
 
 画面を閉じると LINE Notify と設定したトークルームが連携されているはずです。
+
+EDCBNotifier フォルダ内の config.py を開き、先程クリップボードにコピーしたアクセストークンを ［LINE Notify のアクセストークン］(LINE_ACCESS_TOKEN) に設定します。  
+これで LINE Notify に通知を送信できる状態になりました！ 
+
+試しに 5 つある .bat ファイルのうちのどれかを実行してみましょう。EDCB からの実行ではないのでマクロは全て空になっていますが、ちゃんと LINE に通知が届いているはずです。  
+もし届かない場合はログ出力をオンにしてみたり、.bat ファイルをコマンドプロンプトや PowerShell 上で実行し、出力される内容を確認してみてください。
 
 ## License
 [MIT Licence](LICENSE.txt)
