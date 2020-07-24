@@ -44,7 +44,7 @@ EDCB からのマクロに加えて、放送局名から取得したハッシュ
 
 ### 1. ダウンロード・配置
 
-![Screenshot](https://user-images.githubusercontent.com/39271166/88381578-a357d700-cde1-11ea-9f5a-12f559af093a.png)
+<img src="https://user-images.githubusercontent.com/39271166/88381578-a357d700-cde1-11ea-9f5a-12f559af093a.png" width="400px">
 
 ［Code］メニュー内の［Download Zip］をクリックし、EDCBNotifier をダウンロードします。  
 または、[こちら](https://github.com/tsukumijima/EDCBNotifier/archive/master.zip) のリンクからでもダウンロードできます。
@@ -65,35 +65,35 @@ EDCB からのマクロに加えて、放送局名から取得したハッシュ
 
 EDCBNotifier の実行には Python (Python3) が必要です 。動作確認は Python 3.7 系と Python 3.8 系で行っています。
 
-すでに Python3 がインストールされている場合はスキップしても構いませんが、Python2 がインストールされている場合は別途 Python3 をインストールしてください。  
+すでに Python3 がインストールされている場合はスキップしても構いませんが、**すでに Python2 がインストールされている場合は別途 Python3 をインストールしてください。**  
 （Python2 と Python3 は半分別物で、このうち Python2 は 2020 年 1 月でサポートが終了しています）
 
 ![Screenshot](https://user-images.githubusercontent.com/39271166/88384104-c042d900-cde6-11ea-89f3-a1341b5d998e.png)
 
 [非公式 Python ダウンロードリンク](https://pythonlinks.python.jp/ja/index.html) から、Python3 のインストーラーをダウンロードします。  
-とくにこだわりがないのであれば、一番上にある Windows (64bit) 用 Python 3.8 の最新版 ( 2020 年 7 月現在の最新は 3.8.5 ) をダウンロードしてください。  
+とくにこだわりがないのであれば、**一番上にある Windows (64bit) 用 Python 3.8 の最新版 ( 2020 年 7 月現在の最新は 3.8.5 ) をダウンロードしてください。**  
 
 [Python 公式サイト](https://www.python.org/downloads/windows/) からもダウンロードできますが、わかりにくいので前述のサイトからダウンロードすることをおすすめします。  
 Python 公式サイトにも大きいダウンロードボタンがありますが、これは罠です…（OS のビットに関わらず 32bit の インストーラーがダウンロードされる）  
 もし OS が 32bit の方は Windows (32bit) 用をダウンロードしてください（ほとんどいないと思うけど…）。  
-Windows10 では Microsoft Store からもインストールすることができますが、安定していない上にストアアプリの制限の影響で正常に動かないことがあるため、非推奨です。
+**Windows10 では Microsoft Store からもインストールすることができますが、安定していない上にストアアプリの制限の影響で正常に動かないことがあるため、非推奨です。**
 
-![Screenshot](https://user-images.githubusercontent.com/39271166/88402926-be890d80-ce06-11ea-87fd-59c80cbd046e.png)
+<img src="https://user-images.githubusercontent.com/39271166/88402926-be890d80-ce06-11ea-87fd-59c80cbd046e.png" width="650px">
 
 ダウンロードが終わったらインストーラーを実行します。
 ［Install Now］と［Custom Install］がありますが、［Custom Install］の方をクリックしてください。  
-このとき、必ず［Add Python 3.8 to PATH］にチェックを入れてから進んでください。
+このとき、**必ず［Add Python 3.8 to PATH］にチェックを入れてから進んでください。**
 
 ［Option Features］は特にこだわりがなければそのまま進みます。  
 
-![Screenshot](https://user-images.githubusercontent.com/39271166/88402933-c3e65800-ce06-11ea-912f-e46151231e97.png)
+<img src="https://user-images.githubusercontent.com/39271166/88402933-c3e65800-ce06-11ea-912f-e46151231e97.png" width="650px">
 
-［Advanced Options］は［Install for all users］にチェックを入れます（これで AppData 以下に配置されなくなる）。  
+［Advanced Options］は **［Install for all users］にチェックを入れます**（これで AppData 以下に配置されなくなる）。  
 デフォルトでは AppData 以下にユーザーインストールする設定になっていますが、他のユーザーから見れないほかパスが長くなっていろいろ面倒だと思うので、私はおすすめしません。  
 
-［Install for all users］にチェックを入れると［Customize install location］が C:\Program Files\Python38 になりますが、これも C:\Program Files 以外に変更することをおすすめします。  
+［Install for all users］にチェックを入れると［Customize install location］が C:\Program Files\Python38 になりますが、**これも C:\Program Files 以外に変更することをおすすめします。**  
 これは C:\Program Files 以下にインストールしてしまうと pip でのライブラリのインストールに毎回管理者権限を求められてしまい面倒なためです。  
-私は C:\Applications\Python\Python3.8 にインストールしていますが、とりあえず C:\Program Files 以下と C:\Users 以下でなければよいでしょう。
+私は C:\Applications\Python\Python3.8 にインストールしていますが、とりあえず C:\Program Files 以下と C:\Users 以下でなければよいでしょう（別バージョンを入れることも考え Python\Python3.8 のような階層にしておくのがおすすめ）。
 
 ［Install］をクリックするとインストールが開始されます。  
 ［Setup was successful］という画面が表示されればインストール完了です。  
@@ -103,7 +103,7 @@ Windows10 では Microsoft Store からもインストールすることがで�
 
 EDCBNotifier が必要とする colorama・jaconv・requests・twitter の各ライブラリを pip でインストールします。  
 
-コマンドプロンプトや PowerShell を開き、`pip install -r (ダウンロードした EDCBNotifier\requirements.txt)` と実行します。  
+**コマンドプロンプトや PowerShell を開き、`pip install -r (ダウンロードした EDCBNotifier\requirements.txt)` と実行します。**  
 または単に `pip install -r colorama jaconv requests twitter` としても構いません。
 
 エラーなくインストールできれば OK です。
