@@ -40,12 +40,41 @@ Twitter への通知はツイートでの通知に加え、ダイレクトメッ
 設定ファイルは Python スクリプトなので、Python の知識があればメッセージをより高度にカスタマイズすることもできそうです。  
 EDCB からのマクロに加えて、放送局名から取得したハッシュタグや更新通知タイプ、放送局名やタイトル名の英数字の半角変換など、独自のマクロも用意しています。
 
+## Install
+
+### 1. ダウンロード
+
+![Screenshot](https://user-images.githubusercontent.com/39271166/88381578-a357d700-cde1-11ea-9f5a-12f559af093a.png)
+
+［Code］メニュー内の［Download Zip］をクリックし、EDCBNotifier をダウンロードします。  
+または、[こちら](https://github.com/tsukumijima/EDCBNotifier/archive/master.zip) のリンクからでもダウンロードできます。
+
+### 2. Python のインストール
+
+EDCBNotifier の実行には Python (Python3) が必要です 。動作確認は Python 3.7 系と Python 3.8 系で行っています。
+
+すでに Python3 がインストールされている場合はスキップしても構いませんが、Python2 がインストールされている場合は別途 Python3 をインストールしてください。  
+（Python2 と Python3 は半分別物で、このうち Python2 は 2020 年 1 月でサポートが終了しています）
+
+![Screenshot](https://user-images.githubusercontent.com/39271166/88384104-c042d900-cde6-11ea-89f3-a1341b5d998e.png)
+
+[非公式 Python ダウンロードリンク](https://pythonlinks.python.jp/ja/index.html) から、Python3 のインストーラーをダウンロードします。  
+とくにこだわりがないのであれば、一番上にある Windows (64bit) 用 Python 3.8 の最新版 ( 2020 年 7 月現在の最新は 3.8.5 ) をダウンロードしてください。  
+
+[Python 公式サイト](https://www.python.org/downloads/windows/) からもダウンロードできますが、わかりにくいので前述のサイトからダウンロードすることをおすすめします。  
+もし OS が 32bit の方は Windows (32bit) 用をダウンロードしてください（ほとんどいないと思うけど…）。  
+Windows10 では Microsoft Store からもインストールすることができますが、安定していない上にストアアプリの制限の影響で正常に動かないことがあるため、非推奨です。
+
+
 ## Usage
 
+EDCBNotifier の設定は EDCBNotifier/config.py にて行います。  
 LINE Notify へ通知する場合は LINE Notify のアクセストークンが、Twitter へ通知する場合は Twitter API アプリが必須になります。  
 LINE Notify のアクセストークンの作成には LINE へのログインが、Twitter API アプリの作成には Twitter の開発者アカウントがそれぞれ必要です。 
 
-### 1. LINE Notify
+### 1. 設定
+
+### 2. LINE Notify
 
 LINE Notify へ通知しない場合は必要ありませんが、後述の Twitter の開発者アカウントを作成するよりも遥かに手順が簡単なので、やっておくことをおすすめします（さほど手間もかかりません）。
 
