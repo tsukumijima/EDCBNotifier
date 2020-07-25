@@ -57,6 +57,7 @@ NOTIFY_IMAGE = None
 
 # ダイレクトメッセージの宛先 (スクリーンネーム (@ から始まる ID) で指定)
 # 上の設定で DirectMessage (ダイレクトメッセージ) を設定した場合に適用されます
+# @ はつけずに指定してください 予め宛先のアカウントと DM が送信できる状態になっていないと送れません
 # None (シングルクオートはつけない) に設定した場合は自分宛てに送信します
 
 # ex: NOTIFY_DIRECTMESSAGE_TO = 'AbeShinzo'
@@ -65,9 +66,9 @@ NOTIFY_IMAGE = None
 NOTIFY_DIRECTMESSAGE_TO = None
 
 
-# ログをファイルに保存するかどうか
-# True に設定した場合、ログを config.py と同じフォルダの EDCBNotifier.log に保存します（コンソールに表示しない・前回のログは上書きされる）
-# False に設定した場合、ログを保存しません（コンソールに表示する）
+# ログをファイルに保存するか
+# True に設定した場合は、ログを config.py と同じフォルダの EDCBNotifier.log に保存します（コンソールに表示しない・前回のログは上書きされる）
+# False に設定した場合は、ログを保存しません（コンソールに表示する）
 # True・False にはシングルクオートをつけず、大文字で始めてください (true・false は NG)
 # うまく通知されないときに True にしてログを確認してみるといいかも
 
@@ -80,7 +81,7 @@ NOTIFY_LOG = False
 # 文字列は + で連結できます
 # 
 # https://github.com/xtne6f/EDCB/blob/70b2331aadb328eb347fe0c4e4e23c8e91d286b7/Document/Readme_EpgTimer.txt#L929-L1008 と
-# https://github.com/xtne6f/EDCB/blob/4c3bd5be3dc49607aa821d728105955c03fba4db/Document/Readme_Mod.txt#L451-L475 に記載されているマクロが使えます
+# https://github.com/xtne6f/EDCB/blob/4c3bd5be3dc49607aa821d728105955c03fba4db/Document/Readme_Mod.txt#L451-L475 に記載されている EDCB のマクロが使えます
 # マクロは $$ で囲んでください (ex: $ServiceName$)
 # 
 # また、独自にいくつかのマクロを追加しています
