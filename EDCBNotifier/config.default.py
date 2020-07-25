@@ -66,7 +66,7 @@ NOTIFY_IMAGE = None
 NOTIFY_DIRECTMESSAGE_TO = None
 
 
-# ログをファイルに保存するか
+# ログをファイルに保存（出力）するか
 # True に設定した場合は、ログを config.py と同じフォルダの EDCBNotifier.log に保存します（コンソールに表示しない・前回のログは上書きされる）
 # False に設定した場合は、ログを保存しません（コンソールに表示する）
 # True・False にはシングルクオートをつけず、大文字で始めてください (true・false は NG)

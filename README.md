@@ -145,11 +145,12 @@ None に設定した場合は画像を送信しません。画像サイズが大
 @ はつけないでください。予め宛先のアカウントと DM が送信できる状態になっていないと送れません。None に設定した場合は自分宛てに送信します。  
 デフォルト … 自分宛てに送信する (`None`)
 
-**ログをファイルに保存するか** (NOTIFY_LOG) では、ログをファイルに保存するかどうかを設定します。  
+**ログをファイルに保存するか** (NOTIFY_LOG) では、ログをファイルに保存（出力）するかどうかを設定します。  
 True に設定した場合は、ログを config.py と同じフォルダの EDCBNotifier.log に保存します。前回のログは上書きされます。また、コンソールへログを出力しなくなります。  
-False に設定した場合は、ログを保存しません。コンソールにログを出力します。  
+False に設定した場合は、ログを保存しません。通常通りコンソールにログを出力します。  
 デフォルト … ログをファイルに保存しない (`False`)
 
+このほか、config.py 内のコメントも参考にしてください。   
 保存する際は 文字コード UTF-8 (BOM 無し)・改行コード LF で保存します（ CR+LF になったり BOM 付きにならないように注意）。
 
 ### 2. 通知するメッセージを編集する
@@ -157,8 +158,8 @@ False に設定した場合は、ログを保存しません。コンソール�
 通知イベントごとにメッセージを編集できます。  
 通知するメッセージの設定は config.py の［メッセージ］セクションにあります。
 
-[EDCB/Document/Readme_EpgTimer.txt](https://github.com/xtne6f/EDCB/blob/70b2331aadb328eb347fe0c4e4e23c8e91d286b7/Document/Readme_EpgTimer.txt#L929-L1008) と [EDCB/Document/Readme_Mod.txt](https://github.com/xtne6f/EDCB/blob/4c3bd5be3dc49607aa821d728105955c03fba4db/Document/Readme_Mod.txt#L451-L475) に記載されている EDCB のマクロが使えます。  
-マクロは $$ で囲んでください (ex: \$ServiceName\$)。PostRecEnd の \$Drops\$ / \$Scrambles\$ / \$Result\$ など、特定のイベントでのみ利用できるマクロもあります。
+[EDCB/Document/Readme_EpgTimer.txt#L929-L1008](https://github.com/xtne6f/EDCB/blob/70b2331aadb328eb347fe0c4e4e23c8e91d286b7/Document/Readme_EpgTimer.txt#L929-L1008) と [EDCB/Document/Readme_Mod.txt#L451-L475](https://github.com/xtne6f/EDCB/blob/4c3bd5be3dc49607aa821d728105955c03fba4db/Document/Readme_Mod.txt#L451-L475) に記載されている EDCB のマクロが使えます。マクロは $$ で囲んでください (ex: \$ServiceName\$)。  
+PostRecEnd の \$Drops\$ / \$Scrambles\$ / \$Result\$ など、特定のイベントでのみ利用できるマクロもあります。
 
 また、独自にいくつかのマクロを追加しています。
 
@@ -175,8 +176,8 @@ False に設定した場合は、ログを保存しません。コンソール�
 - \$TimeII\$ … 実行時刻の2桁固定の分 (ex: 08 (分))  \$TimeI\$ … 実行時刻の分 (ex: 8 (分))
 - \$TimeSS\$ … 実行時刻の2桁固定の秒 (ex: 02 (秒))  \$TimeS\$ … 実行時刻の分 (ex: 2 (秒))
 
-Python の辞書形式で格納しているので、改行を入れる場合は文字列内に \n と入力してください。また、文字列は + で連結できます。  
-マクロが存在しないか空の場合は -- が返されます。.bat ファイルを直接実行した場合は EDCB からの環境変数が存在しないため、全てのマクロが -- になります。
+Python の辞書 (dict) 形式で格納しているので、改行を入れる場合は文字列内に \n と入力してください。また、文字列は + で連結できます。  
+マクロが存在しないか空の場合は -- が返されます。.bat ファイルを直接実行した場合は EDCB から渡される環境変数が存在しないため、全てのマクロが -- になります。
 
 デフォルトのように絵文字も送信できます（ただ新しい絵文字だと端末側で表示できなかったりするので注意）。  
 カスタマイズしたい方は、お好みの通知メッセージへ変更してみてください。
@@ -199,9 +200,9 @@ LINE Notify へ通知しない場合は必要ありませんが、後述する T
 
 ![Screenshot](https://user-images.githubusercontent.com/39271166/88370184-81a02500-cdcc-11ea-8147-772f3ceb9662.png)
 
-トークン名は LINE Notify で通知が送られてきたときに \[EDCBNotifier\] のように付加される文字列です（LINE Notify 全体でユニークである必要はないらしい）。  
-通知を送信するトークルームは［1:1 でLINE Notifyから通知を受ける］か、任意のグループ LINE を選択してください。  
-ここでは「1:1 でLINE Notifyから通知を受ける」（現在ログインしているアカウントに届く）を選択します。 
+トークン名は LINE Notify で通知が送られてきたときに \[EDCBNotifier\] のように付加される文字列です（ LINE Notify 全体でユニークである必要はないらしい）。  
+通知を送信するトークルームは［1:1 で LINE Notify から通知を受ける］か、任意のグループ LINE を選択してください。  
+ここでは「1:1 で LINE Notify から通知を受ける」（現在ログインしているアカウントに届く）を選択します。 
 
 ![Screenshot](https://user-images.githubusercontent.com/39271166/88371432-fbd1a900-cdce-11ea-8e9f-2067360c32b9.png)
 
@@ -212,7 +213,7 @@ LINE Notify へ通知しない場合は必要ありませんが、後述する T
 
 画面を閉じると LINE Notify と設定したトークルームが連携されているはずです。
 
-最後に、EDCBNotifier フォルダ内の config.py を開き、先程クリップボードにコピーしたアクセストークンを ［LINE Notify のアクセストークン］(LINE_ACCESS_TOKEN) に設定します。
+最後に config.py を開き、先程クリップボードにコピーしたアクセストークンを［LINE Notify］セクションの LINE_ACCESS_TOKEN に設定します。
 
 これで、LINE Notify に通知を送信できる状態になりました！ 
 
