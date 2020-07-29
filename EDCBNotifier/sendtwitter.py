@@ -2,16 +2,15 @@
 # Twitter でメッセージを送信する
 
 import os
-from twitter import Twitter as PTT
-from twitter import OAuth as PTTOAuth
+import twitter
 
 class Twitter:
 
     def __init__(self, consumer_key, consumer_secret, access_token, access_token_secret):
 
         # 初期化
-        self.twitter = PTT(auth = PTTOAuth(access_token, access_token_secret, consumer_key, consumer_secret))
-        self.upload = PTT(domain = 'upload.twitter.com', auth = PTTOAuth(access_token, access_token_secret, consumer_key, consumer_secret))
+        self.twitter = twitter.Twitter(auth = twitter.OAuth(access_token, access_token_secret, consumer_key, consumer_secret))
+        self.upload = twitter.Twitter(domain = 'upload.twitter.com', auth = twitter.OAuth(access_token, access_token_secret, consumer_key, consumer_secret))
         
         # 自分の情報を取得
         self.accountinfo = self.twitter.account.verify_credentials()
