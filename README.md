@@ -40,7 +40,7 @@ Twitter への通知はツイートでの通知に加え、ダイレクトメッ
 設定ファイルは Python スクリプトなので、Python の知識があればメッセージをより高度にカスタマイズすることもできそうです。  
 EDCB からのマクロに加えて、放送局名から取得したハッシュタグや更新通知タイプ、放送局名やタイトル名の英数字の半角変換など、独自のマクロも用意しています。
 
-## Install
+## Setup
 
 ### 1. ダウンロード・配置
 
@@ -217,11 +217,109 @@ LINE Notify へ通知しない場合は必要ありませんが、後述する T
 
 ### 4. Twitter (ツイート・ダイレクトメッセージ)
 
-Twitter へ通知する場合は Twitter へ開発者登録を申請し、開発者アカウントを取得しておく必要があります（Twitter API アプリの作成に Twitter の開発者アカウントが必要なため）。  
+Twitter へ通知する場合は Twitter へ開発者登録を申請し、開発者アカウントを取得しておく必要があります（Twitter Developer アプリケーションの作成に Twitter の開発者アカウントが必要なため）。  
 ただ、悪用する人が多かったため今から登録するのはちょっと面倒になっています。これでも最近若干緩和されたらしいけど…
 
 さすがに手順までは説明しきれないので、開発者申請の手順が解説されている記事を貼っておきます（[記事1](https://digitalnavi.net/internet/3072/)・[記事2](https://www.itti.jp/web-direction/how-to-apply-for-twitter-api/)）。  
-後述しますが、すでに別のアカウントで開発者アカウントになっている場合、必ずしも別途録画通知用の Bot アカウントを開発者アカウントにする必要はありません。
+
+すでにツイートさせたいアカウントとは別のアカウントで開発者アカウントになっている場合、必ずしも別途録画通知用の Bot アカウントを開発者アカウントにする必要はありません。  
+Twitter API を使うためには後述する Consumer Key・Consumer Secret・Access Token・Access Token Secret の 4 つが必要ですが、このうち Twitter Developers から作成できる Access Token・Access Token Secret は開発者アカウントをしたアカウントのものが表示されます。裏を返せば、予め開発者アカウントで Consumer Key・Consumer Secret を作成・取得し、ツイートさせたい Twitter アカウントとアプリ連携して Access Token・Access Token Secret が取得できれば、開発者登録をしたアカウント以外でも録画通知用のアカウントにできる、とも言えます。  
+自作のツールになりますが、[Twitter API のアクセストークンを確認するやつ](https://tools.tsukumijima.net/twittertoken-viewer/) を使うと、EDCBNotifier のようなアプリ連携を実装していないツールでも Access Token・Access Token Secret を取得できます（極論、これを使わなくても作成した Consumer Key・Consumer Secret で録画通知用のアカウントとアプリ連携して Access Token・Access Token Secret を取得できれば可能です）。  
+
+[Twitter Developers](https://developer.twitter.com/en/apps) にアクセスし、右上の［Create App］から Twitter Developer アプリケーションの作成画面に移動します（ここで言う Twitter Developer アプリケーション（以下 Twitter API アプリ）は Twitter API を使うプロジェクトのような意味です）。  
+Twitter API アプリを作成すると、Twitter API を使うために必要な Consumer Key・Consumer Secret を取得できます。   
+すでに Twitter API アプリを作成している場合は飛ばすこともできますが、via が被るので新しく作ってもいいと思います。開発者登録のときとは異なり、審査はありません。
+
+![ScreenShot](https://user-images.githubusercontent.com/39271166/88845529-444df400-d21f-11ea-89db-4243e077e622.png)
+
+#### App name（必須・重複不可らしい）
+
+ここの名前がツイートの via として表示されます。  
+いわゆる「独自 via 」と呼ばれるものです。後で変えることもできるので、好きな via にしましょう。
+
+（例）EDCBNotifier@（自分の TwitterID ）  
+（例）Twitter for （自分の Twitter 名）  
+
+#### Application description（必須）
+
+（例）EDCBNotifier@example から録画通知をツイートするためのアプリケーションです。
+
+#### Website URL（必須）
+
+利用用途的に自分以外は見ない部分なので、適当に設定しておきましょう。  
+ただし、http://127.0.0.1/ は設定できないようです。
+
+（例）https://example.com/  
+（例）https://(自分のサイトのドメイン)/
+
+#### Enable Sign in with Twitter
+
+開発者登録をしたアカウント以外で利用する場合はチェックを入れてください。
+
+#### Callback URLs
+
+開発者登録をしたアカウント以外で利用する場合、アプリ連携をした後にリダイレクトされるコールバック URL を指定してください（複数設定できます）。  
+[Twitter API のアクセストークンを確認するやつ](https://tools.tsukumijima.net/twittertoken-viewer/) を使う場合は `https://tools.tsukumijima.net/twittertoken-viewer/` を設定します。
+
+#### Terms of service URL
+
+無記入で OK です。
+
+#### Privacy policy URL
+
+無記入で OK です。
+
+#### Organization name
+
+無記入で OK です。
+
+#### Organization website URL
+
+無記入で OK です。
+
+#### Tell us how this app will be used（必須）  
+
+（例）このアプリケーションは、EDCBNotifier から通知をツイートするためのアプリケーションです。  
+　　　このアプリケーションは、テレビの録画予約の追加・変更、録画の開始・終了をツイートやダイレクトメッセージで通知します。
+
+#### （英語・こちらをコピペ）
+
+（例）This application is for tweeting notifications from EDCBNotifier.   
+　　　This application notifies you of the addition/change of TV recording reservation and the start/end of recording by tweet or directmessage.
+
+記入し終えたら［Create］をクリックし、Twitter API アプリを作成します。
+
+ダイレクトメッセージを送信するため Permissions タブに移動し、［Edit］をクリックします。
+
+![ScreenShot](https://user-images.githubusercontent.com/39271166/88842998-5f1e6980-d21b-11ea-93ec-80e9caeb2754.png)
+
+**Access permission** を **Read, write, and Direct Messages** に設定し、［Save］で保存します。  
+こうすることでツイートの読み取り・ツイートの書き込みなどに加え、ダイレクトメッセージを送信できるようになります。
+ 
+Permission を変更すると今までに取得した Access Token・Access Token Secret が無効になります。注意してください。
+
+![ScreenShot](https://user-images.githubusercontent.com/39271166/88842886-2f6f6180-d21b-11ea-8265-b2a67653e674.png)
+
+Keys and tokens タブに移動し、API Key と API Key Secret をクリップボードにコピーします。  
+API Key が Consumer Key 、API Key Secret が Consumer Secret にあたります。  
+
+![ScreenShot](https://user-images.githubusercontent.com/39271166/88843951-de606d00-d21c-11ea-8b77-9ecdad694470.png)
+
+開発者登録したアカウントで利用する場合は、**Access token & access token secret** の横の［Generate］をクリックし、Access Token・Access Token Secret を生成します。  
+Access Token・Access Token Secret が表示されるので、クリップボードにコピーします。
+このとき、Access Token・Access Token Secret は一度だけ表示されます。どこかにメモしておくとよいでしょう。  
+
+開発者登録したアカウント以外で利用する場合は、自力でアプリ連携して Access Token・Access Token Secret を取得するか、録画通知用にしたいアカウントにログインした状態で [Twitter API のアクセストークンを確認するやつ](https://tools.tsukumijima.net/twittertoken-viewer/) に Consumer Key・Consumer Secret を入力し、Access Token・Access Token Secret をクリップボードにコピーしてください。
+
+最後に config.py を開き、先程クリップボードにコピーしたアクセストークン等を［Twitter API］セクションの TWITTER_CONSUMER_KEY・TWITTER_CONSUMER_SECRET・TWITTER_ACCESS_TOKEN・TWITTER_ACCESS_TOKEN_SECRET にそれぞれ設定します。
+
+これで Twitter にツイートやダイレクトメッセージで通知を送信できる状態になりました！ 
+
+LINE Notify と同様に、5 つある .bat ファイルのうちのどれかを実行してみましょう。ちゃんとツイートと自分宛てのダイレクトメッセージで通知が届いていれば OK です。  
+もし届かない場合はログ出力をオンにしてみたり、.bat ファイルをコマンドプロンプトや PowerShell 上で実行し、出力される内容を確認してみてください。
+
+これで設定は完了です！お疲れさまでした！   
+なにか不具合や要望などあれば [Issues](https://github.com/tsukumijima/EDCBNotifier/issues) か [Twitter](https://twitter.com/TVRemotePlus) までお願いします。 
 
 ## License
 [MIT Licence](LICENSE.txt)
