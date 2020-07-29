@@ -34,7 +34,7 @@ Twitter への通知はツイートでの通知に加え、ダイレクトメッ
 の 5 つです。
 
 それぞれのイベントは、個別に通知するかどうかを設定できます。  
-更新通知が頻繁に送られてきてうるさい、といったときに［更新通知が送られたとき］のイベントだけ通知しないようにすることも可能です。
+更新通知が頻繁に送られてきてうるさい、といったときに \[更新通知が送られたとき] のイベントだけ通知しないようにすることも可能です。
 
 通知するメッセージは 5 つのイベントごとに自由に変更できます。  
 設定ファイルは Python スクリプトなので、Python の知識があればメッセージをより高度にカスタマイズすることもできそうです。  
@@ -46,7 +46,7 @@ EDCB からのマクロに加えて、放送局名から取得したハッシュ
 
 <img src="https://user-images.githubusercontent.com/39271166/88381578-a357d700-cde1-11ea-9f5a-12f559af093a.png" width="400px">
 
-［Code］メニュー内の［Download Zip］をクリックし、EDCBNotifier をダウンロードします。  
+ \[Code] メニュー内の \[Download Zip] をクリックし、EDCBNotifier をダウンロードします。  
 または、[こちら](https://github.com/tsukumijima/EDCBNotifier/archive/master.zip) のリンクからでもダウンロードできます。
 
 ダウンロードできたら解凍し、
@@ -82,22 +82,22 @@ Python 公式サイトにも大きいダウンロードボタンがあります�
 <img src="https://user-images.githubusercontent.com/39271166/88402926-be890d80-ce06-11ea-87fd-59c80cbd046e.png" width="600px">
 
 ダウンロードが終わったらインストーラーを実行します。
-［Install Now］と［Custom Install］がありますが、［Custom Install］の方をクリックしてください。  
-このとき、**必ず［Add Python 3.8 to PATH］にチェックを入れてから進んでください。**
+ \[Install Now] と \[Custom Install] がありますが、 \[Custom Install] の方をクリックしてください。  
+このとき、**必ず \[Add Python 3.8 to PATH] にチェックを入れてから進んでください。**
 
-［Option Features］は特にこだわりがなければそのまま進みます。  
+ \[Option Features] は特にこだわりがなければそのまま進みます。  
 
 <img src="https://user-images.githubusercontent.com/39271166/88402933-c3e65800-ce06-11ea-912f-e46151231e97.png" width="600px">
 
-［Advanced Options］は **［Install for all users］にチェックを入れます**（これで AppData 以下に配置されなくなる）。  
+ \[Advanced Options] は ** \[Install for all users] にチェックを入れます**（これで AppData 以下に配置されなくなる）。  
 デフォルトでは AppData 以下にユーザーインストールする設定になっていますが、他のユーザーから見れないほかパスが長くなっていろいろ面倒だと思うので、私はおすすめしません。  
 
-［Install for all users］にチェックを入れると［Customize install location］が C:\Program Files\Python38 になりますが、**これも C:\Program Files 以外に変更します。**  
+ \[Install for all users] にチェックを入れると \[Customize install location] が C:\Program Files\Python38 になりますが、**これも C:\Program Files 以外に変更します。**  
 これは C:\Program Files 以下にインストールしてしまうと pip でのライブラリのインストールに毎回管理者権限を求められてしまい面倒なためです。  
 私は C:\Applications\Python\Python3.8 にインストールしていますが、とりあえず C:\Program Files 以下と C:\Users 以下でなければよいでしょう（別バージョンを入れることも考え Python\Python3.8 のような階層にしておくのがおすすめ）。
 
-［Install］をクリックするとインストールが開始されます。  
-［Setup was successful］という画面が表示されればインストール完了です。  
+ \[Install] をクリックするとインストールが開始されます。  
+ \[Setup was successful] という画面が表示されればインストール完了です。  
 試しにコマンドプロンプトや PowerShell から `python -V` と実行してみましょう。
 
 ### 3. 依存ライブラリのインストール
@@ -156,7 +156,7 @@ False に設定した場合は、ログを保存しません。通常通りコ�
 ### 2. 通知するメッセージを編集する
 
 通知イベントごとにメッセージを編集できます。  
-通知するメッセージの設定は config.py の［メッセージ］セクションにあります。
+通知するメッセージの設定は config.py の \[メッセージ] セクションにあります。
 
 [EDCB/Document/Readme_EpgTimer.txt#L929-L1008](https://github.com/xtne6f/EDCB/blob/70b2331aadb328eb347fe0c4e4e23c8e91d286b7/Document/Readme_EpgTimer.txt#L929-L1008) と [EDCB/Document/Readme_Mod.txt#L451-L475](https://github.com/xtne6f/EDCB/blob/4c3bd5be3dc49607aa821d728105955c03fba4db/Document/Readme_Mod.txt#L451-L475) に記載されている EDCB のマクロが使えます。マクロは $$ で囲んでください (ex: \$ServiceName\$)。  
 PostRecEnd の \$Drops\$ / \$Scrambles\$ / \$Result\$ など、特定のイベントでのみ利用できるマクロもあります。
@@ -186,29 +186,29 @@ Python の辞書 (dict) 形式で格納しているので、改行を入れる�
 
 LINE Notify へ通知しない場合は必要ありませんが、後述する Twitter の開発者アカウントを作成する手順よりもはるかに簡単なので、やっておくことをおすすめします（さほど手間もかかりません）。
 
-[LINE Notify](https://notify-bot.line.me/ja/) にアクセスし、右上の［ログイン］から LINE へログインします（いつも使っているアカウントで構いません）。  
-ログインできたら、右上のメニューから［マイページ］に移動します。
+[LINE Notify](https://notify-bot.line.me/ja/) にアクセスし、右上の \[ログイン] から LINE へログインします（いつも使っているアカウントで構いません）。  
+ログインできたら、右上のメニューから \[マイページ] に移動します。
 
 ![Screenshot](https://user-images.githubusercontent.com/39271166/88371969-06407280-cdd0-11ea-9e70-ed5b796d79e0.png)
 
-下の方にある「アクセストークンの発行(開発者向け)」へ行き、［トークンを発行する］をクリックします。
+下の方にある「アクセストークンの発行(開発者向け)」へ行き、 \[トークンを発行する] をクリックします。
 
 ![Screenshot](https://user-images.githubusercontent.com/39271166/88370184-81a02500-cdcc-11ea-8147-772f3ceb9662.png)
 
-トークン名は LINE Notify で通知が送られてきたときに \[EDCBNotifier\] のように付加される文字列です（ LINE Notify 全体でユニークである必要はないらしい）。  
-通知を送信するトークルームは［1:1 で LINE Notify から通知を受ける］か、任意のグループ LINE を選択してください。  
+トークン名は LINE Notify で通知が送られてきたときに \[EDCBNotifier] のように付加される文字列です（ LINE Notify 全体でユニークである必要はないらしい）。  
+通知を送信するトークルームは \[1:1 で LINE Notify から通知を受ける] か、任意のグループ LINE を選択してください。  
 ここでは「1:1 で LINE Notify から通知を受ける」（現在ログインしているアカウントに届く）を選択します。 
 
 ![Screenshot](https://user-images.githubusercontent.com/39271166/88371432-fbd1a900-cdce-11ea-8e9f-2067360c32b9.png)
 
-［発行する］をクリックするとアクセストークンが発行されるので、［コピー］をクリックしてクリップボードにコピーします。  
+ \[発行する] をクリックするとアクセストークンが発行されるので、 \[コピー] をクリックしてクリップボードにコピーします。  
 アクセストークンはこの画面を閉じると二度と表示されない（一度解除し同じ内容でもう一度発行することはできるがアクセストークンは変わる）ので、どこかにメモしておくと良いでしょう。
 
 ![Screenshot](https://user-images.githubusercontent.com/39271166/88371444-fecc9980-cdce-11ea-8293-b9a8bf765422.png)
 
 画面を閉じると LINE Notify と設定したトークルームが連携されているはずです。
 
-最後に config.py を開き、先程クリップボードにコピーしたアクセストークンを［LINE Notify］セクションの LINE_ACCESS_TOKEN に設定します。
+最後に config.py を開き、先程クリップボードにコピーしたアクセストークンを \[LINE Notify] セクションの **LINE_ACCESS_TOKEN** に設定します。
 
 これで、LINE Notify に通知を送信できる状態になりました！ 
 
@@ -223,10 +223,12 @@ Twitter へ通知する場合は Twitter へ開発者登録を申請し、開発
 さすがに手順までは説明しきれないので、開発者申請の手順が解説されている記事を貼っておきます（[記事1](https://digitalnavi.net/internet/3072/)・[記事2](https://www.itti.jp/web-direction/how-to-apply-for-twitter-api/)）。  
 
 すでにツイートさせたいアカウントとは別のアカウントで開発者アカウントになっている場合、必ずしも別途録画通知用の Bot アカウントを開発者アカウントにする必要はありません。  
-Twitter API を使うためには後述する Consumer Key・Consumer Secret・Access Token・Access Token Secret の 4 つが必要ですが、このうち Twitter Developers から作成できる Access Token・Access Token Secret は開発者アカウントをしたアカウントのものが表示されます。裏を返せば、予め開発者アカウントで Consumer Key・Consumer Secret を作成・取得し、ツイートさせたい Twitter アカウントとアプリ連携して Access Token・Access Token Secret が取得できれば、開発者登録をしたアカウント以外でも録画通知用のアカウントにできる、とも言えます。  
+Twitter API を使うためには後述する Consumer Key・Consumer Secret・Access Token・Access Token Secret の 4 つが必要ですが、このうち Twitter Developers から作成できる Access Token・Access Token Secret は開発者アカウントをしたアカウントのものが表示されます。  
+裏を返せば、予め開発者アカウントで Consumer Key・Consumer Secret を作成・取得し、ツイートさせたい Twitter アカウントとアプリ連携して Access Token・Access Token Secret が取得できれば、開発者登録をしたアカウント以外でも録画通知用のアカウントにできる、とも言えます。
+
 自作のツールになりますが、[Twitter API のアクセストークンを確認するやつ](https://tools.tsukumijima.net/twittertoken-viewer/) を使うと、EDCBNotifier のようなアプリ連携を実装していないツールでも Access Token・Access Token Secret を取得できます（極論、これを使わなくても作成した Consumer Key・Consumer Secret で録画通知用のアカウントとアプリ連携して Access Token・Access Token Secret を取得できれば可能です）。  
 
-[Twitter Developers](https://developer.twitter.com/en/apps) にアクセスし、右上の［Create App］から Twitter Developer アプリケーションの作成画面に移動します（ここで言う Twitter Developer アプリケーション（以下 Twitter API アプリ）は Twitter API を使うプロジェクトのような意味です）。  
+[Twitter Developers](https://developer.twitter.com/en/apps) にアクセスし、右上の \[Create App] から Twitter Developer アプリケーションの作成画面に移動します（ここで言う Twitter Developer アプリケーション（以下 Twitter API アプリ）は Twitter API を使うプロジェクトのような意味です）。  
 Twitter API アプリを作成すると、Twitter API を使うために必要な Consumer Key・Consumer Secret を取得できます。   
 すでに Twitter API アプリを作成している場合は飛ばすこともできますが、via が被るので新しく作ってもいいと思います。開発者登録のときとは異なり、審査はありません。
 
@@ -287,16 +289,15 @@ Twitter API アプリを作成すると、Twitter API を使うために必要�
 （例）This application is for tweeting notifications from EDCBNotifier.   
 　　　This application notifies you of the addition/change of TV recording reservation and the start/end of recording by tweet or directmessage.
 
-記入し終えたら［Create］をクリックし、Twitter API アプリを作成します。
+記入し終えたら \[Create] をクリックし、Twitter API アプリを作成します。
 
-ダイレクトメッセージを送信するため Permissions タブに移動し、［Edit］をクリックします。
+ダイレクトメッセージを送信するため Permissions タブに移動し、\[Edit] をクリックします。
 
 ![ScreenShot](https://user-images.githubusercontent.com/39271166/88842998-5f1e6980-d21b-11ea-93ec-80e9caeb2754.png)
 
-**Access permission** を **Read, write, and Direct Messages** に設定し、［Save］で保存します。  
-こうすることでツイートの読み取り・ツイートの書き込みなどに加え、ダイレクトメッセージを送信できるようになります。
- 
-Permission を変更すると今までに取得した Access Token・Access Token Secret が無効になります。注意してください。
+**Access permission** を **Read, write, and Direct Messages** に設定し、\[Save] で保存します。  
+こうすることでツイートの読み取り・ツイートの書き込みなどに加え、ダイレクトメッセージを送信できるようになります。  
+Permissions を変更すると今までに取得した Access Token・Access Token Secret が無効になります。注意してください。
 
 ![ScreenShot](https://user-images.githubusercontent.com/39271166/88842886-2f6f6180-d21b-11ea-8265-b2a67653e674.png)
 
@@ -305,13 +306,13 @@ API Key が Consumer Key 、API Key Secret が Consumer Secret にあたりま�
 
 ![ScreenShot](https://user-images.githubusercontent.com/39271166/88843951-de606d00-d21c-11ea-8b77-9ecdad694470.png)
 
-開発者登録したアカウントで利用する場合は、**Access token & access token secret** の横の［Generate］をクリックし、Access Token・Access Token Secret を生成します。  
+開発者登録したアカウントで利用する場合は、**Access token & access token secret** の横の \[Generate]をクリックし、Access Token・Access Token Secret を生成します。  
 Access Token・Access Token Secret が表示されるので、クリップボードにコピーします。
 このとき、Access Token・Access Token Secret は一度だけ表示されます。どこかにメモしておくとよいでしょう。  
 
 開発者登録したアカウント以外で利用する場合は、自力でアプリ連携して Access Token・Access Token Secret を取得するか、録画通知用にしたいアカウントにログインした状態で [Twitter API のアクセストークンを確認するやつ](https://tools.tsukumijima.net/twittertoken-viewer/) に Consumer Key・Consumer Secret を入力し、Access Token・Access Token Secret をクリップボードにコピーしてください。
 
-最後に config.py を開き、先程クリップボードにコピーしたアクセストークン等を［Twitter API］セクションの TWITTER_CONSUMER_KEY・TWITTER_CONSUMER_SECRET・TWITTER_ACCESS_TOKEN・TWITTER_ACCESS_TOKEN_SECRET にそれぞれ設定します。
+最後に config.py を開き、先程クリップボードにコピーしたアクセストークン等を \[Twitter API] セクションの **TWITTER_CONSUMER_KEY・TWITTER_CONSUMER_SECRET・TWITTER_ACCESS_TOKEN・TWITTER_ACCESS_TOKEN_SECRET** にそれぞれ設定します。
 
 これで Twitter にツイートやダイレクトメッセージで通知を送信できる状態になりました！ 
 
