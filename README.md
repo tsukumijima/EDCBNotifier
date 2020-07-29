@@ -223,7 +223,7 @@ Twitter へ通知する場合は Twitter へ開発者登録を申請し、開発
 さすがに手順までは説明しきれないので、開発者申請の手順が解説されている記事を貼っておきます（[記事1](https://digitalnavi.net/internet/3072/)・[記事2](https://www.itti.jp/web-direction/how-to-apply-for-twitter-api/)）。  
 
 すでにツイートさせたいアカウントとは別のアカウントで開発者アカウントになっている場合、必ずしも別途録画通知用の Bot アカウントを開発者アカウントにする必要はありません。  
-Twitter API を使うためには後述する Consumer Key・Consumer Secret・Access Token・Access Token Secret の 4 つが必要ですが、このうち Twitter Developers から作成できる Access Token・Access Token Secret は開発者アカウントをしたアカウントのものが表示されます。  
+Twitter API を使うためには後述する Consumer Key・Consumer Secret・Access Token・Access Token Secret の 4 つが必要ですが、このうち Twitter Developers でアプリ作成後に生成できる Access Token・Access Token Secret は開発者アカウントをしたアカウントのものが表示されます。  
 裏を返せば、予め開発者アカウントで Consumer Key・Consumer Secret を作成・取得し、ツイートさせたい Twitter アカウントとアプリ連携して Access Token・Access Token Secret が取得できれば、開発者登録をしたアカウント以外でも録画通知用のアカウントにできる、とも言えます。
 
 自作のツールになりますが、[Twitter API のアクセストークンを確認するやつ](https://tools.tsukumijima.net/twittertoken-viewer/) を使うと、EDCBNotifier のようなアプリ連携を実装していないツールでも Access Token・Access Token Secret を取得できます（極論、これを使わなくても作成した Consumer Key・Consumer Secret で録画通知用のアカウントとアプリ連携して Access Token・Access Token Secret を取得できれば可能です）。  
