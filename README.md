@@ -1,5 +1,5 @@
 
-# EDCBNotifier
+# <img alt="Logo" src="EDCBNotifier/EDCBNotifier.png" height="26"> EDCBNotifier
 
 EDCB から LINE や Twitter（ツイート・DM）に通知を送るツールです。
 

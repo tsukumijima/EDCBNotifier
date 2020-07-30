@@ -48,8 +48,8 @@ NOTIFY_EVENT = ['PostAddReserve', 'PostChgReserve', 'PostRecStart', 'PostRecEnd'
 # 画像サイズが大きすぎると送れない場合があるので注意
 # None (シングルクオートはつけない) に設定した場合は画像を送信しません
 
-# ex: NOTIFY_IMAGE = 'C:\Users\Test\Pictures\image.jpg'
-# ex: NOTIFY_IMAGE = 'image.jpg'
+# ex: NOTIFY_IMAGE = 'C:\Users\User\Pictures\EDCBNotifier.png'
+# ex: NOTIFY_IMAGE = 'EDCBNotifier.png'
 # ex: NOTIFY_IMAGE = None
 
 NOTIFY_IMAGE = None

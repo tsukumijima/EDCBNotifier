@@ -140,9 +140,3 @@ dmypy.json
 
 # EDCBNotifier Config
 EDCBNotifier/config.py
-
-# EDCBNotifier Image File
-*.jpg
-*.JPG
-*.png
-*.PNG
