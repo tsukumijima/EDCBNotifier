@@ -3,7 +3,7 @@
 
 ![Screenshot](https://user-images.githubusercontent.com/39271166/88943606-a877c300-d2c6-11ea-8323-7914f78f50e0.png)
 
-EDCB から LINE や Twitter（ツイート・DM）に通知を送るツールです。
+EDCB から LINE や Twitter（ツイート・DM）に通知を送れるツールです。
 
 ## About・Feature
 
@@ -13,7 +13,10 @@ xtne6f 版 EDCB のバッチファイル実行機能を使い、
 - Twitter (ツイート)
 - Twitter (ダイレクトメッセージ)
 
-に EDCB の通知を送信できる Python 製ツールです。
+に EDCB の各通知を送信できる Python 製ツールです。
+
+xtne6f 版 EDCB のバッチファイル実行機能を利用しているため、xtne6f 版の EDCB 、または tkntrec 版など xtne6f 版をフォークした EDCB が必要です（ここ数年の EDCB ならいけるはず）。  
+EDCB 本家に実装されていた Twitter 機能 (Twitter.dll) の代替としても使えると思います。
 
 たとえば、EDCB で録画が開始されたときに LINE で録画開始を番組名を添えて通知したり、EPG 自動予約で追加された予約を通知で確認することができます。
 
