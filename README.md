@@ -121,6 +121,17 @@ config.default.py を config.py にコピーしてください（コピーして
 
 リネームでもかまいませんが、設定をミスったときのために config.default.py は取っておくことを推奨します。
 
+### 5. EpgTimerSrv の再起動
+
+.bat ファイルの追加を EDCB に反映するためには、EpgTimerSrv の再起動が必要です。   
+EpgTimerSrv をタスクトレイに入れて運用している場合は、EpgTimerSrv を終了後、もう一度起動させてください。
+
+EpgTimerSrv をサービスとして運用している場合は、EpgTimer Service の再起動が必要です。  
+`net stop "EpgTimer Service" && net start "EpgTimer Service"` と実行するか、［コンピューターの管理］→［サービス］からサービスを再起動してください。
+
+ただ、経験上 EpgTimer Service を再起動すると EpgTimer の挙動が変になることがあるようなので、一度 Windows 自体を再起動してしまうのが手っ取り早いと思います。    
+録画中（ EpgDataCap_Bon の稼働中）に EpgTimer Service を再起動してしまうと、手動で止めない限り録画が終わらない等の不具合が出る場合があるため、避けてください。
+
 これでインストールは完了です。
 
 ## Usage
