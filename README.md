@@ -180,6 +180,7 @@ PostRecEnd の \$Drops\$ / \$Scrambles\$ / \$Result\$ など、特定のイベ�
 また、独自にいくつかのマクロを追加しています。
 
 - \$HashTag\$ … 放送局名から取得したハッシュタグ (ハッシュタグは utils.py の get_hashtag() メソッドで定義) 
+- \$HashTagTitle\$ … 番組タイトルから取得したハッシュタグ (ハッシュタグは下記の NOTIFY_HASHTAG_TITLE で定義) 
 - \$NotifyName\$ … \$NofityID\$ から取得した更新通知タイプ（\$NofityID\$ = 1 … EPGデータ更新 2 … 予約情報更新 3 … 録画結果情報更新）
 - \$ServiceNameHankaku\$ … \$ServiceName\$（放送局名）の英数字を半角に変換したもの
 - \$TitleHankaku\$ … \$Title\$（番組タイトル）の英数字を半角に変換したもの
@@ -197,6 +198,10 @@ Python の辞書 (dict) 形式で格納しているので、改行を入れる�
 
 デフォルトのように絵文字も送信できます（ただ新しい絵文字だと端末側で表示できなかったりするので注意）。  
 カスタマイズしたい方は、お好みの通知メッセージへ変更してみてください。
+
+**番組タイトル（半角）に対応するハッシュタグ** (NOTIFY_HASHTAG_TITLE) では、\$HashTagTitle\$ マクロにて利用する番組タイトルに対応するハッシュタグを設定します。部分一致です。  
+番組タイトルの判定には \$TitleHankaku\$ の値を利用します。NOTIFY_HASHTAG_TITLE 内に存在しない番組タイトルのハッシュタグは空文字になります。  
+config.py 内の記述例を参考に、番組タイトルとハッシュタグの対応を記述してください。
 
 ### 3. LINE Notify
 
