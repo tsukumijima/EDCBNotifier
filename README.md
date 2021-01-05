@@ -339,4 +339,4 @@ LINE Notify と同様に、5 つある .bat ファイルのうちのどれかを
 なにか不具合や要望などあれば [Issues](https://github.com/tsukumijima/EDCBNotifier/issues) か [Twitter](https://twitter.com/TVRemotePlus) までお願いします。 
 
 ## License
-[MIT Licence](LICENSE.txt)
+[MIT License](LICENSE.txt)

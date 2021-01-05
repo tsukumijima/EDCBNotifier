@@ -86,6 +86,7 @@ NOTIFY_LOG = False
 # 
 # また、独自にいくつかのマクロを追加しています
 # ・$HashTag$ … 放送局名から取得したハッシュタグ (ハッシュタグは utils.py の get_hashtag() メソッドで定義) 
+# ・$HashTagTitle$ … 番組タイトルから取得したハッシュタグ (ハッシュタグは下記の NOTIFY_HASHTAG_TITLEで定義) 
 # ・$NotifyName$ … $NofityID$ から取得した更新通知タイプ（$NofityID$ = 1 … EPGデータ更新 2 … 予約情報更新 3 … 録画結果情報更新）
 # ・$ServiceNameHankaku$ … $ServiceName$（放送局名）の英数字を半角に変換したもの
 # ・$TitleHankaku$ … $Title$（番組タイトル）の英数字を半角に変換したもの
@@ -120,6 +121,17 @@ NOTIFY_MESSAGE = {
     # 更新通知が送られたとき（ PostNotify.bat が実行されたとき）に送信するメッセージ
     'PostNotify':     '🔔 通知: $NotifyName$ ($TimeMM$/$TimeDD$ $TimeHH$:$TimeII$:$TimeSS$)',
 
+}
+
+
+# 番組タイトル（半角）に対応するハッシュタグ（ $HashTagTitle$ マクロにて利用）
+# 番組タイトルの判定には $Title2Hankaku$ の値を利用します
+# 以下に存在しない番組タイトルのハッシュタグは空文字になります
+# 以下の記述例を参考に、番組タイトルとハッシュタグの対応を記述してください
+
+NOTIFY_HASHTAG_TITLE = {
+    'ゆるキャン△ SEASON2': '#yurucamp',  # 記述例1
+    'のんのんびより のんすとっぷ': '#なのん #nonnontv',  # 記述例2
 }
 
 
