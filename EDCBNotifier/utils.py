@@ -116,7 +116,7 @@ class Utils:
             # EDCBNotifier 独自マクロ
             
             'HashTag': self.get_hashtag(jaconv.z2h(environ.get('ServiceName', macro_default), digit = True, ascii = True, kana = False)),
-            'HashTagTitle': self.get_hashtag_title(jaconv.z2h(environ.get('Title2', macro_default), digit = True, ascii = True, kana = False)),
+            'HashTagTitle': self.get_hashtag_title(jaconv.z2h(environ.get('Title', macro_default), digit = True, ascii = True, kana = False)),
             'NotifyName': self.get_notify_name(environ.get('NotifyID', macro_default)),
             'ServiceNameHankaku': jaconv.z2h(environ.get('ServiceName', macro_default), digit = True, ascii = True, kana = False),
             'TitleHankaku': jaconv.z2h(environ.get('Title', macro_default), digit = True, ascii = True, kana = False),
@@ -238,15 +238,15 @@ class Utils:
         return hashtag
 
     
-    # 番組タイトルからハッシュタグを取得する（完全一致）
+    # 番組タイトルからハッシュタグを取得する
     # title には半角に変換済みのタイトル名が入るので注意
     def get_hashtag_title(self, title):
 
         # dict 内にそのタイトルが存在するか
-        if title in config.NOTIFY_HASHTAG_TITLE:
-            return config.NOTIFY_HASHTAG_TITLE[title]
-        else:
-            return ''  # 存在しなかったら空文字列を返す
+        for hashtag_title in config.NOTIFY_HASHTAG_TITLE.keys():
+            if hashtag_title in title:
+                return config.NOTIFY_HASHTAG_TITLE[hashtag_title]
+        return ''  # 存在しなかったら空文字列を返す
 
 
     # NotifyID から NotifyName を取得する
