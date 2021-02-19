@@ -4,8 +4,8 @@
 # [] で囲われている部分は配列 (list)
 # {} で囲われている部分は辞書 (dict)
 # 文字列は必ずシングルクオート ('') で囲んでください
-# ハッシュ (#) をつけるとコメントになります (// はコメントにならない)
-# 文字コード UTF-8 (BOM なし)・改行コード LF 以外で保存すると動作しなくなるので注意（メモ帳は基本的に NG）
+# ハッシュ (#) をつけるとコメントになります（ // はコメントになりません）
+# 文字コード UTF-8 (BOM なし)・改行コード LF 以外で保存すると動作しなくなるので注意（メモ帳は基本的に NG ）
 # できれば VSCode などのシンタックスハイライトのあるエディタでの編集を推奨します
 
 
@@ -24,8 +24,8 @@ NOTIFY_TYPE = ['LINE', 'Tweet', 'DirectMessage']
 
 
 # 通知を行うイベント
-# 通知イベントのオン・オフを指定できます（たとえば頻度の多い PostNotify だけ通知しない設定も可能）
-# ここで設定したイベントだけが通知されます（通知オフ） 設定されなかったイベントは通知されない（通知オフ）
+# 通知するイベントのオン・オフを指定できます たとえば頻度の多い PostNotify だけ通知しない設定も可能です
+# ここで設定したイベントだけが通知されます（通知オン） 設定しなかったイベントは通知されません（通知オフ）
 # 各 .bat ファイルを配置しないことでも通知イベントのオン・オフは可能ですが、できるだけこの設定を使うことを推奨します
 
 # PostAddReserve … 予約を追加したとき ( PostAddReserve.bat が実行されたとき)
@@ -43,10 +43,10 @@ NOTIFY_TYPE = ['LINE', 'Tweet', 'DirectMessage']
 NOTIFY_EVENT = ['PostAddReserve', 'PostChgReserve', 'PostRecStart', 'PostRecEnd', 'PostNotify']
 
 
-# 通知時に同時に送信する画像 (フルパスで指定)
-# 画像を config.py と同じ階層に置く場合はファイル名だけの指定でも OK
+# 通知時に同時に送信する画像（フルパスで指定）
+# 画像を config.py と同じ階層に置く場合はファイル名だけの指定でも大丈夫です
 # 画像サイズが大きすぎると送れない場合があるので注意
-# None (シングルクオートはつけない) に設定した場合は画像を送信しません
+# None（シングルクオートはつけない）に設定した場合は画像を送信しません
 
 # ex: NOTIFY_IMAGE = 'C:\Users\User\Pictures\EDCBNotifier.png'
 # ex: NOTIFY_IMAGE = 'EDCBNotifier.png'
@@ -55,10 +55,10 @@ NOTIFY_EVENT = ['PostAddReserve', 'PostChgReserve', 'PostRecStart', 'PostRecEnd'
 NOTIFY_IMAGE = None
 
 
-# ダイレクトメッセージの宛先 (スクリーンネーム (@ から始まる ID) で指定)
+# ダイレクトメッセージの宛先（スクリーンネーム：@ から始まるアカウントの ID で指定）
 # 上の設定で DirectMessage (ダイレクトメッセージ) を設定した場合に適用されます
 # @ はつけずに指定してください 予め宛先のアカウントと DM が送信できる状態になっていないと送れません
-# None (シングルクオートはつけない) に設定した場合は自分宛てに送信します
+# None（シングルクオートはつけない）に設定した場合は自分宛てに送信します
 
 # ex: NOTIFY_DIRECTMESSAGE_TO = 'AbeShinzo'
 # ex: NOTIFY_DIRECTMESSAGE_TO = None
