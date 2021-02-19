@@ -270,7 +270,7 @@ class Utils:
 
     # 実行時刻
     def get_exection_time(self):
-        return self.time
+        return self.time.strftime('%Y/%m/%d %H:%M:%S')
 
 
     # 実行曜日

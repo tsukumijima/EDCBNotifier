@@ -16,9 +16,10 @@ def main():
     # 初期化
     colorama.init(autoreset = True)
     utils = Utils()
+    # 標準出力をファイルに変更
     if config.NOTIFY_LOG:
-        # 標準出力をファイルに変更
         sys.stdout = open(os.path.dirname(__file__) + '/' + 'EDCBNotifier.log', mode = 'w', encoding = 'utf-8')
+        sys.stderr = open(os.path.dirname(__file__) + '/' + 'EDCBNotifier.log', mode = 'w', encoding = 'utf-8')
 
     # ヘッダー
     header = '+' * 60 + '\n'
@@ -26,65 +27,56 @@ def main():
     header += '+' * 60 + '\n'
     print('\n' + header)
 
-    print('Time: ' + str(utils.get_exection_time()), end = '\n\n')
+    print('Execution Time: ' + str(utils.get_exection_time()), end = '\n\n')
 
 
     # 引数を受け取る
     if (len(sys.argv) > 1):
 
-        caller = sys.argv[1] # 呼び出し元のバッチファイルの名前
+        caller = sys.argv[1]  # 呼び出し元のバッチファイルの名前
         print('Event: ' + caller, end = '\n\n')
 
-        # NOTIFY_MESSAGE にあるイベントでかつ通知がオンになっていれば
+        # NOTIFY_MESSAGE にあるイベントでかつ通知がオンになっていればメッセージをセット
         if (caller in config.NOTIFY_MESSAGE and caller in config.NOTIFY_EVENT):
-
-            # メッセージをセット
             message = config.NOTIFY_MESSAGE[caller]
 
+        # NOTIFY_MESSAGE にあるイベントだが、通知がオフになっているので終了
         elif caller in config.NOTIFY_MESSAGE:
-
             print('Info: ' + caller + ' notification is off, so it ends.', end = '\n\n')
             sys.exit(0)
 
-        else:
-
-            # 引数が不正なので終了    
+        # 引数が不正なので終了   
+        else: 
             utils.error('Invalid argument.')
 
+    # 引数がないので終了
     else:
-
-        # 引数がないので終了
         utils.error('Argument does not exist.')
 
 
     # マクロを取得
     macros = utils.get_macro(os.environ)
 
-    # マクロでメッセージを置換
+    # メッセージを置換
     for macro, macro_value in macros.items():
-
         # $$ で囲われた文字を置換する
         message = message.replace('$' + macro + '$', macro_value)
 
+    print('Message: ' + message.replace('\n', '\n         '), end = '\n\n')
+
 
     # 送信する画像
+    # パスをそのまま利用
     if (config.NOTIFY_IMAGE != None and os.path.isfile(config.NOTIFY_IMAGE)):
-
-        # そのまま使う
         image = config.NOTIFY_IMAGE
 
+    # パスを取得して連結
     elif (config.NOTIFY_IMAGE != None and os.path.isfile(os.path.dirname(__file__) + '/' + config.NOTIFY_IMAGE)):
-
-        # パスを取得して連結
         image = os.path.dirname(__file__) + '/' + config.NOTIFY_IMAGE
 
+    # 画像なし
     else:
-
-        # 画像なし
         image = None
-
-
-    print('Message: ' + message.replace('\n', '\n         '), end = '\n\n')
 
 
     # LINE Notify にメッセージを送信
