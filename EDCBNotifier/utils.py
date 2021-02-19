@@ -8,13 +8,13 @@ import jaconv
 
 import config
 
+
 class Utils:
 
     def __init__(self):
 
         # 実行時刻
         self.time = datetime.datetime.now()
-
 
     # 環境変数に格納されているマクロを取得してdictで返す
     # environ には os.environ を渡す
@@ -29,9 +29,9 @@ class Utils:
 
             # 標準マクロ
 
-            'FilePath': environ.get('FilePath', macro_default), # PostRecEnd.bat と 録画後実行 bat のみ
-            'FolderPath': environ.get('FolderPath', macro_default), # PostRecEnd.bat と 録画後実行 bat のみ
-            'FileName': environ.get('FileName', macro_default), # PostRecEnd.bat と 録画後実行 bat のみ
+            'FilePath': environ.get('FilePath', macro_default),  # PostRecEnd.bat と 録画後実行 bat のみ
+            'FolderPath': environ.get('FolderPath', macro_default),  # PostRecEnd.bat と 録画後実行 bat のみ
+            'FileName': environ.get('FileName', macro_default),  # PostRecEnd.bat と 録画後実行 bat のみ
             'Title': environ.get('Title', macro_default),
             'Title2': environ.get('Title2', macro_default),
             'SDYYYY': environ.get('SDYYYY', macro_default),
@@ -93,34 +93,34 @@ class Utils:
             'DUM': environ.get('DUM', macro_default),
             'DUSS': environ.get('DUSS', macro_default),
             'DUS': environ.get('DUS', macro_default),
-            'Drops': environ.get('Drops', macro_default), # PostRecEnd.bat と 録画後実行 bat のみ
-            'Scrambles': environ.get('Scrambles', macro_default), # PostRecEnd.bat と 録画後実行 bat のみ
-            'Result': environ.get('Result', macro_default), # PostRecEnd.bat と 録画後実行 bat のみ
-            'TitleF': environ.get('TitleF', macro_default), # PostRecEnd.bat と 録画後実行 bat のみ
-            'Title2F': environ.get('Title2F', macro_default), # PostRecEnd.bat と 録画後実行 bat のみ
-            'Genre': environ.get('Genre', macro_default), # 利用不可（RecName_Macro.dll のみ）
-            'Genre2': environ.get('Genre2', macro_default), # 利用不可（RecName_Macro.dll のみ）
-            'AddKey': environ.get('AddKey', macro_default), # PostRecEnd.bat と 録画後実行 bat のみ
-            'SubTitle': environ.get('SubTitle', macro_default), # 利用不可（RecName_Macro.dll のみ）
-            'SubTitle2': environ.get('SubTitle2', macro_default), # 利用不可（RecName_Macro.dll のみ）
+            'Drops': environ.get('Drops', macro_default),  # PostRecEnd.bat と 録画後実行 bat のみ
+            'Scrambles': environ.get('Scrambles', macro_default),  # PostRecEnd.bat と 録画後実行 bat のみ
+            'Result': environ.get('Result', macro_default),  # PostRecEnd.bat と 録画後実行 bat のみ
+            'TitleF': environ.get('TitleF', macro_default),  # PostRecEnd.bat と 録画後実行 bat のみ
+            'Title2F': environ.get('Title2F', macro_default),  # PostRecEnd.bat と 録画後実行 bat のみ
+            'Genre': environ.get('Genre', macro_default),  # 利用不可（RecName_Macro.dll のみ）
+            'Genre2': environ.get('Genre2', macro_default),  # 利用不可（RecName_Macro.dll のみ）
+            'AddKey': environ.get('AddKey', macro_default),  # PostRecEnd.bat と 録画後実行 bat のみ
+            'SubTitle': environ.get('SubTitle', macro_default),  # 利用不可（RecName_Macro.dll のみ）
+            'SubTitle2': environ.get('SubTitle2', macro_default),  # 利用不可（RecName_Macro.dll のみ）
 
             # xtne6f 版で追加されたマクロ
-            
-            'BatFileTag': environ.get('BatFileTag', macro_default), # PostRecEnd.bat と 録画後実行 bat のみ（？）
-            'RecInfoID': environ.get('ReserveID', macro_default), # PostRecEnd.bat のみ
-            'ReserveID': environ.get('ReserveID', macro_default), # PostRecEnd.bat 以外のみ
-            'RecMode': environ.get('RecMode', macro_default), # PostRecEnd.bat 以外のみ
-            'ReserveComment': environ.get('ReserveComment', macro_default), # PostRecEnd.bat 以外のみ
-            'NotifyID': environ.get('NotifyID', macro_default), # PostNotify.bat のみ
+
+            'BatFileTag': environ.get('BatFileTag', macro_default),  # PostRecEnd.bat と 録画後実行 bat のみ（？）
+            'RecInfoID': environ.get('ReserveID', macro_default),  # PostRecEnd.bat のみ
+            'ReserveID': environ.get('ReserveID', macro_default),  # PostRecEnd.bat 以外のみ
+            'RecMode': environ.get('RecMode', macro_default),  # PostRecEnd.bat 以外のみ
+            'ReserveComment': environ.get('ReserveComment', macro_default),  # PostRecEnd.bat 以外のみ
+            'NotifyID': environ.get('NotifyID', macro_default),  # PostNotify.bat のみ
 
             # EDCBNotifier 独自マクロ
-            
-            'HashTag': self.get_hashtag(jaconv.z2h(environ.get('ServiceName', macro_default), digit = True, ascii = True, kana = False)),
-            'HashTagTitle': self.get_hashtag_title(jaconv.z2h(environ.get('Title', macro_default), digit = True, ascii = True, kana = False)),
+
+            'HashTag': self.get_hashtag(jaconv.z2h(environ.get('ServiceName', macro_default), digit=True, ascii=True, kana=False)),
+            'HashTagTitle': self.get_hashtag_title(jaconv.z2h(environ.get('Title', macro_default), digit=True, ascii=True, kana=False)),
             'NotifyName': self.get_notify_name(environ.get('NotifyID', macro_default)),
-            'ServiceNameHankaku': jaconv.z2h(environ.get('ServiceName', macro_default), digit = True, ascii = True, kana = False),
-            'TitleHankaku': jaconv.z2h(environ.get('Title', macro_default), digit = True, ascii = True, kana = False),
-            'Title2Hankaku': jaconv.z2h(environ.get('Title2', macro_default), digit = True, ascii = True, kana = False),
+            'ServiceNameHankaku': jaconv.z2h(environ.get('ServiceName', macro_default), digit=True, ascii=True, kana=False),
+            'TitleHankaku': jaconv.z2h(environ.get('Title', macro_default), digit=True, ascii=True, kana=False),
+            'Title2Hankaku': jaconv.z2h(environ.get('Title2', macro_default), digit=True, ascii=True, kana=False),
             'TimeYYYY': self.time.strftime('%Y'),
             'TimeYY': self.time.strftime('%y'),
             'TimeMM': self.time.strftime('%m'),
@@ -139,7 +139,6 @@ class Utils:
 
         return macro_table
 
-
     # 放送局名からハッシュタグを取得する
     # BS-TBS が TBS と判定されるといったことがないよう BS・CS 局を先に判定する
     # service_name には半角に変換済みの放送局名が入るので注意
@@ -147,97 +146,73 @@ class Utils:
     def get_hashtag(self, service_name):
 
         # BS・CS
-
         if 'NHKBS1' in service_name:
-
             hashtag = '#nhkbs1'
 
         elif 'NHKBSプレミアム' in service_name:
-
             hashtag = '#nhkbsp'
 
         elif 'BS日テレ' in service_name:
-
             hashtag = '#bsntv'
 
         elif 'BS朝日' in service_name:
-
             hashtag = '#bsasahi'
 
         elif 'BS-TBS' in service_name:
-
             hashtag = '#bstbs'
 
         elif 'BSテレ東' in service_name:
-
             hashtag = '#bstvtokyo'
 
         elif 'BSフジ' in service_name:
-
             hashtag = '#bsfuji'
 
         elif 'BS11イレブン' in service_name:
-
             hashtag = '#bs11'
 
         elif 'BS12トゥエルビ' in service_name:
-
             hashtag = '#bs12'
 
         elif 'AT-X' in service_name:
-
             hashtag = '#at_x'
 
         # 地デジ
-        
         elif 'NHK総合' in service_name:
-
             hashtag = '#nhk'
 
         elif 'NHKEテレ' in service_name:
-
             hashtag = '#etv'
 
         elif 'tvk' in service_name:
-
             hashtag = '#tvk'
 
         elif 'チバテレ' in service_name:
-
             hashtag = '#chibatv'
 
         elif '日テレ' in service_name:
-
             hashtag = '#ntv'
 
         elif 'テレビ朝日' in service_name:
-
             hashtag = '#tvasahi'
 
         elif 'TBS' in service_name:
-
             hashtag = '#tbs'
 
         elif 'テレビ東京' in service_name:
-
             hashtag = '#tvtokyo'
 
         elif 'フジテレビ' in service_name:
-
             hashtag = '#fujitv'
 
         elif 'TOKYO MX' in service_name:
-
             hashtag = '#tokyomx'
 
+        # ハッシュタグが見つからないのでそのまま利用
         else:
-
-            # ハッシュタグが見つからないのでそのまま利用
             hashtag = '#' + service_name
 
         return hashtag
 
-    
     # 番組タイトルからハッシュタグを取得する
     # title には半角に変換済みのタイトル名が入るので注意
     def get_hashtag_title(self, title):
@@ -247,7 +222,6 @@ class Utils:
             if hashtag_title in title:
                 return config.NOTIFY_HASHTAG_TITLE[hashtag_title]
         return ''  # 存在しなかったら空文字列を返す
-
 
     # NotifyID から NotifyName を取得する
     def get_notify_name(self, notify_id):
@@ -261,24 +235,20 @@ class Utils:
             notify_name = '更新なし'
         return notify_name
 
-
     # エラー出力
     def error(self, message):
-        print(colorama.Fore.RED + 'Error: ' + message, end = '\n\n')
+        print(colorama.Fore.RED + 'Error: ' + message, end='\n\n')
         sys.exit(1)
-
 
     # 実行時刻
     def get_exection_time(self):
         return self.time.strftime('%Y/%m/%d %H:%M:%S')
-
 
     # 実行曜日
     # 参考: https://note.nkmk.me/python-datetime-day-locale-function/
     def get_exection_day(self):
         weeklist = ['月', '火', '水', '木', '金', '土', '日']
         return weeklist[self.time.weekday()]
-
 
     # バージョン情報
     def get_version(self):
