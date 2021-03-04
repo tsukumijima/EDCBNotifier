@@ -1,10 +1,9 @@
 
-# LINE Notify でメッセージを送信する
+# Discord でメッセージを送信する
 
 import os
 import requests
 import json
-
 
 class Discord:
 
@@ -18,7 +17,7 @@ class Discord:
 
         url = self.webhook_url
         headers = {
-             'Content-Type': 'application/json' 
+            'Content-Type': 'application/json' 
          }
 
 
@@ -40,11 +39,14 @@ class Discord:
 
             # テキストのみ送信
         response = requests.post(url, json.dumps(payload), headers = headers)
-
-        print(response.url)
-        #print(response.headers)
-        #print(response)
-        #print(response.json())
+        response_res = str(response) #検索するときに不都合なので文字列に変換
 
         # json を返す
-        return response.json()
+        # DiscordはResponseの中身がない204を返すので自分で疑似的にResponseを生成する
+        if '204' in response_res :
+            response.json = json.loads('{"status":204,"message":"Successfully"}')
+        else :
+            response.json = json.loads('{"status":400,"message":"Send Faild"}')
+
+        return response.json
+

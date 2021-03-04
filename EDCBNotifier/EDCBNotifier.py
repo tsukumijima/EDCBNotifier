@@ -118,17 +118,17 @@ def main():
             result_discord = discord.send_message(message, image = image)
             print(result_discord)
         except Exception as error:
-            print('[LINE Notify] Result: Failed')
-            print('[LINE Notify] ' + colorama.Fore.RED + 'Error: ' + error.args[0], end = '\n\n')
+            print('[Discord] Result: Failed')
+            print('[Discord] ' + colorama.Fore.RED + 'Error: ' + error.args[0], end = '\n\n')
         else:
             if result_discord['status'] != 204:
-                # ステータスが 200 以外（失敗）
+                # ステータスが 204 以外（失敗）
                 print('[Discord] Result: Failed (Code: ' + str(result_discord['status']) + ')')
                 print('[Discord] ' + colorama.Fore.RED + 'Error: ' + result_discord['message'], end = '\n\n')
             else:
                 # ステータスが 200（成功）
-                print('[Discord Notify] Result: Success (Code: ' + str(result_discord['status']) + ')')
-                print('[Discord Notify] Message: ' + result_discord['message'], end = '\n\n')
+                print('[Discord] Result: Success (Code: ' + str(result_discord['status']) + ')')
+                print('[Discord] Message: ' + result_discord['message'], end = '\n\n')
 
 
     # Twitter にツイートを送信
