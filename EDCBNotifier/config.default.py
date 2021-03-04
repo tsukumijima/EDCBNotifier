@@ -4,8 +4,8 @@
 # [] で囲われている部分は配列 (list)
 # {} で囲われている部分は辞書 (dict)
 # 文字列は必ずシングルクオート ('') で囲んでください
-# ハッシュ (#) をつけるとコメントになります (// はコメントにならない)
-# 文字コード UTF-8 (BOM なし)・改行コード LF 以外で保存すると動作しなくなるので注意（メモ帳は基本的に NG）
+# ハッシュ (#) をつけるとコメントになります（ // はコメントになりません）
+# 文字コード UTF-8 (BOM なし)・改行コード LF 以外で保存すると動作しなくなるので注意（メモ帳は基本的に NG ）
 # できれば VSCode などのシンタックスハイライトのあるエディタでの編集を推奨します
 
 
@@ -24,8 +24,8 @@ NOTIFY_TYPE = ['LINE','Discord', 'Tweet', 'DirectMessage']
 
 
 # 通知を行うイベント
-# 通知イベントのオン・オフを指定できます（たとえば頻度の多い PostNotify だけ通知しない設定も可能）
-# ここで設定したイベントだけが通知されます（通知オフ） 設定されなかったイベントは通知されない（通知オフ）
+# 通知するイベントのオン・オフを指定できます たとえば頻度の多い PostNotify だけ通知しない設定も可能です
+# ここで設定したイベントだけが通知されます（通知オン） 設定しなかったイベントは通知されません（通知オフ）
 # 各 .bat ファイルを配置しないことでも通知イベントのオン・オフは可能ですが、できるだけこの設定を使うことを推奨します
 
 # PostAddReserve … 予約を追加したとき ( PostAddReserve.bat が実行されたとき)
@@ -38,15 +38,15 @@ NOTIFY_TYPE = ['LINE','Discord', 'Tweet', 'DirectMessage']
 # ex (PostNotify 以外を通知): NOTIFY_EVENT = ['PostAddReserve', 'PostChgReserve', 'PostRecStart', 'PostRecEnd']
 # ex (予約の追加・変更を通知): NOTIFY_EVENT = ['PostAddReserve', 'PostChgReserve']
 # ex (録画の開始・終了を通知): NOTIFY_EVENT = ['PostRecStart', 'PostRecEnd']
-# ex (録画結果だけ通知): NOTIFY_EVENT = ['PostRecEnd'] 
+# ex (録画結果だけ通知): NOTIFY_EVENT = ['PostRecEnd']
 
 NOTIFY_EVENT = ['PostAddReserve', 'PostChgReserve', 'PostRecStart', 'PostRecEnd', 'PostNotify']
 
 
-# 通知時に同時に送信する画像 (フルパスで指定)
-# 画像を config.py と同じ階層に置く場合はファイル名だけの指定でも OK
+# 通知時に同時に送信する画像（フルパスで指定）
+# 画像を config.py と同じ階層に置く場合はファイル名だけの指定でも大丈夫です
 # 画像サイズが大きすぎると送れない場合があるので注意
-# None (シングルクオートはつけない) に設定した場合は画像を送信しません
+# None（シングルクオートはつけない）に設定した場合は画像を送信しません
 
 # ex: NOTIFY_IMAGE = 'C:\Users\User\Pictures\EDCBNotifier.png'
 # ex: NOTIFY_IMAGE = 'EDCBNotifier.png'
@@ -55,10 +55,10 @@ NOTIFY_EVENT = ['PostAddReserve', 'PostChgReserve', 'PostRecStart', 'PostRecEnd'
 NOTIFY_IMAGE = None
 
 
-# ダイレクトメッセージの宛先 (スクリーンネーム (@ から始まる ID) で指定)
+# ダイレクトメッセージの宛先（スクリーンネーム：@ から始まるアカウントの ID で指定）
 # 上の設定で DirectMessage (ダイレクトメッセージ) を設定した場合に適用されます
 # @ はつけずに指定してください 予め宛先のアカウントと DM が送信できる状態になっていないと送れません
-# None (シングルクオートはつけない) に設定した場合は自分宛てに送信します
+# None（シングルクオートはつけない）に設定した場合は自分宛てに送信します
 
 # ex: NOTIFY_DIRECTMESSAGE_TO = 'AbeShinzo'
 # ex: NOTIFY_DIRECTMESSAGE_TO = None
@@ -79,15 +79,14 @@ NOTIFY_LOG = False
 
 # 改行を入れる場合は文字列内に \n と入力してください
 # 文字列は + で連結できます
-# 
 # https://github.com/xtne6f/EDCB/blob/70b2331aadb328eb347fe0c4e4e23c8e91d286b7/Document/Readme_EpgTimer.txt#L929-L1008 と
 # https://github.com/xtne6f/EDCB/blob/4c3bd5be3dc49607aa821d728105955c03fba4db/Document/Readme_Mod.txt#L451-L475 に記載されている EDCB のマクロが使えます
 # マクロは $$ で囲んでください (ex: $ServiceName$)
-# 
+
 # また、独自にいくつかのマクロを追加しています
-# ・$HashTag$ … 放送局名から取得したハッシュタグ (ハッシュタグは utils.py の get_hashtag() メソッドで定義) 
-# ・$HashTagTitle$ … 番組タイトルから取得したハッシュタグ (ハッシュタグは下記の NOTIFY_HASHTAG_TITLE で定義) 
-# ・$NotifyName$ … $NofityID$ から取得した更新通知タイプ（$NofityID$ = 1 … EPGデータ更新 2 … 予約情報更新 3 … 録画結果情報更新）
+# ・$HashTag$ … 放送局名から取得したハッシュタグ（ハッシュタグは utils.py の get_hashtag() メソッドで定義）
+# ・$HashTagTitle$ … 番組タイトルから取得したハッシュタグ（ハッシュタグは下記の NOTIFY_HASHTAG_TITLE で定義）
+# ・$NotifyName$ … $NofityID$ から取得した更新通知タイプ（ $NofityID$ = 1 … EPGデータ更新 2 … 予約情報更新 3 … 録画結果情報更新）
 # ・$ServiceNameHankaku$ … $ServiceName$（放送局名）の英数字を半角に変換したもの
 # ・$TitleHankaku$ … $Title$（番組タイトル）の英数字を半角に変換したもの
 # ・$Title2Hankaku$ … $Title2$（番組タイトル・[]で囲まれている部分を削除したもの）の英数字を半角に変換したもの
@@ -103,19 +102,19 @@ NOTIFY_MESSAGE = {
 
     # 予約を追加したとき（ PostAddReserve.bat が実行されたとき）に送信するメッセージ
     'PostAddReserve': '➕ 予約追加: $SDYYYY$/$SDMM$/$SDDD$($SDW$) $ServiceNameHankaku$ $HashTag$ \n' +
-                      '$STHH$:$STMM$～$ETHH$:$ETMM$ $TitleHankaku$',
+                      '$STHH$:$STMM$～$ETHH$:$ETMM$ $TitleHankaku$ $HashTagTitle$',
 
     # 予約を変更したとき（ PostChgReserve.bat が実行されたとき）に送信するメッセージ
     'PostChgReserve': '📢 予約変更: $SDYYYY$/$SDMM$/$SDDD$($SDW$) $ServiceNameHankaku$ $HashTag$ \n' +
-                      '$STHH$:$STMM$～$ETHH$:$ETMM$ $TitleHankaku$',
+                      '$STHH$:$STMM$～$ETHH$:$ETMM$ $TitleHankaku$ $HashTagTitle$',
 
     # 録画を開始したとき（ PostRecStart.bat が実行されたとき）に送信するメッセージ
     'PostRecStart':   '⏺ 録画開始: $SDYYYY$/$SDMM$/$SDDD$($SDW$) $ServiceNameHankaku$ $HashTag$ \n' +
-                      '$STHH$:$STMM$～$ETHH$:$ETMM$ $TitleHankaku$',
+                      '$STHH$:$STMM$～$ETHH$:$ETMM$ $TitleHankaku$ $HashTagTitle$',
 
     # 録画を終了したとき（ PostRecEnd.bat が実行されたとき）に送信するメッセージ
     'PostRecEnd':     '⏹ 録画終了: $SDYYYY$/$SDMM$/$SDDD$($SDW$) $ServiceNameHankaku$ $HashTag$ \n' +
-                      '$STHH$:$STMM$～$ETHH$:$ETMM$ $TitleHankaku$ \n' +
+                      '$STHH$:$STMM$～$ETHH$:$ETMM$ $TitleHankaku$ $HashTagTitle$ \n' +
                       'Drop: $Drops$ Scramble: $Scrambles$ Comment: $Result$',
 
     # 更新通知が送られたとき（ PostNotify.bat が実行されたとき）に送信するメッセージ
