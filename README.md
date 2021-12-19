@@ -76,7 +76,7 @@ EDCBNotifier の実行には Python (Python3) が必要です 。動作確認は
 ![Screenshot](https://user-images.githubusercontent.com/39271166/88384104-c042d900-cde6-11ea-89f3-a1341b5d998e.png)
 
 [非公式 Python ダウンロードリンク](https://pythonlinks.python.jp/ja/index.html) から、Python3 のインストーラーをダウンロードします。  
-とくにこだわりがないのであれば、**一番上にある Windows (64bit) 用 Python 3.8 の最新版 ( 2020 年 7 月現在の最新は 3.8.5 ) をダウンロードしてください。**  
+とくにこだわりがないのであれば、**一番上にある Windows (64bit) 用 Python 3.8 の最新版 ( 2021 年 12 月現在の最新は 3.8.10 ) をダウンロードしてください。**  
 
 [Python 公式サイト](https://www.python.org/downloads/windows/) からもダウンロードできますが、わかりにくいので前述のサイトからダウンロードすることをおすすめします。  
 Python 公式サイトにも大きいダウンロードボタンがありますが、これは罠です…（OS のビットに関わらず 32bit の インストーラーがダウンロードされる）  
@@ -110,7 +110,7 @@ Python 公式サイトにも大きいダウンロードボタンがあります�
 EDCBNotifier が必要とする colorama・jaconv・requests・twitter の各ライブラリを pip でインストールします。  
 
 **コマンドプロンプトや PowerShell を開き、`pip install -r (ダウンロードした EDCBNotifier\requirements.txt)` と実行します。**  
-または単に `pip install -r colorama jaconv requests twitter` としても構いません。
+または単に `pip install colorama jaconv requests twitter` としても構いません。
 
 エラーなくインストールできれば OK です。
 
@@ -181,7 +181,7 @@ PostRecEnd の \$Drops\$ / \$Scrambles\$ / \$Result\$ など、特定のイベ�
 
 - \$HashTag\$ … 放送局名から取得したハッシュタグ (ハッシュタグは utils.py の get_hashtag() メソッドで定義) 
 - \$HashTagTitle\$ … 番組タイトルから取得したハッシュタグ (ハッシュタグは下記の NOTIFY_HASHTAG_TITLE で定義) 
-- \$NotifyName\$ … \$NofityID\$ から取得した更新通知タイプ（\$NofityID\$ = 1 … EPGデータ更新 2 … 予約情報更新 3 … 録画結果情報更新）
+- \$NotifyName\$ … \$NotifyID\$ から取得した更新通知タイプ（\$NotifyID\$ = 1 … EPGデータ更新 2 … 予約情報更新 3 … 録画結果情報更新）
 - \$ServiceNameHankaku\$ … \$ServiceName\$（放送局名）の英数字を半角に変換したもの
 - \$TitleHankaku\$ … \$Title\$（番組タイトル）の英数字を半角に変換したもの
 - \$Title2Hankaku\$ … \$Title2\$（番組タイトル・[]で囲まれている部分を削除したもの）の英数字を半角に変換したもの
