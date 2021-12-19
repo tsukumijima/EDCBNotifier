@@ -86,7 +86,7 @@ NOTIFY_LOG = False
 # また、独自にいくつかのマクロを追加しています
 # ・$HashTag$ … 放送局名から取得したハッシュタグ（ハッシュタグは utils.py の get_hashtag() メソッドで定義）
 # ・$HashTagTitle$ … 番組タイトルから取得したハッシュタグ（ハッシュタグは下記の NOTIFY_HASHTAG_TITLE で定義）
-# ・$NotifyName$ … $NofityID$ から取得した更新通知タイプ（ $NofityID$ = 1 … EPGデータ更新 2 … 予約情報更新 3 … 録画結果情報更新）
+# ・$NotifyName$ … $NotifyID$ から取得した更新通知タイプ（ $NotifyID$ = 1 … EPGデータ更新 2 … 予約情報更新 3 … 録画結果情報更新）
 # ・$ServiceNameHankaku$ … $ServiceName$（放送局名）の英数字を半角に変換したもの
 # ・$TitleHankaku$ … $Title$（番組タイトル）の英数字を半角に変換したもの
 # ・$Title2Hankaku$ … $Title2$（番組タイトル・[]で囲まれている部分を削除したもの）の英数字を半角に変換したもの
