@@ -35,7 +35,6 @@ class LINE:
         # リクエストヘッダー
         headers = {
             'Authorization': 'Bearer ' + self.access_token,
-            'Content-Type': 'application/json',
         }
 
         # メッセージ
@@ -47,12 +46,12 @@ class LINE:
 
             # 画像とテキストを送信
             image_data = {'imageFile': open(image_path, 'rb')}
-            response = requests.post(url, headers=headers, params=payload, files=image_data)
+            response = requests.post(url, headers=headers, data=payload, files=image_data)
 
         else:
 
             # テキストのみ送信
-            response = requests.post(url, headers=headers, params=payload)
+            response = requests.post(url, headers=headers, data=payload)
 
         # API レスポンスを返す
         return response.json()
