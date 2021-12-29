@@ -6,6 +6,7 @@ import colorama
 import config
 from utils import Utils
 from sendline import Line
+from senddiscord import Discord
 from sendtwitter import Twitter
 
 
@@ -90,6 +91,28 @@ def main():
                 # ステータスが 200（成功）
                 print('[LINE Notify] Result: Success (Code: ' + str(result_line['status']) + ')')
                 print('[LINE Notify] Message: ' + result_line['message'], end='\n\n')
+
+    # Discord にメッセージを送信
+    if ('Discord' in config.NOTIFY_TYPE):
+
+        discord = Discord(config.Discord_WEBHOOK_URL)
+
+        try:
+            result_discord = discord.send_message(message, image = image)
+            print(result_discord)
+        except Exception as error:
+            print('[Discord] Result: Failed')
+            print('[Discord] ' + colorama.Fore.RED + 'Error: ' + error.args[0], end = '\n\n')
+        else:
+            if result_discord['status'] != 204:
+                # ステータスが 204 以外（失敗）
+                print('[Discord] Result: Failed (Code: ' + str(result_discord['status']) + ')')
+                print('[Discord] ' + colorama.Fore.RED + 'Error: ' + result_discord['message'], end = '\n\n')
+            else:
+                # ステータスが 200（成功）
+                print('[Discord] Result: Success (Code: ' + str(result_discord['status']) + ')')
+                print('[Discord] Message: ' + result_discord['message'], end = '\n\n')
+
 
     # Twitter にツイートを送信
     if ('Tweet' in config.NOTIFY_TYPE):

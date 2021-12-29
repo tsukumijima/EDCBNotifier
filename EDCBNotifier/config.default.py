@@ -20,7 +20,7 @@
 # ex (LINE とダイレクトメッセージ): NOTIFY_TYPE = ['LINE', 'DirectMessage']
 # ex (全て): NOTIFY_TYPE = ['LINE', 'Tweet', 'DirectMessage']
 
-NOTIFY_TYPE = ['LINE', 'Tweet', 'DirectMessage']
+NOTIFY_TYPE = ['LINE','Discord', 'Tweet', 'DirectMessage']
 
 
 # 通知を行うイベント
@@ -138,6 +138,12 @@ NOTIFY_HASHTAG_TITLE = {
 
 # LINE Notify のアクセストークン
 LINE_ACCESS_TOKEN = 'YOUR_LINE_ACCESS_TOKEN'
+
+
+# ================  Discord Webhook  ================
+
+# LINE Notify のアクセストークン
+Discord_WEBHOOK_URL = 'YOUR_DISCORD_WENHOOK_URL'
 
 
 # ==================  Twitter API  ==================
