@@ -60,7 +60,7 @@ class Discord:
 
         # 失敗した場合はエラーメッセージを取得
         if response.status_code != 204:
-            message = response.json()['message'] + f' (Code:{response.json()["code"]})'
+            message = response.json()['message'] + f' (Code: {response.json()["code"]})'
         else:
             message = 'Success'
 
