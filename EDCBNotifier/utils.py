@@ -1,24 +1,34 @@
 
-# Utils
-
-import sys
 import colorama
-import datetime
 import jaconv
+import os
+import sys
+from datetime import datetime
 
 import config
 
 
 class Utils:
 
-    def __init__(self):
+    # EDCBNotifier のバージョン
+    VERSION = 'v1.2.0'
+
+
+    @staticmethod
+    def getMacro(environ: os._Environ) -> dict:
+        """
+        環境変数に格納されているマクロを取得し、辞書にして返す
+        environ には os.environ を渡す
+
+        Args:
+            environ (os._Environ): os.environ の値
+
+        Returns:
+            dict: マクロの値が入った辞書
+        """
 
         # 実行時刻
-        self.time = datetime.datetime.now()
-
-    # 環境変数に格納されているマクロを取得してdictで返す
-    # environ には os.environ を渡す
-    def get_macro(self, environ):
+        time = datetime.now()
 
         # 値が存在しなかった場合の初期値
         macro_default = '--'
@@ -28,7 +38,6 @@ class Utils:
         macro_table = {
 
             # 標準マクロ
-
             'FilePath': environ.get('FilePath', macro_default),  # PostRecEnd.bat と 録画後実行 bat のみ
             'FolderPath': environ.get('FolderPath', macro_default),  # PostRecEnd.bat と 録画後実行 bat のみ
             'FileName': environ.get('FileName', macro_default),  # PostRecEnd.bat と 録画後実行 bat のみ
@@ -105,7 +114,6 @@ class Utils:
             'SubTitle2': environ.get('SubTitle2', macro_default),  # 利用不可（RecName_Macro.dll のみ）
 
             # xtne6f 版で追加されたマクロ
-
             'BatFileTag': environ.get('BatFileTag', macro_default),  # PostRecEnd.bat と 録画後実行 bat のみ（？）
             'RecInfoID': environ.get('ReserveID', macro_default),  # PostRecEnd.bat のみ
             'ReserveID': environ.get('ReserveID', macro_default),  # PostRecEnd.bat 以外のみ
@@ -114,142 +122,173 @@ class Utils:
             'NotifyID': environ.get('NotifyID', macro_default),  # PostNotify.bat のみ
 
             # EDCBNotifier 独自マクロ
-
-            'HashTag': self.get_hashtag(jaconv.z2h(environ.get('ServiceName', macro_default), digit=True, ascii=True, kana=False)),
-            'HashTagTitle': self.get_hashtag_title(jaconv.z2h(environ.get('Title', macro_default), digit=True, ascii=True, kana=False)),
-            'NotifyName': self.get_notify_name(environ.get('NotifyID', macro_default)),
+            'HashTag': Utils.getChannelHashtag(jaconv.z2h(environ.get('ServiceName', macro_default), digit=True, ascii=True, kana=False)),
+            'HashTagTitle': Utils.getProgramHashtag(jaconv.z2h(environ.get('Title', macro_default), digit=True, ascii=True, kana=False)),
+            'NotifyName': Utils.getNotifyType(int(environ.get('NotifyID', macro_default))),
             'ServiceNameHankaku': jaconv.z2h(environ.get('ServiceName', macro_default), digit=True, ascii=True, kana=False),
             'TitleHankaku': jaconv.z2h(environ.get('Title', macro_default), digit=True, ascii=True, kana=False),
             'Title2Hankaku': jaconv.z2h(environ.get('Title2', macro_default), digit=True, ascii=True, kana=False),
-            'TimeYYYY': self.time.strftime('%Y'),
-            'TimeYY': self.time.strftime('%y'),
-            'TimeMM': self.time.strftime('%m'),
-            'TimeM': str(int(self.time.strftime('%m'))),
-            'TimeDD': self.time.strftime('%d'),
-            'TimeD': str(int(self.time.strftime('%d'))),
-            'TimeW': self.get_execution_day(),
-            'TimeHH': self.time.strftime('%H'),
-            'TimeH': str(int(self.time.strftime('%H'))),
-            'TimeII': self.time.strftime('%M'),
-            'TimeI': str(int(self.time.strftime('%M'))),
-            'TimeSS': self.time.strftime('%S'),
-            'TimeS': str(int(self.time.strftime('%S'))),
-
+            'TimeYYYY': time.strftime('%Y'),
+            'TimeYY': time.strftime('%y'),
+            'TimeMM': time.strftime('%m'),
+            'TimeM': str(int(time.strftime('%m'))),
+            'TimeDD': time.strftime('%d'),
+            'TimeD': str(int(time.strftime('%d'))),
+            'TimeW': Utils.getExecutionDay(),
+            'TimeHH': time.strftime('%H'),
+            'TimeH': str(int(time.strftime('%H'))),
+            'TimeII': time.strftime('%M'),
+            'TimeI': str(int(time.strftime('%M'))),
+            'TimeSS': time.strftime('%S'),
+            'TimeS': str(int(time.strftime('%S'))),
         }
 
         return macro_table
 
-    # 放送局名からハッシュタグを取得する
-    # BS-TBS が TBS と判定されるといったことがないよう BS・CS 局を先に判定する
-    # service_name には半角に変換済みの放送局名が入るので注意
-    # 参考: https://nyanshiba.com/blog/dtv-edcb-twitter
-    def get_hashtag(self, service_name):
+
+    @staticmethod
+    def getChannelHashtag(channel_name: str) -> str:
+        """
+        チャンネル名からハッシュタグを取得する
+        BS-TBS が TBS と判定されるといったことがないように、BS・CS 局を先に判定する
+        channel_name には半角に変換済みのチャンネル名が入るので注意
+        ref: https://nyanshiba.com/blog/dtv-edcb-twitter
+
+        Args:
+            channel_name (str): チャンネル名
+
+        Returns:
+            str: チャンネル名に紐づくハッシュタグ
+        """
 
         # BS・CS
-        if 'NHKBS1' in service_name:
+        if 'NHKBS1' in channel_name:
             hashtag = '#nhkbs1'
-
-        elif 'NHKBSプレミアム' in service_name:
+        elif 'NHKBSプレミアム' in channel_name:
             hashtag = '#nhkbsp'
-
-        elif 'BS日テレ' in service_name:
+        elif 'BS日テレ' in channel_name:
             hashtag = '#bsntv'
-
-        elif 'BS朝日' in service_name:
+        elif 'BS朝日' in channel_name:
             hashtag = '#bsasahi'
-
-        elif 'BS-TBS' in service_name:
+        elif 'BS-TBS' in channel_name:
             hashtag = '#bstbs'
-
-        elif 'BSテレ東' in service_name:
+        elif 'BSテレ東' in channel_name:
             hashtag = '#bstvtokyo'
-
-        elif 'BSフジ' in service_name:
+        elif 'BSフジ' in channel_name:
             hashtag = '#bsfuji'
-
-        elif 'BS11イレブン' in service_name:
+        elif 'BS11イレブン' in channel_name:
             hashtag = '#bs11'
-
-        elif 'BS12トゥエルビ' in service_name:
+        elif 'BS12トゥエルビ' in channel_name:
             hashtag = '#bs12'
-
-        elif 'AT-X' in service_name:
+        elif 'AT-X' in channel_name:
             hashtag = '#at_x'
 
         # 地デジ
-        elif 'NHK総合' in service_name:
+        elif 'NHK総合' in channel_name:
             hashtag = '#nhk'
-
-        elif 'NHKEテレ' in service_name:
+        elif 'NHKEテレ' in channel_name:
             hashtag = '#etv'
-
-        elif 'tvk' in service_name:
+        elif 'tvk' in channel_name:
             hashtag = '#tvk'
-
-        elif 'チバテレ' in service_name:
+        elif 'チバテレ' in channel_name:
             hashtag = '#chibatv'
-
-        elif '日テレ' in service_name:
+        elif '日テレ' in channel_name:
             hashtag = '#ntv'
-
-        elif 'テレビ朝日' in service_name:
+        elif 'テレビ朝日' in channel_name:
             hashtag = '#tvasahi'
-
-        elif 'TBS' in service_name:
+        elif 'TBS' in channel_name:
             hashtag = '#tbs'
-
-        elif 'テレビ東京' in service_name:
+        elif 'テレビ東京' in channel_name:
             hashtag = '#tvtokyo'
-
-        elif 'フジテレビ' in service_name:
+        elif 'フジテレビ' in channel_name:
             hashtag = '#fujitv'
-
-        elif 'TOKYO MX' in service_name:
+        elif 'TOKYO MX' in channel_name:
             hashtag = '#tokyomx'
 
         # ハッシュタグが見つからないのでそのまま利用
         else:
-            hashtag = '#' + service_name
+            hashtag = '#' + channel_name
 
         return hashtag
 
-    # 番組タイトルからハッシュタグを取得する
-    # title には半角に変換済みのタイトル名が入るので注意
-    def get_hashtag_title(self, title):
 
-        # dict 内にそのタイトルが存在するか
+    @staticmethod
+    def getProgramHashtag(program_title: str) -> str:
+        """
+        番組タイトルからハッシュタグを取得する
+        program_title には半角に変換済みのタイトル名が入るので注意
+
+        Args:
+            title (str): 番組タイトル
+
+        Returns:
+            str: 番組タイトルに紐づくハッシュタグ
+        """
+
+        # dict 内に指定された番組タイトルが存在するか
         for hashtag_title in config.NOTIFY_HASHTAG_TITLE.keys():
-            if hashtag_title in title:
+            if hashtag_title in program_title:
                 return config.NOTIFY_HASHTAG_TITLE[hashtag_title]
-        return ''  # 存在しなかったら空文字列を返す
 
-    # NotifyID から NotifyName を取得する
-    def get_notify_name(self, notify_id):
-        if notify_id == '1':
+        # 存在しなかったら空文字列を返す
+        return ''
+
+
+    @staticmethod
+    def getNotifyType(notify_id: int) -> str:
+        """
+        NotifyID から通知の種類を取得する
+
+        Args:
+            notify_id (int): EDCB の NotifyID
+
+        Returns:
+            str: 通知の種類
+        """
+
+        if notify_id == 1:
             notify_name = 'EPGデータ更新'
-        elif notify_id == '2':
+        elif notify_id == 2:
             notify_name = '予約情報更新'
-        elif notify_id == '3':
+        elif notify_id == 3:
             notify_name = '録画結果情報更新'
         else:
             notify_name = '更新なし'
+
         return notify_name
 
-    # エラー出力
-    def error(self, message):
+
+    @staticmethod
+    def getExecutionTime() -> str:
+        """
+        EDCBNotifier の実行時刻をフォーマットして返す
+
+        Returns:
+            str: EDCBNotifier の実行時刻
+        """
+        return datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+
+
+    @staticmethod
+    def getExecutionDay() -> str:
+        """
+        EDCBNotifier の実行日を返す
+        ref: https://note.nkmk.me/python-datetime-day-locale-function/
+
+        Returns:
+            str: EDCBNotifier の実行日
+        """
+        weeklist = ['月', '火', '水', '木', '金', '土', '日']
+        return weeklist[datetime.now().weekday()]
+
+
+    @staticmethod
+    def error(message: str) -> None:
+        """
+        エラーメッセージを表示して終了する
+
+        Args:
+            message (str): エラーメッセージ
+        """
         print(colorama.Fore.RED + 'Error: ' + message, end='\n\n')
         sys.exit(1)
-
-    # 実行時刻
-    def get_execution_time(self):
-        return self.time.strftime('%Y/%m/%d %H:%M:%S')
-
-    # 実行曜日
-    # 参考: https://note.nkmk.me/python-datetime-day-locale-function/
-    def get_execution_day(self):
-        weeklist = ['月', '火', '水', '木', '金', '土', '日']
-        return weeklist[self.time.weekday()]
-
-    # バージョン情報
-    def get_version(self):
-        return '1.2.0'

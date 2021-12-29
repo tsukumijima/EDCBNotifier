@@ -14,18 +14,17 @@ def main():
 
     # 初期化
     colorama.init(autoreset=True)
-    utils = Utils()
     if config.NOTIFY_LOG:  # 標準出力をファイルに変更
         sys.stdout = open(os.path.dirname(__file__) + '/' + 'EDCBNotifier.log', mode='w', encoding='utf-8')
         sys.stderr = open(os.path.dirname(__file__) + '/' + 'EDCBNotifier.log', mode='w', encoding='utf-8')
 
     # ヘッダー
     header = '+' * 60 + '\n'
-    header += '+{:^58}+\n'.format('EDCBNotifier version ' + utils.get_version())
+    header += '+{:^58}+\n'.format('EDCBNotifier version ' + Utils.VERSION)
     header += '+' * 60 + '\n'
     print('\n' + header)
 
-    print('Execution Time: ' + str(utils.get_execution_time()), end='\n\n')
+    print('Execution Time: ' + str(Utils.getExecutionTime()), end='\n\n')
 
     # 引数を受け取る
     if (len(sys.argv) > 1):
@@ -44,14 +43,14 @@ def main():
 
         # 引数が不正なので終了
         else:
-            utils.error('Invalid argument.')
+            Utils.error('Invalid argument.')
 
     # 引数がないので終了
     else:
-        utils.error('Argument does not exist.')
+        Utils.error('Argument does not exist.')
 
     # マクロを取得
-    macros = utils.get_macro(os.environ)
+    macros = Utils.getMacro(os.environ)
     # メッセージを置換
     for macro, macro_value in macros.items():
         # $$ で囲われた文字を置換する
