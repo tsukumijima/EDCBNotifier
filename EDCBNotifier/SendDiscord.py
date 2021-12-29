@@ -1,4 +1,7 @@
 
+import io
+import json
+import os
 import requests
 
 
@@ -16,7 +19,7 @@ class Discord:
         self.webhook_url = webhook_url
 
 
-    def sendMessage(self, message:str, image_path:str=None) -> int:
+    def sendMessage(self, message:str, image_path:str=None) -> dict:
         """
         Discord の Webhook でメッセージを送信する
 
@@ -25,12 +28,14 @@ class Discord:
             image_path (str, optional): 送信する画像のファイルパス. Defaults to None.
 
         Returns:
-            int: API レスポンスのステータスコード
+            dict: ステータスコードとエラーメッセージが入った辞書
         """
 
         # リクエストヘッダー
+        # 公式ドキュメントいわく、画像も一緒に送る場合は multipart/form-data である必要があるらしい
+        # ref: https://discord.com/developers/docs/resources/channel#create-message
         headers = {
-            'Content-Type': 'application/json',
+            'Content-Type': 'multipart/form-data',
         }
 
         # メッセージ
@@ -40,9 +45,27 @@ class Discord:
             'content': message,
         }
 
-        # テキストのみ送信
-        response = requests.post(self.webhook_url, headers=headers, params=payload)
+        # 送信するファイル
+        # ref: https://qiita.com/bgcanary/items/6d81b7813434978362f4
+        files = {
+            'payload_json': ('request.json', io.BytesIO(json.dumps(payload).encode('utf-8')), 'application/json')
+        }
 
-        # ステータスコードを返す
-        # Discord の Webhook は基本 204 (No Content) を返すため
-        return response.status_code
+        # 送信するファイルに画像を追加
+        if image_path is not None and os.path.isfile(image_path):
+            files['files[0]'] = (os.path.basename(image_path), open(image_path, 'rb'))
+
+        # Webhook を送信
+        response = requests.post(self.webhook_url, headers=headers, files=files)
+
+        # 失敗した場合はエラーメッセージを取得
+        if response.status_code != 204:
+            message = response.json()['message'] + f' (Code:{response.json()["code"]})'
+        else:
+            message = 'Success'
+
+        # ステータスコードとエラーメッセージを返す
+        return {
+            'status': response.status_code,
+            'message': message,
+        }
