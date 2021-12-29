@@ -127,7 +127,7 @@ class Utils:
             # EDCBNotifier 独自マクロ
             'HashTag': Utils.getChannelHashtag(jaconv.z2h(environ.get('ServiceName', macro_default), digit=True, ascii=True, kana=False)),
             'HashTagTitle': Utils.getProgramHashtag(jaconv.z2h(environ.get('Title', macro_default), digit=True, ascii=True, kana=False)),
-            'NotifyName': Utils.getNotifyType(int(environ.get('NotifyID', macro_default))),
+            'NotifyName': Utils.getNotifyType(environ.get('NotifyID', macro_default)),
             'ServiceNameHankaku': jaconv.z2h(environ.get('ServiceName', macro_default), digit=True, ascii=True, kana=False),
             'TitleHankaku': jaconv.z2h(environ.get('Title', macro_default), digit=True, ascii=True, kana=False),
             'Title2Hankaku': jaconv.z2h(environ.get('Title2', macro_default), digit=True, ascii=True, kana=False),
@@ -268,22 +268,22 @@ class Utils:
 
 
     @staticmethod
-    def getNotifyType(notify_id: int) -> str:
+    def getNotifyType(notify_id: str) -> str:
         """
         NotifyID から通知の種類を取得する
 
         Args:
-            notify_id (int): EDCB の NotifyID
+            notify_id (str): EDCB の NotifyID
 
         Returns:
             str: 通知の種類
         """
 
-        if notify_id == 1:
+        if notify_id == '1':
             notify_name = 'EPGデータ更新'
-        elif notify_id == 2:
+        elif notify_id == '2':
             notify_name = '予約情報更新'
-        elif notify_id == 3:
+        elif notify_id == '3':
             notify_name = '録画結果情報更新'
         else:
             notify_name = '更新なし'
