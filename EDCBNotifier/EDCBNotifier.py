@@ -102,13 +102,14 @@ def main():
             print(f'[Discord] Result: Failed')
             print(f'[Discord] {colorama.Fore.RED}Error: {error.args[0]}', end='\n\n')
         else:
-            if result_discord['status'] != 204:
-                # ステータスが 204 以外（失敗）
+            if result_discord['status'] != 200 and result_discord['status'] != 204:
+                # ステータスが 200 or 204 以外（失敗）
                 print(f'[Discord] Result: Failed (Code: {result_discord["status"]})')
                 print(f'[Discord] {colorama.Fore.RED}Error: {result_discord["message"]}', end='\n\n')
             else:
-                # ステータスが 200（成功）
-                print(f'[Discord] Result: Success (Code: {result_discord["status"]})', end='\n\n')
+                # ステータスが 200 or 204（成功）
+                print(f'[Discord] Result: Success (Code: {result_discord["status"]})')
+                print(f'[Discord] Message: {result_discord["message"]}', end='\n\n')
 
     # Twitter API を初期化
     if 'Tweet' in config.NOTIFY_TYPE or 'DirectMessage' in config.NOTIFY_TYPE:

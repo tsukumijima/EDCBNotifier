@@ -31,35 +31,48 @@ class Discord:
             dict: ステータスコードとエラーメッセージが入った辞書
         """
 
-        # リクエストヘッダー
-        # 公式ドキュメントいわく、画像も一緒に送る場合は multipart/form-data である必要があるらしい
-        # ref: https://discord.com/developers/docs/resources/channel#create-message
-        headers = {
-            'Content-Type': 'multipart/form-data',
-        }
-
-        # メッセージ
-        payload = {
-            'username':'EDCBNotifier',
-            'avatar_url': 'https://raw.githubusercontent.com/tsukumijima/EDCBNotifier/master/EDCBNotifier/EDCBNotifier.png',
-            'content': message,
-        }
-
-        # 送信するファイル
-        # ref: https://qiita.com/bgcanary/items/6d81b7813434978362f4
-        files = {
-            'payload_json': ('request.json', io.BytesIO(json.dumps(payload).encode('utf-8')), 'application/json')
-        }
-
-        # 送信するファイルに画像を追加
+        # 画像も送信する
         if image_path is not None and os.path.isfile(image_path):
-            files['files[0]'] = (os.path.basename(image_path), open(image_path, 'rb'))
 
-        # Webhook を送信
-        response = requests.post(self.webhook_url, headers=headers, files=files)
+            # メッセージ
+            # ref: https://discord.com/developers/docs/reference#uploading-files
+            payload = {
+                'username':'EDCBNotifier',
+                'avatar_url': 'https://raw.githubusercontent.com/tsukumijima/EDCBNotifier/master/EDCBNotifier/EDCBNotifier.png',
+                'content': message,
+                'attachments': [{
+                    'id': 0,
+                    'filename': os.path.basename(image_path),
+                }]
+            }
+
+            # 送信するファイル
+            # ref: https://qiita.com/bgcanary/items/6d81b7813434978362f4
+            files = {
+                'payload_json': ('', io.BytesIO(json.dumps(payload).encode('utf-8')), 'application/json'),
+                'files[0]': (os.path.basename(image_path), open(image_path, 'rb')),
+            }
+
+            # Webhook を送信
+            # 公式ドキュメントいわく、画像も一緒に送る場合は multipart/form-data である必要があるらしい
+            # ref: https://discord.com/developers/docs/resources/webhook#execute-webhook
+            response = requests.post(self.webhook_url, files=files)
+
+        # テキストのみ
+        else:
+
+            # メッセージ
+            payload = {
+                'username':'EDCBNotifier',
+                'avatar_url': 'https://raw.githubusercontent.com/tsukumijima/EDCBNotifier/master/EDCBNotifier/EDCBNotifier.png',
+                'content': message,
+            }
+
+            # Webhook を送信
+            response = requests.post(self.webhook_url, json=payload)
 
         # 失敗した場合はエラーメッセージを取得
-        if response.status_code != 204:
+        if response.status_code != 200 and response.status_code != 204:
             message = response.json()['message'] + f' (Code: {response.json()["code"]})'
         else:
             message = 'Success'
