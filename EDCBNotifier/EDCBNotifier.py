@@ -4,10 +4,10 @@ import os
 import sys
 
 import config
-from senddiscord import Discord
-from sendline import LINE
-from sendtwitter import Twitter
-from utils import Utils
+from SendDiscord import Discord
+from SendLINE import LINE
+from SendTwitter import Twitter
+from Utils import Utils
 
 
 def main():
