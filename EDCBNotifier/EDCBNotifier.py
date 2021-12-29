@@ -20,11 +20,11 @@ def main():
 
     # ヘッダー
     header = '+' * 60 + '\n'
-    header += '+{:^58}+\n'.format('EDCBNotifier version ' + Utils.VERSION)
+    header += '+{:^58}+\n'.format(f'EDCBNotifier version {Utils.VERSION}')
     header += '+' * 60 + '\n'
     print('\n' + header)
 
-    print('Execution Time: ' + str(Utils.getExecutionTime()), end='\n\n')
+    print(f'Execution Time: {Utils.getExecutionTime()}', end='\n\n')
 
     # 引数を受け取る
     if (len(sys.argv) > 1):
@@ -97,17 +97,18 @@ def main():
         discord = Discord(config.Discord_WEBHOOK_URL)
 
         try:
-            result_discord:int = discord.sendMessage(message, image = image)
+            result_discord:dict = discord.sendMessage(message, image_path=image)
         except Exception as error:
             print('[Discord] Result: Failed')
-            print('[Discord] ' + colorama.Fore.RED + 'Error: ' + error.args[0], end = '\n\n')
+            print('[Discord] ' + colorama.Fore.RED + 'Error: ' + error.args[0], end='\n\n')
         else:
-            if result_discord != 204:
+            if result_discord['status'] != 204:
                 # ステータスが 204 以外（失敗）
-                print('[Discord] Result: Failed (Code: ' + str(result_discord) + ')', end = '\n\n')
+                print('[Discord] Result: Failed (Code: ' + str(result_discord['status']) + ')')
+                print('[Discord] ' + colorama.Fore.RED + 'Error: ' + result_discord['message'], end='\n\n')
             else:
                 # ステータスが 200（成功）
-                print('[Discord] Result: Success (Code: ' + str(result_discord) + ')', end = '\n\n')
+                print('[Discord] Result: Success (Code: ' + str(result_discord['status']) + ')', end='\n\n')
 
     # Twitter にツイートを送信
     if ('Tweet' in config.NOTIFY_TYPE):

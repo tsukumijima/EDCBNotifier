@@ -56,7 +56,7 @@ class Twitter:
             # テキストのみ送信
             response = self.twitter.statuses.update(status=message)
 
-        # レスポンスを返す
+        # API レスポンスを返す
         return response
 
 
@@ -131,5 +131,5 @@ class Twitter:
                 }
             })
 
-        # レスポンスを返す
+        # API レスポンスを返す
         return response

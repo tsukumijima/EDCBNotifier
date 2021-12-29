@@ -54,5 +54,5 @@ class LINE:
             # テキストのみ送信
             response = requests.post(url, headers=headers, params=payload)
 
-        # json を返す
+        # API レスポンスを返す
         return response.json()
