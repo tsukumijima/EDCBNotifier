@@ -24,7 +24,7 @@ def main():
     header += '+' * 60 + '\n'
     print('\n' + header)
 
-    print('Execution Time: ' + str(utils.get_exection_time()), end='\n\n')
+    print('Execution Time: ' + str(utils.get_execution_time()), end='\n\n')
 
     # 引数を受け取る
     if (len(sys.argv) > 1):

@@ -127,7 +127,7 @@ class Utils:
             'TimeM': str(int(self.time.strftime('%m'))),
             'TimeDD': self.time.strftime('%d'),
             'TimeD': str(int(self.time.strftime('%d'))),
-            'TimeW': self.get_exection_day(),
+            'TimeW': self.get_execution_day(),
             'TimeHH': self.time.strftime('%H'),
             'TimeH': str(int(self.time.strftime('%H'))),
             'TimeII': self.time.strftime('%M'),
@@ -241,12 +241,12 @@ class Utils:
         sys.exit(1)
 
     # 実行時刻
-    def get_exection_time(self):
+    def get_execution_time(self):
         return self.time.strftime('%Y/%m/%d %H:%M:%S')
 
     # 実行曜日
     # 参考: https://note.nkmk.me/python-datetime-day-locale-function/
-    def get_exection_day(self):
+    def get_execution_day(self):
         weeklist = ['月', '火', '水', '木', '金', '土', '日']
         return weeklist[self.time.weekday()]
 
