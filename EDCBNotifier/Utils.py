@@ -9,6 +9,9 @@ import config
 
 
 class Utils:
+    """
+    ユーティリティクラス
+    """
 
     # EDCBNotifier のバージョン
     VERSION = 'v1.2.0'
@@ -184,26 +187,56 @@ class Utils:
             hashtag = '#at_x'
 
         # 地デジ
+        ## NHK
         elif 'NHK総合' in channel_name:
             hashtag = '#nhk'
         elif 'NHKEテレ' in channel_name:
             hashtag = '#etv'
+        ## 民放
+        ## 三大都市圏は網羅してるはず
+        elif '日テレ' in channel_name:
+            hashtag = '#ntv'
+        elif '読売テレビ' in channel_name:
+            hashtag = '#ytv'
+        elif '中京テレビ' in channel_name:
+            hashtag = '#chukyotv'
+        elif 'テレビ朝日' in channel_name:
+            hashtag = '#tvasahi'
+        elif 'ABCテレビ' in channel_name:
+            hashtag = '#abc'
+        elif 'メ〜テレ' in channel_name:
+            hashtag = '#nagoyatv'
+        elif 'TBS' in channel_name:
+            hashtag = '#tbs'
+        elif 'MBS' in channel_name:
+            hashtag = '#mbs'
+        elif 'CBC' in channel_name:
+            hashtag = '#cbc'
+        elif 'テレビ東京' in channel_name:
+            hashtag = '#tvtokyo'
+        elif 'テレビ大阪' in channel_name:
+            hashtag = '#tvo'
+        elif 'テレビ愛知' in channel_name:
+            hashtag = '#tva'
+        elif 'フジテレビ' in channel_name:
+            hashtag = '#fujitv'
+        elif '関西テレビ' in channel_name:
+            hashtag = '#kantele'
+        elif '東海テレビ' in channel_name:
+            hashtag = '#tokaitv'
+        ## 独立局
+        elif 'TOKYO MX' in channel_name:
+            hashtag = '#tokyomx'
         elif 'tvk' in channel_name:
             hashtag = '#tvk'
         elif 'チバテレ' in channel_name:
             hashtag = '#chibatv'
-        elif '日テレ' in channel_name:
-            hashtag = '#ntv'
-        elif 'テレビ朝日' in channel_name:
-            hashtag = '#tvasahi'
-        elif 'TBS' in channel_name:
-            hashtag = '#tbs'
-        elif 'テレビ東京' in channel_name:
-            hashtag = '#tvtokyo'
-        elif 'フジテレビ' in channel_name:
-            hashtag = '#fujitv'
-        elif 'TOKYO MX' in channel_name:
-            hashtag = '#tokyomx'
+        elif 'テレ玉' in channel_name:
+            hashtag = '#teletama'
+        elif 'サンテレビ' in channel_name:
+            hashtag = '#suntv'
+        elif 'KBS京都' in channel_name:
+            hashtag = '#kbs'
 
         # ハッシュタグが見つからないのでそのまま利用
         else:
