@@ -5,7 +5,7 @@ import colorama
 
 import config
 from utils import Utils
-from sendline import Line
+from sendline import LINE
 from senddiscord import Discord
 from sendtwitter import Twitter
 
@@ -74,10 +74,10 @@ def main():
     # LINE Notify にメッセージを送信
     if ('LINE' in config.NOTIFY_TYPE):
 
-        line = Line(config.LINE_ACCESS_TOKEN)
+        line = LINE(config.LINE_ACCESS_TOKEN)
 
         try:
-            result_line = line.send_message(message, image=image)
+            result_line:dict = line.sendMessage(message, image=image)
         except Exception as error:
             print('[LINE Notify] Result: Failed')
             print('[LINE Notify] ' + colorama.Fore.RED + 'Error: ' + error.args[0], end='\n\n')
@@ -91,28 +91,6 @@ def main():
                 print('[LINE Notify] Result: Success (Code: ' + str(result_line['status']) + ')')
                 print('[LINE Notify] Message: ' + result_line['message'], end='\n\n')
 
-    # Discord にメッセージを送信
-    if ('Discord' in config.NOTIFY_TYPE):
-
-        discord = Discord(config.Discord_WEBHOOK_URL)
-
-        try:
-            result_discord = discord.send_message(message, image = image)
-            print(result_discord)
-        except Exception as error:
-            print('[Discord] Result: Failed')
-            print('[Discord] ' + colorama.Fore.RED + 'Error: ' + error.args[0], end = '\n\n')
-        else:
-            if result_discord['status'] != 204:
-                # ステータスが 204 以外（失敗）
-                print('[Discord] Result: Failed (Code: ' + str(result_discord['status']) + ')')
-                print('[Discord] ' + colorama.Fore.RED + 'Error: ' + result_discord['message'], end = '\n\n')
-            else:
-                # ステータスが 200（成功）
-                print('[Discord] Result: Success (Code: ' + str(result_discord['status']) + ')')
-                print('[Discord] Message: ' + result_discord['message'], end = '\n\n')
-
-
     # Twitter にツイートを送信
     if ('Tweet' in config.NOTIFY_TYPE):
 
@@ -125,7 +103,7 @@ def main():
 
         # ツイートを送信
         try:
-            result_tweet = twitter.send_tweet(message, image=image)
+            result_tweet:dict = twitter.sendTweet(message, image=image)
         except Exception as error:
             print('[Tweet] Result: Failed')
             print('[Tweet] ' + colorama.Fore.RED + 'Error: ' + error.args[0], end='\n\n')
@@ -145,7 +123,7 @@ def main():
 
         # ダイレクトメッセージを送信
         try:
-            result_directmessage = twitter.send_direct_message(message, image=image, destination=config.NOTIFY_DIRECTMESSAGE_TO)
+            result_directmessage:dict = twitter.sendDirectMessage(message, image=image, destination=config.NOTIFY_DIRECTMESSAGE_TO)
         except Exception as error:
             print('[DirectMessage] Result: Failed')
             print('[DirectMessage] ' + colorama.Fore.RED + 'Error: ' + error.args[0], end='\n\n')
@@ -154,6 +132,24 @@ def main():
             print('[DirectMessage] Message: https://twitter.com/messages/' +
                   result_directmessage['event']['message_create']['target']['recipient_id'] + '-' +
                   result_directmessage['event']['message_create']['sender_id'], end='\n\n')
+
+    # Discord にメッセージを送信
+    if ('Discord' in config.NOTIFY_TYPE):
+
+        discord = Discord(config.Discord_WEBHOOK_URL)
+
+        try:
+            result_discord:int = discord.sendMessage(message, image = image)
+        except Exception as error:
+            print('[Discord] Result: Failed')
+            print('[Discord] ' + colorama.Fore.RED + 'Error: ' + error.args[0], end = '\n\n')
+        else:
+            if result_discord != 204:
+                # ステータスが 204 以外（失敗）
+                print('[Discord] Result: Failed (Code: ' + str(result_discord) + ')', end = '\n\n')
+            else:
+                # ステータスが 200（成功）
+                print('[Discord] Result: Success (Code: ' + str(result_discord) + ')', end = '\n\n')
 
 
 if __name__ == '__main__':
