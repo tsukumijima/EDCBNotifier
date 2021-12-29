@@ -1,13 +1,13 @@
 
+import colorama
 import os
 import sys
-import colorama
 
 import config
-from utils import Utils
-from sendline import LINE
 from senddiscord import Discord
+from sendline import LINE
 from sendtwitter import Twitter
+from utils import Utils
 
 
 def main():

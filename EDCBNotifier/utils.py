@@ -1,9 +1,9 @@
 
 import colorama
+import datetime
 import jaconv
 import os
 import sys
-from datetime import datetime
 
 import config
 
@@ -28,7 +28,7 @@ class Utils:
         """
 
         # 実行時刻
-        time = datetime.now()
+        time = datetime.datetime.now()
 
         # 値が存在しなかった場合の初期値
         macro_default = '--'
@@ -266,7 +266,7 @@ class Utils:
         Returns:
             str: EDCBNotifier の実行時刻
         """
-        return datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+        return datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
 
 
     @staticmethod
@@ -279,7 +279,7 @@ class Utils:
             str: EDCBNotifier の実行日
         """
         weeklist = ['月', '火', '水', '木', '金', '土', '日']
-        return weeklist[datetime.now().weekday()]
+        return weeklist[datetime.datetime.now().weekday()]
 
 
     @staticmethod
