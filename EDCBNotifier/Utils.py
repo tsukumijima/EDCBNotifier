@@ -3,6 +3,7 @@ import colorama
 import datetime
 import jaconv
 import os
+import shutil
 import sys
 
 import config
@@ -12,9 +13,6 @@ class Utils:
     """
     ユーティリティクラス
     """
-
-    # EDCBNotifier のバージョン
-    VERSION = 'v1.2.0'
 
 
     @staticmethod
@@ -323,5 +321,6 @@ class Utils:
         Args:
             message (str): エラーメッセージ
         """
-        print(colorama.Fore.RED + 'Error: ' + message, end='\n\n')
+        print(colorama.Fore.RED + 'Error: ' + message)
+        print('=' * (shutil.get_terminal_size().columns - 1))
         sys.exit(1)
