@@ -3,17 +3,16 @@ import colorama
 import datetime
 import jaconv
 import os
-import shutil
 import sys
 
-import config
+from EDCBNotifier import CONFIG
+from EDCBNotifier import TERMINAL_WIDTH
 
 
 class Utils:
     """
     ユーティリティクラス
     """
-
 
     @staticmethod
     def getMacro(environ: os._Environ) -> dict:
@@ -123,9 +122,9 @@ class Utils:
             'NotifyID': environ.get('NotifyID', macro_default),  # PostNotify.bat のみ
 
             # EDCBNotifier 独自マクロ
-            'HashTag': Utils.getChannelHashtag(jaconv.z2h(environ.get('ServiceName', macro_default), digit=True, ascii=True, kana=False)),
-            'HashTagTitle': Utils.getProgramHashtag(jaconv.z2h(environ.get('Title', macro_default), digit=True, ascii=True, kana=False)),
             'NotifyName': Utils.getNotifyType(environ.get('NotifyID', macro_default)),
+            'ServiceNameHashTag': Utils.getServiceNameHashtag(jaconv.z2h(environ.get('ServiceName', macro_default), digit=True, ascii=True, kana=False)),
+            'TitleHashTag': Utils.getTitleHashtag(jaconv.z2h(environ.get('Title', macro_default), digit=True, ascii=True, kana=False)),
             'ServiceNameHankaku': jaconv.z2h(environ.get('ServiceName', macro_default), digit=True, ascii=True, kana=False),
             'TitleHankaku': jaconv.z2h(environ.get('Title', macro_default), digit=True, ascii=True, kana=False),
             'Title2Hankaku': jaconv.z2h(environ.get('Title2', macro_default), digit=True, ascii=True, kana=False),
@@ -148,118 +147,118 @@ class Utils:
 
 
     @staticmethod
-    def getChannelHashtag(channel_name: str) -> str:
+    def getServiceNameHashtag(service_name: str) -> str:
         """
         チャンネル名からハッシュタグを取得する
         BS-TBS が TBS と判定されるといったことがないように、BS・CS 局を先に判定する
-        channel_name には半角に変換済みのチャンネル名が入るので注意
+        service_name には半角に変換済みのチャンネル名が入るので注意
         ref: https://nyanshiba.com/blog/dtv-edcb-twitter
 
         Args:
-            channel_name (str): チャンネル名
+            service_name (str): チャンネル名
 
         Returns:
             str: チャンネル名に紐づくハッシュタグ
         """
 
         # BS・CS
-        if 'NHKBS1' in channel_name:
+        if 'NHKBS1' in service_name:
             hashtag = '#nhkbs1'
-        elif 'NHKBSプレミアム' in channel_name:
+        elif 'NHKBSプレミアム' in service_name:
             hashtag = '#nhkbsp'
-        elif 'BS日テレ' in channel_name:
+        elif 'BS日テレ' in service_name:
             hashtag = '#bsntv'
-        elif 'BS朝日' in channel_name:
+        elif 'BS朝日' in service_name:
             hashtag = '#bsasahi'
-        elif 'BS-TBS' in channel_name:
+        elif 'BS-TBS' in service_name:
             hashtag = '#bstbs'
-        elif 'BSテレ東' in channel_name:
+        elif 'BSテレ東' in service_name:
             hashtag = '#bstvtokyo'
-        elif 'BSフジ' in channel_name:
+        elif 'BSフジ' in service_name:
             hashtag = '#bsfuji'
-        elif 'BS11イレブン' in channel_name:
+        elif 'BS11イレブン' in service_name:
             hashtag = '#bs11'
-        elif 'BS12トゥエルビ' in channel_name:
+        elif 'BS12トゥエルビ' in service_name:
             hashtag = '#bs12'
-        elif 'AT-X' in channel_name:
+        elif 'AT-X' in service_name:
             hashtag = '#at_x'
 
         # 地デジ
         ## NHK
-        elif 'NHK総合' in channel_name:
+        elif 'NHK総合' in service_name:
             hashtag = '#nhk'
-        elif 'NHKEテレ' in channel_name:
+        elif 'NHKEテレ' in service_name:
             hashtag = '#etv'
         ## 民放
         ## 三大都市圏は網羅してるはず
-        elif '日テレ' in channel_name:
+        elif '日テレ' in service_name:
             hashtag = '#ntv'
-        elif '読売テレビ' in channel_name:
+        elif '読売テレビ' in service_name:
             hashtag = '#ytv'
-        elif '中京テレビ' in channel_name:
+        elif '中京テレビ' in service_name:
             hashtag = '#chukyotv'
-        elif 'テレビ朝日' in channel_name:
+        elif 'テレビ朝日' in service_name:
             hashtag = '#tvasahi'
-        elif 'ABCテレビ' in channel_name:
+        elif 'ABCテレビ' in service_name:
             hashtag = '#abc'
-        elif 'メ〜テレ' in channel_name:
+        elif 'メ〜テレ' in service_name:
             hashtag = '#nagoyatv'
-        elif 'TBS' in channel_name:
+        elif 'TBS' in service_name:
             hashtag = '#tbs'
-        elif 'MBS' in channel_name:
+        elif 'MBS' in service_name:
             hashtag = '#mbs'
-        elif 'CBC' in channel_name:
+        elif 'CBC' in service_name:
             hashtag = '#cbc'
-        elif 'テレビ東京' in channel_name:
+        elif 'テレビ東京' in service_name:
             hashtag = '#tvtokyo'
-        elif 'テレビ大阪' in channel_name:
+        elif 'テレビ大阪' in service_name:
             hashtag = '#tvo'
-        elif 'テレビ愛知' in channel_name:
+        elif 'テレビ愛知' in service_name:
             hashtag = '#tva'
-        elif 'フジテレビ' in channel_name:
+        elif 'フジテレビ' in service_name:
             hashtag = '#fujitv'
-        elif '関西テレビ' in channel_name:
+        elif '関西テレビ' in service_name:
             hashtag = '#kantele'
-        elif '東海テレビ' in channel_name:
+        elif '東海テレビ' in service_name:
             hashtag = '#tokaitv'
         ## 独立局
-        elif 'TOKYO MX' in channel_name:
+        elif 'TOKYO MX' in service_name:
             hashtag = '#tokyomx'
-        elif 'tvk' in channel_name:
+        elif 'tvk' in service_name:
             hashtag = '#tvk'
-        elif 'チバテレ' in channel_name:
+        elif 'チバテレ' in service_name:
             hashtag = '#chibatv'
-        elif 'テレ玉' in channel_name:
+        elif 'テレ玉' in service_name:
             hashtag = '#teletama'
-        elif 'サンテレビ' in channel_name:
+        elif 'サンテレビ' in service_name:
             hashtag = '#suntv'
-        elif 'KBS京都' in channel_name:
+        elif 'KBS京都' in service_name:
             hashtag = '#kbs'
 
         # ハッシュタグが見つからないのでそのまま利用
         else:
-            hashtag = '#' + channel_name
+            hashtag = '#' + service_name
 
         return hashtag
 
 
     @staticmethod
-    def getProgramHashtag(program_title: str) -> str:
+    def getTitleHashtag(title: str) -> str:
         """
-        番組タイトルからハッシュタグを取得する
-        program_title には半角に変換済みのタイトル名が入るので注意
+        番組名からハッシュタグを取得する
+        title には半角に変換済みの番組名が入るので注意
 
         Args:
-            title (str): 番組タイトル
+            title (str): 番組名
 
         Returns:
-            str: 番組タイトルに紐づくハッシュタグ
+            str: 番組名に紐づくハッシュタグ
         """
 
-        # dict 内に指定された番組タイトルが存在するか
-        for hashtag_title in config.NOTIFY_HASHTAG_TITLE.keys():
-            if hashtag_title in program_title:
-                return config.NOTIFY_HASHTAG_TITLE[hashtag_title]
+        # dict 内に指定された番組名が存在するか
+        for title_hashtag_key in CONFIG['general']['title_hashtag'].keys():
+            if title_hashtag_key in title:
+                return CONFIG['general']['title_hashtag'][title_hashtag_key]
 
         # 存在しなかったら空文字列を返す
         return ''
@@ -321,6 +320,6 @@ class Utils:
         Args:
             message (str): エラーメッセージ
         """
-        print(colorama.Fore.RED + 'Error: ' + message)
-        print('=' * (shutil.get_terminal_size().columns - 1))
+        print(f'{colorama.Fore.RED}Error: {message}')
+        print('=' * TERMINAL_WIDTH)
         sys.exit(1)

@@ -1,0 +1,189 @@
+{
+    # ====================  環境設定  ====================
+
+    # 設定ファイルは JSON ライクな記法で書かれた YAML で記述されています。
+    # [] で囲われている部分は配列 (list) です。 {} で囲われている部分は辞書 (dict) です。
+    # 文字列は必ずシングルクオート ('') で囲んでください。ハッシュ (#) をつけるとコメントになります。
+    # 文字コードは UTF-8 (BOM なし)・改行コードは LF で保存してください。
+    # できれば VSCode などのシンタックスハイライトのあるエディタでの編集を推奨します。
+
+    'general': {
+
+        # ====================  全般  ====================
+
+        # ***** 通知タイプ *****
+        # LINE (LINE Notify)・Discord (Discord Webhook)・Tweet (ツイート)・DirectMessage (ダイレクトメッセージ) から選択します。
+        # [] 内にカンマ区切りで複数の通知タイプを設定できます。
+
+        # ex (LINE Notify): ['LINE']
+        # ex (LINE Notify と Discord Webhook): ['LINE', 'Discord']
+        # ex (ツイートとダイレクトメッセージ): ['Tweet', 'DirectMessage']
+        # ex (すべてに通知): ['LINE', 'Discord', 'Tweet', 'DirectMessage']
+
+        'notify_type': ['LINE', 'Discord', 'Tweet', 'DirectMessage'],
+
+        # ***** 通知を行うイベント *****
+        # 通知するイベントのオン・オフを指定できます。とえば頻度の多い PostNotify だけ通知しない設定も可能です。
+        # ここで設定したイベントだけが通知されます (通知オン) 。設定しなかったイベントは通知されません (通知オフ) 。
+        # .bat ファイルを配置しないようにしても通知イベントのオン・オフは可能ですが、できるだけこの設定を使うことを推奨します。
+
+        # PostAddReserve … 予約を追加したとき (PostAddReserve.bat が実行されたとき)
+        # PostChgReserve … 予約を変更したとき (PostChgReserve.bat が実行されたとき)
+        # PostRecStart … 録画を開始したとき (PostRecStart.bat が実行されたとき)
+        # PostRecEnd … 録画を終了したとき (PostRecEnd.bat が実行されたとき)
+        # PostNotify … 更新通知が送られたとき (PostNotify.bat が実行されたとき)
+
+        # ex (すべて通知): ['PostAddReserve', 'PostChgReserve', 'PostRecStart', 'PostRecEnd', 'PostNotify']
+        # ex (更新通知以外を通知): ['PostAddReserve', 'PostChgReserve', 'PostRecStart', 'PostRecEnd']
+        # ex (予約の追加・変更を通知): ['PostAddReserve', 'PostChgReserve']
+        # ex (録画の開始・終了を通知): ['PostRecStart', 'PostRecEnd']
+        # ex (録画終了時だけ通知): ['PostRecEnd']
+
+        'notify_event': ['PostAddReserve', 'PostChgReserve', 'PostRecStart', 'PostRecEnd', 'PostNotify'],
+
+        # ***** 通知時に同時に送信する画像 *****
+        # 絶対パスで指定する必要がありますが、画像を EDCBNotifier.yaml と同じフォルダに置く場合はファイル名だけの指定でも大丈夫です。
+        # 画像のファイルサイズが大きすぎると送れない場合があるので注意してください。Discord は 8MB までです。
+        # null に設定した場合は画像を送信しません。
+
+        # ex (絶対パス): 'C:\Users\User\Pictures\EDCBNotifier.png'
+        # ex (EDCBNotifier.yaml と同じフォルダの画像): 'EDCBNotifier.png'
+        # ex (画像を送信しない): null
+
+        'notify_image': null,
+
+        # ***** 番組名に対応するハッシュタグ *****
+        # 後述の $TitleHashTag$ マクロの値に利用します。
+        # ここで定義された番組名が $TitleHankaku$ マクロ (半角の番組名) と部分一致した場合にハッシュタグが利用されます。
+        # ここで定義されていない番組名のハッシュタグは空文字になります。
+        # 以下の記述例を参考に、番組名とハッシュタグの対応を定義してください。
+
+        'title_hashtag': {
+            'ゆるキャン△ SEASON2': '#yurucamp',  # 記述例1
+            'のんのんびより のんすとっぷ': '#なのん #nonnontv',  # 記述例2
+        },
+
+        # ***** ログをファイルに保存するかどうか *****
+        # true に設定した場合は、ログを EDCBNotifier.yaml と同じフォルダの EDCBNotifier.log に保存します。前回のログは上書きされます。
+        # false に設定した場合は、ログを保存せず、代わりに標準出力 (コンソール) に出力します。
+        # うまく通知されないときは、この設定を true にしてログを確認してみてください。
+
+        'logging': true,
+    },
+
+    'message': {
+
+        # ====================  メッセージ  ====================
+
+        # https://github.com/xtne6f/EDCB/blob/work-plus-s-211118/Document/Readme_EpgTimer.txt#L929-L1008 と
+        # https://github.com/xtne6f/EDCB/blob/work-plus-s-211118/Document/Readme_Mod.txt#L463-L487 に記載されている EDCB のマクロが使えます。
+        # マクロは $$ で囲んでください (ex: $ServiceName$)。また、配列の要素ごとに改行されます。
+
+        # また、独自にいくつかのマクロを追加しています。
+        # ・$NotifyName$ … $NotifyID$ から取得した更新通知タイプ (1: EPGデータ更新, 2: 予約情報更新, 3: 録画結果情報更新)
+        # ・$ServiceNameHashTag$ … チャンネル名から取得したハッシュタグ (ハッシュタグは utils.py の Utils.getServiceNameHashtag() メソッドで定義)
+        # ・$TitleHashTag$ … 番組名から取得したハッシュタグ(ハッシュタグは上記の title_hashtag で定義)
+        # ・$ServiceNameHankaku$ … $ServiceName$ (チャンネル名) の英数字を半角に置換した値
+        # ・$TitleHankaku$ … $Title$ (番組名) の英数字を半角に置換した値
+        # ・$Title2Hankaku$ … $Title2$ (番組名から [] で囲まれている部分を削除したもの) の英数字を半角に置換した値
+        # ・$TimeYYYY$ … 実行時刻の上2桁付き西暦年 (ex: 2022 (年)) ・$TimeYY$ … 実行時刻の上2桁なし西暦年 (ex: 22 (年))
+        # ・$TimeMM$ … 実行時刻の2桁固定の月 (ex: 01 (月)) ・$TimeM$ … 実行時刻の月 (ex: 1 (月))
+        # ・$TimeDD$ … 実行時刻の2桁固定の日 (ex: 03 (日)) ・$TimeD$ … 実行時刻の日 (ex: 3 (日))
+        # ・$TimeW$ … 実行時刻の曜日 (ex: 火 (曜日))
+        # ・$TimeHH$ … 実行時刻の2桁固定の時 (24時間) (ex: 09 (時))  $TimeH$ … 実行時刻の日 (ex: 9 (時))
+        # ・$TimeII$ … 実行時刻の2桁固定の分 (ex: 05 (分)) ・$TimeI$ … 実行時刻の分 (ex: 5 (分))
+        # ・$TimeSS$ … 実行時刻の2桁固定の秒 (ex: 09 (秒)) ・$TimeS$ … 実行時刻の分 (ex: 9 (秒))
+
+        # ***** 予約を追加したときに送信するメッセージ *****
+        'PostAddReserve': [
+            '➕ 予約追加: $SDYYYY$/$SDMM$/$SDDD$($SDW$) $ServiceNameHankaku$ $ServiceNameHashTag$',
+            '$STHH$:$STMM$～$ETHH$:$ETMM$ $TitleHankaku$ $TitleHashTag$',
+        ],
+
+        # ***** 予約を変更したときに送信するメッセージ *****
+        'PostChgReserve': [
+            '📢 予約変更: $SDYYYY$/$SDMM$/$SDDD$($SDW$) $ServiceNameHankaku$ $ServiceNameHashTag$',
+            '$STHH$:$STMM$～$ETHH$:$ETMM$ $TitleHankaku$ $TitleHashTag$',
+        ],
+
+        # ***** 録画を開始したときに送信するメッセージ *****
+        'PostRecStart': [
+            '⏺ 録画開始: $SDYYYY$/$SDMM$/$SDDD$($SDW$) $ServiceNameHankaku$ $ServiceNameHashTag$',
+            '$STHH$:$STMM$～$ETHH$:$ETMM$ $TitleHankaku$ $TitleHashTag$',
+        ],
+
+        # ***** 録画を終了したときに送信するメッセージ *****
+        'PostRecEnd': [
+            '⏹ 録画終了: $SDYYYY$/$SDMM$/$SDDD$($SDW$) $ServiceNameHankaku$ $ServiceNameHashTag$',
+            '$STHH$:$STMM$～$ETHH$:$ETMM$ $TitleHankaku$ $TitleHashTag$',
+            'Drop: $Drops$ Scramble: $Scrambles$ Comment: $Result$',
+        ],
+
+        # ***** 更新通知が送られたときに送信するメッセージ *****
+        'PostNotify': [
+            '🔔 通知: $NotifyName$ ($TimeMM$/$TimeDD$ $TimeHH$:$TimeII$:$TimeSS$)',
+        ],
+    },
+
+    'line': {
+
+        # ====================  LINE Notify  ====================
+
+        # ***** LINE Notify のアクセストークン *****
+        # アクセストークンは https://notify-bot.line.me/my/ にて発行したものを設定します。
+        # アクセストークンの発行方法は Readme.md を参照してください。
+        'access_token': 'YOUR_LINE_ACCESS_TOKEN',
+    },
+
+    'discord': {
+
+        # ==================  Discord Webhook  ==================
+
+        # ***** Discord の Webhook URL *****
+        # Webhook URL は Discord のチャンネル設定の [連携サービス] → [ウェブフック] にて発行したものを設定します。
+        # Webhook URL の発行方法は Readme.md を参照してください。
+        'webhook_url': 'YOUR_DISCORD_ACCESS_TOKEN',
+    },
+
+    'twitter': {
+
+        # ======================  Twitter  ======================
+
+        # *** ダイレクトメッセージの送信先のアカウント ***
+        # notify_type で DirectMessage (ダイレクトメッセージ) を選択した場合に利用されます。
+        # @ から始まるアカウントの ID (スクリーンネーム) で指定します。@ 自体はつけずに記述してください。
+        # あらかじめ、送信先のアカウントに DM が送信できる状態になっていないと送信に失敗します。
+        # null に設定すると、DM を通知を送信するアカウント自身に送信します。
+
+        # ex (DM を @AbeShinzo に送信する): 'AbeShinzo'
+        # ex (DM を通知を送信するアカウント自身に送信する): null
+
+        'direct_message_destination': null,
+
+        # Consumer Key (API Key) と Consumer Secret (API Secret Key) は Twitter API アプリごとに発行されます。
+        # ここで設定した Consumer Key (以下 CK と略)、Consumer Secret (以下 CS と略) を利用して Twitter API にアクセスします。
+        # デフォルトでは、私の方で用意した Twitter API アプリ（ツイートの via に「EDCBNotifier」と表示される）の CK, CS が設定されていますが、
+        # 自分で Twitter API の申請を行い、新しく Twitter API アプリを作成して独自の CK, CS を設定することもできます。
+        # 自分で Twitter API アプリを作成する場合は https://tech-blog.rakus.co.jp/entry/20210910/twitter などを参考にしてください。
+
+        # ***** Twitter API の Consumer Key *****
+        'consumer_key': 'TuB8ijqybzYRziAc3qHwO3QTx',
+
+        # ***** Twitter API の Consumer Secret *****
+        'consumer_secret': '6rtWgr8K8r9JJ9gLhy8wPlUVFF6Y4wvYfqyz9Qs6eGm3BixNhl',
+
+        # ツイートやダイレクトメッセージを送信するアカウントの Access Token と Access Token Secret を指定します。
+        # 上記で設定した CK, CS と、ここで設定した Access Token, Access Token Secret を利用して Twitter にログインします。
+        # Access Token と Access Token Secret を発行するには、Twitter API アプリとアプリ連携を行う必要があります。
+        # 私が開発した「Twitter API のアクセストークンを確認するやつ」(https://tools.tsukumijima.net/twittertoken-viewer/) を使うのが
+        # 手っ取り早いと思いますが、他にも twhelp (https://github.com/mpyw/twhelp) などのツールでアプリ連携を行えます。
+        # 「Twitter API のアクセストークンを確認するやつ」を使う場合は、上記の CK, CS をフォームにコピーし、アプリ連携を行うだけです。
+        # ただし、事前に Callback URLs に上記の URL を設定しておく必要があります。私の方で用意したデフォルトの Twitter API アプリには事前に設定済みです。
+
+        # ***** Twitter API の Access Token *****
+        'access_token': 'YOUR_TWITTER_ACCESS_TOKEN',
+
+        # ***** Twitter API の Access Token Secret *****
+        'access_token_secret': 'YOUR_TWITTER_ACCESS_TOKEN_SECRET',
+    }
+}
