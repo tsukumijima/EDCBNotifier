@@ -1,3 +1,4 @@
+
 [[source]]
 url = "https://pypi.org/simple"
 verify_ssl = true
@@ -5,10 +6,11 @@ name = "pypi"
 
 [packages]
 colorama = ">=0.4.1"
+nuitka = "*"
 jaconv = ">=0.2.4"
 requests = ">=2.23.0"
-twitter = ">=1.18.0"
 "ruamel.yaml" = "*"
+twitter = ">=1.18.0"
 
 [dev-packages]
 
