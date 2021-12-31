@@ -4,6 +4,9 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[scripts]
+build = "nuitka --mingw64 --follow-imports --onefile EDCBNotifier.py"
+
 [packages]
 colorama = "*"
 nuitka = "*"

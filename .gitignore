@@ -140,3 +140,8 @@ dmypy.json
 
 # EDCBNotifier Config
 EDCBNotifier/EDCBNotifier.yaml
+
+# EDCBNOtifier build cache
+EDCBNotifier/EDCBNotifier.build/
+EDCBNotifier/EDCBNotifier.dist/
+EDCBNotifier/EDCBNotifier.onefile-build/
