@@ -13,7 +13,7 @@ if "%RecMode%" == "4" (
     goto :eof
 )
 
-rem // Python Ç…ìäÇ∞ÇÈ
-python %~dp0\EDCBNotifier\EDCBNotifier.py PostChgReserve
+rem // EDCBNotifier.exe Çé¿çs
+python %~dp0\EDCBNotifier\EDCBNotifier.exe PostChgReserve
 
 exit
