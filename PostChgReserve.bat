@@ -14,6 +14,6 @@ if "%RecMode%" == "4" (
 )
 
 rem // EDCBNotifier.exe Çé¿çs
-python %~dp0\EDCBNotifier\EDCBNotifier.exe PostChgReserve
+%~dp0\EDCBNotifier\EDCBNotifier.exe PostChgReserve
 
 exit
