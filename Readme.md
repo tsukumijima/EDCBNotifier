@@ -2,6 +2,7 @@
 # <img alt="Logo" src="EDCBNotifier/EDCBNotifier.png" height="26"> EDCBNotifier
 
 ![Screenshot](https://user-images.githubusercontent.com/39271166/88943606-a877c300-d2c6-11ea-8323-7914f78f50e0.png)
+![Screenshot](https://user-images.githubusercontent.com/39271166/159143179-17aa0a99-a9a5-44d3-b8cc-a14efebd9cfc.png)
 
 **EDCB から LINE・Discord・Twitter に通知を送れるツールです。**
 
@@ -15,7 +16,7 @@
 に、EDCB からのさまざまな通知を送れるツールです。
 
 [xtne6f 版 EDCB](https://github.com/xtne6f/EDCB) のバッチファイル実行機能を利用しているため、xtne6f 版、または [tkntrec 版](https://github.com/tkntrec/EDCB) などの xtne6f 版をフォークした EDCB が必要です。  
-[EDCB Material WebUI](https://github.com/EMWUI/EDCB_Material_WebUI) に対応している、最近の EDCB をお使いであればすぐに使えると思います。  
+[EDCB Material WebUI](https://github.com/EMWUI/EDCB_Material_WebUI) が使える EDCB をお使いであれば、すぐに使えると思います。  
 本家の EDCB に実装されていた Twitter 機能 (Twitter.dll) の代替としても利用できます。
 
 たとえば、**EDCB で録画が開始されたときに番組名を添えて LINE に通知したり、EPG 自動予約で追加された予約を通知で確認することができます。**  
@@ -74,7 +75,7 @@ EDCBNotifier V2 では、V1 と比較して大幅な改善や変更が行われ�
   - `$HashTag$` を `$ServiceNameHashTag$` に、`$HashTagTitle$`　を `$TitleHashTag$` に変更し、他のマクロとの表現の一貫性を高めました。
   - 通知メッセージで上記のマクロをお使いの場合は、マクロの置き換えが必要になります。
 - **設定ファイルを config.py から EDCBNotifier.yaml に移行しました。**
-  - Python のソースコードで設定内容を記述するのは汎用性が高いとはいえず、記法も比較的複雑で初心者の方がミスする可能性があったためです。
+  - Python のソースコードで設定内容を記述するのは汎用性が高いとはいえず、記法も比較的複雑で、初心者の方が記法を間違えてエラーになってしまう可能性があったためです。
       - EDCBNotifier の exe 化にあたり、Python コードを exe 化するとほかの .py ファイルを読み込めないという制限があったという事情もあります。
   - YAML は記法のゆれに寛容なほか、JSON ライクに書くこともできて書きやすいため採用しました。
   - これにともない、設定ファイルの書き直しが必要になります。
@@ -100,7 +101,7 @@ EDCBNotifier.exe をビルドする場合は、`pipenv run build` を実行し�
 
 ## Setup
 
-対応する EDCB をお使いであればセットアップは簡単です。  
+録画後実行 bat に対応する EDCB をお使いであればセットアップは簡単です。  
 ファイルを配置して EpgTimerSrv を再起動し、最後に設定ファイルを各自の環境に合わせて編集すれば、あとは放置しておくだけで EDCB からの通知が届きます。
 
 ### 1. ダウンロード・配置
@@ -196,7 +197,7 @@ PostRecEnd の `$Drops$` / `$Scrambles$` / `$Result$` など、特定のイベ�
 - `$TimeMM$` … 実行時刻の2桁固定の月 (ex: 01 (月)) ・`$TimeM$` … 実行時刻の月 (ex: 1 (月))
 - `$TimeDD$` … 実行時刻の2桁固定の日 (ex: 03 (日)) ・`$TimeD$` … 実行時刻の日 (ex: 3 (日))
 - `$TimeW$` … 実行時刻の曜日 (ex: 火 (曜日))
-- `$TimeHH$` … 実行時刻の2桁固定の時 (24時間) (ex: 09 (時))  $TimeH$ … 実行時刻の日 (ex: 9 (時))
+- `$TimeHH$` … 実行時刻の2桁固定の時 (24時間) (ex: 09 (時))  `$TimeH$` … 実行時刻の日 (ex: 9 (時))
 - `$TimeII$` … 実行時刻の2桁固定の分 (ex: 05 (分)) ・`$TimeI$` … 実行時刻の分 (ex: 5 (分))
 - `$TimeSS$` … 実行時刻の2桁固定の秒 (ex: 09 (秒)) ・`$TimeS$` … 実行時刻の分 (ex: 9 (秒))
 
@@ -242,18 +243,29 @@ LINE Notify へ通知しない場合は必要ありませんが、さほど手�
 
 **これで、LINE Notify に通知を送信できる状態になりました！**
 
-試しに 5 つあるバッチファイルのうちのどれかを実行してみましょう。EDCB からの実行ではないためマクロの値は全て -- になっていますが、ちゃんと LINE に通知が届いているはずです。  
+試しに5つあるバッチファイルのうちのどれかを実行してみましょう。EDCB からの実行ではないためマクロの値は全て -- になっていますが、ちゃんと LINE に通知が届いているはずです。  
 もし通知が届かないときは、`EDCBNotifier.log` に何かエラーが出ていないかを確認してみてください。
 
 ### 4. Discord (Discord Webhook)
 
-Discord に通知を送信するには、自分がテキストチャンネルを追加・編集できる権限に加え、Webhook を管理する権限を持っているサーバーが必要です。一般に、Webhook の管理には管理者のロールが必要だと思います。
+Discord に通知を送信するには、自分がテキストチャンネルを追加・編集できる権限に加え、Webhook（ウェブフック）を管理する権限を持っているサーバーが必要です。一般に、Webhook の管理には管理者のロールが必要だと思います。
 
 ここでは、自分用に作った Discord サーバーに新しく EDCBNotifier 用のテキストチャンネルを作成して、そこに通知を送れるようにしてみます。
 
-（執筆中）
+![Screenshot](https://user-images.githubusercontent.com/39271166/159142917-81047ddd-2ddd-441c-9675-fc311f9d7136.png)
 
-LINE Notify のように、5 つあるバッチファイルのうちのどれかを実行してみましょう。Webhook を設定したチャンネルに EDCBNotifier からの通知が届いていると思います。   
+EDCBNotifier 用にしたいテキストチャンネルの設定画面を開き、[連携サービス] にある [ウェブフックの作成] をクリックします。
+
+![Screenshot](https://user-images.githubusercontent.com/39271166/159142977-8a6c3a39-f06e-4483-a69f-fb5bdef3b1b3.png)
+
+すると Webhook の作成画面に移るので、名前やアイコンを設定します。  
+名前やアイコンは EDCBNotifier 側で自動で設定されるため、未設定でも構いません。
+
+終わったら、[ウェブフックURLをコピー] をクリックして、発行された Webhook の URL をクリップボードにコピーします。変更内容を保存するのを忘れずに。 
+
+最後に EDCBNotifier.yaml を開き、**クリップボードにコピーした Webhook の URL を [Discord Webhook] セクションの webhook_url に設定します。**
+
+LINE Notify のように、5つあるバッチファイルのうちのどれかを実行してみましょう。Webhook を設定したチャンネルに EDCBNotifier からの通知が届いていると思います。   
 Webhook を設定したチャンネルの通知設定を [すべてのメッセージ] にすると、通知が届いたときに PC やスマホの通知欄にも表示されます。
 
 ### 5. Twitter (ツイート・ダイレクトメッセージ)
@@ -267,7 +279,7 @@ Webhook を設定したチャンネルの通知設定を [すべてのメッセ�
 （執筆中）
 
 
-最後に EDCBNotifier.yaml を開き、**クリップボードにコピーした Access Token・Access Token Secret を [Twitter API] セクションの **access_token・access_token_secret にそれぞれ設定します。**
+最後に EDCBNotifier.yaml を開き、**クリップボードにコピーした Access Token・Access Token Secret を [Twitter API] セクションの access_token・access_token_secret にそれぞれ設定します。**
 
 これで Twitter にツイートやダイレクトメッセージで通知を送信できる状態になりました！ 
 
