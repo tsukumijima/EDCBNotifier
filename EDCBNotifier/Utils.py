@@ -201,7 +201,7 @@ class Utils:
             hashtag = '#tvasahi'
         elif 'ABCテレビ' in service_name:
             hashtag = '#abc'
-        elif 'メ〜テレ' in service_name:
+        elif 'メ~テレ' in service_name:
             hashtag = '#nagoyatv'
         elif 'TBS' in service_name:
             hashtag = '#tbs'
