@@ -163,8 +163,8 @@
         # Consumer Key (API Key) と Consumer Secret (API Secret Key) は Twitter API アプリごとに発行されます。
         # ここで設定した Consumer Key (以下 CK と略)、Consumer Secret (以下 CS と略) を利用して Twitter API にアクセスします。
         # デフォルトでは、私の方で用意した Twitter API アプリ（ツイートの via に「EDCBNotifier」と表示される）の CK, CS が設定されていますが、
-        # 自分で Twitter API の申請を行い、新しく Twitter API アプリを作成して独自の CK, CS を設定することもできます。
-        # 自分で Twitter API アプリを作成する場合は https://tech-blog.rakus.co.jp/entry/20210910/twitter などを参考にしてください。
+        # ご自分で Twitter API の開発者申請を行い、新しく Twitter API アプリを作成して独自の CK, CS を設定することもできます。
+        # ご自分で Twitter API アプリを作成される場合は https://tech-blog.rakus.co.jp/entry/20210910/twitter などを参考にしてください。
 
         # ***** Twitter API の Consumer Key *****
         'consumer_key': 'TuB8ijqybzYRziAc3qHwO3QTx',
@@ -178,7 +178,7 @@
         # 私が開発した「Twitter API のアクセストークンを確認するやつ」(https://tools.tsukumijima.net/twittertoken-viewer/) を使うのが
         # 手っ取り早いと思いますが、他にも twhelp (https://github.com/mpyw/twhelp) などのツールでアプリ連携を行えます。
         # 「Twitter API のアクセストークンを確認するやつ」を使う場合は、上記の CK, CS をフォームにコピーし、アプリ連携を行うだけです。
-        # ただし、事前に Callback URLs に上記の URL を設定しておく必要があります。私の方で用意したデフォルトの Twitter API アプリには事前に設定済みです。
+        # ただし、事前に Callback URLs に上記の URL を設定しておく必要があります。私の方で用意したデフォルトの Twitter API アプリには事前に設定してあります。
 
         # ***** Twitter API の Access Token *****
         'access_token': 'YOUR_TWITTER_ACCESS_TOKEN',

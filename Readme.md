@@ -20,7 +20,7 @@
 本家の EDCB に実装されていた Twitter 機能 (Twitter.dll) の代替としても利用できます。
 
 たとえば、**EDCB で録画が開始されたときに番組名を添えて LINE に通知したり、EPG 自動予約で追加された予約を通知で確認することができます。**  
-私自身1年以上使っていますが、予約や録画状況を通知で確認できるのは地味にかなり便利です。
+私自身何年も使っていますが、予約や録画状況を通知で確認できるのは地味にかなり便利です。
 
 **LINE へは LINE Notify を使い通知します。**  
 LINE Notify は、アプリケーションからの通知を、指定したユーザーやグループに送れるサービスです。  
@@ -28,11 +28,11 @@ LINE Notify は、アプリケーションからの通知を、指定したユ�
 
 **Discord へは Discord Webhook を使い通知します。**  
 管理者権限を持つサーバーであれば、各テキストチャンネルの設定から簡単に Webhook を設定できます。  
-自分用のサーバーを作成して、そこに Webhook を設定してみるのが一番手っ取り早いと思います。
+自分用のサーバーを作成して、そこに Webhook を設定してみるのが一番手っ取り早いです。
 
-**Twitter への通知はツイートでの通知に加え、ダイレクトメッセージでの送信も可能です。**  
-ダイレクトメッセージは自分宛てに送ることも、DM を送信できる他のアカウントに送ることもできます。  
-たとえば、録画通知用の Twitter アカウントを作りメインアカウントと相互フォローにして、録画通知用のアカウントからメインアカウント宛てに通知を送ることもできます。
+**Twitter へはツイートでの通知に加え、ダイレクトメッセージでの通知も可能です。**  
+ダイレクトメッセージは自分宛てに送ることも、ダイレクトメッセージを送信できる他のアカウントに送ることもできます。  
+たとえば、録画通知用の Twitter アカウントとメインのアカウントと相互フォローにして、録画通知用のアカウントからメインアカウント宛てに通知を送ることもできます。
 
 通知できるイベントは、
 
@@ -49,7 +49,7 @@ LINE Notify は、アプリケーションからの通知を、指定したユ�
 
 **通知するメッセージは 5 つのイベントごとに自由に変更できます。**  
 EDCB から取得したマクロに加えて、チャンネル名から取得したハッシュタグや更新通知タイプ、チャンネル名や番組名の英数字の半角変換など、独自のマクロも用意しています。  
-デフォルトのメッセージでも十分に使えますが、お好みに応じてメッセージをカスタムしてみても良いと思います。
+デフォルトのメッセージでも十分に使えますが、必要に応じてメッセージをカスタムしてみても良いでしょう。
 
 ## Migration
 
@@ -58,7 +58,6 @@ EDCBNotifier V2 では、V1 と比較して大幅な改善や変更が行われ�
 
 - **Discord に通知できるようになりました！**
   - Discord Webhook の機能を使い、EDCB からのさまざまな通知を Discord にも送れるようになりました！
-    - [yt4687](https://github.com/yt4687) さんが書かれたコードを取り込んで、さらに改良した機能になります。
   - 管理者権限を持つサーバーであれば、各テキストチャンネルの設定から簡単に Webhook を設定できます。自分用の Discord サーバーに通知させるようにしてみると便利かもしれません。
   - LINE や Twitter への通知と同時に Discord に送信することもできます。
 - **EDCBNotifier を実行ファイルにまとめたことで、Python や依存パッケージのインストールが不要になりました！**
@@ -93,7 +92,7 @@ $env:PIPENV_VENV_IN_PROJECT = "true"
 pipenv sync
 ```
 
-EDCBNotifier.py の実行をテストする場合は、`pipenv shell` で pipenv の仮想環境に入った後、`python EDCBNotifier.py PostAddReserve` のように実行してください。  
+EDCBNotifier.py の実行をテストする際は、`pipenv shell` で pipenv の仮想環境に入った後、`python EDCBNotifier.py PostAddReserve` のように実行してください。  
 `PostAddReserve` の部分はバッチファイルの名前です。直接実行した場合は EDCB から環境変数で渡されるイベントの情報が取得できないため、実行時刻以外の情報がすべて -- になった状態で通知されます。
 
 EDCBNotifier.exe をビルドする場合は、`pipenv run build` を実行してください。  
@@ -146,8 +145,8 @@ EDCBNotifier.example.yaml 自体をリネームしてもかまいませんが、
 - Discord への通知には Discord Webhook の URL が必要です。
   - テキストチャンネルの編集権限に加え、Webhook の作成権限があるサーバーであれば通知できます。
   - EDCBNotifier の通知専用のテキストチャンネルを作っておくと良いでしょう。
-- Twitter への通知には Twitter API のアプリ連携が必要です。
-  - V1 では Twitter の開発者登録など手順が煩雑でしたが、デフォルトで設定されているキーを使ってアプリ連携をすれば、以前よりも大幅に手順を減らせるようになりました。
+- Twitter への通知には Twitter API アプリとのアプリ連携が必要です。
+  - V1 では Twitter の開発者登録など手順が煩雑でしたが、デフォルトで設定されているキーを使いアプリ連携をすれば、以前よりも大幅に手順を減らせるようになりました。
   - 今まで通り、各自で用意した Twitter API アプリを使って通知を送ることも可能です。
 
 ### 1. 設定
@@ -241,7 +240,7 @@ LINE Notify へ通知しない場合は必要ありませんが、さほど手�
 
 最後に EDCBNotifier.yaml を開き、**クリップボードにコピーしたアクセストークンを [LINE Notify] セクションの access_token に設定します。**
 
-**これで、LINE Notify に通知を送信できる状態になりました！**
+**これで、LINE Notify に通知を送れるようになりました！**
 
 試しに5つあるバッチファイルのうちのどれかを実行してみましょう。EDCB からの実行ではないためマクロの値は全て -- になっていますが、ちゃんと LINE に通知が届いているはずです。  
 もし通知が届かないときは、`EDCBNotifier.log` に何かエラーが出ていないかを確認してみてください。
@@ -265,26 +264,55 @@ EDCBNotifier 用にしたいテキストチャンネルの設定画面を開き�
 
 最後に EDCBNotifier.yaml を開き、**クリップボードにコピーした Webhook の URL を [Discord Webhook] セクションの webhook_url に設定します。**
 
+**これで、Discord に通知を送れるようになりました！**
+
 LINE Notify のように、5つあるバッチファイルのうちのどれかを実行してみましょう。Webhook を設定したチャンネルに EDCBNotifier からの通知が届いていると思います。   
 Webhook を設定したチャンネルの通知設定を [すべてのメッセージ] にすると、通知が届いたときに PC やスマホの通知欄にも表示されます。
 
 ### 5. Twitter (ツイート・ダイレクトメッセージ)
 
-**ダイレクトメッセージの送信先のアカウント** (direct_message_destination) では、**ダイレクトメッセージで通知を送るアカウントをアカウントの ID (スクリーンネーム) で指定します。**  
-@ 自体はつけずに記述してください。あらかじめ、送信先のアカウントに DM が送信できる状態になっていないと送信に失敗します。  
-`null` に設定すると、DM を通知を送信するアカウント自身に送信します。  
-デフォルト … 自分宛てに送信する (`null`)
+Twitter にツイートやダイレクトメッセージを送信するには、Consumer Key (API Key) / Consumer Secret (API Secret Key) / Access Token / Access Token Secret の4つのトークンが必要になります。
 
+Consumer Key と Consumer Secret は、Twitter API アプリごとに発行されるものです。  
+EDCBNotifier の設定ファイルには、事前に私の方で用意した Twitter API アプリ（ツイートの via に「EDCBNotifier」と表示される）の Comsumer Key / Comsumer Secret が記述されています。
 
-（執筆中）
+> ご自分で Twitter API の開発者申請を行い、新しく Twitter API アプリを作成して独自の Consumer Key / Consumer Secret を設定することもできます。  
+> ご自分で Twitter API アプリを作成される場合は https://tech-blog.rakus.co.jp/entry/20210910/twitter などを参考にしてください。
 
+Access Token と Access Token Secret は、Twitter のアカウントごとに発行されるものです。  
+Access Token と Access Token Secret を発行するには、Twitter API アプリとのアプリ連携が必要になります。
+
+アプリ連携の方法はいくつかあります。私が開発した「[Twitter API のアクセストークンを確認するやつ](https://tools.tsukumijima.net/twittertoken-viewer/)」を使うのが手っ取り早いと思いますが、他にも [twhelp](https://github.com/mpyw/twhelp) などのツールでアプリ連携を行えます。
+
+ここでは、デフォルトの Consumer Key / Consumer Secret を使い、「Twitter API のアクセストークンを確認するやつ」でアプリ連携を行う手順を紹介します。  
+
+> 独自の Comsumer Key / Comsumer Secret を使う場合は、事前に Twitter API アプリ設定の [Callback URLs] に `https://tools.tsukumijima.net/twittertoken-viewer/` を設定しておく必要があります。  
+> 私の方で用意したデフォルトの Twitter API アプリには事前に設定してあります。
+
+![Screenshot](https://user-images.githubusercontent.com/39271166/159144349-87337c03-84ca-4ddb-af43-a50afac50db0.png)
+
+「Twitter API のアクセストークンを確認するやつ」を開き、下のフォームの [コンシューマーキー] に `TuB8ijqybzYRziAc3qHwO3QTx` 、[コンシューマーシークレット] に `6rtWgr8K8r9JJ9gLhy8wPlUVFF6Y4wvYfqyz9Qs6eGm3BixNhl` と入力します。
+
+![Screenshot](https://user-images.githubusercontent.com/39271166/159144351-55599f19-7337-4868-ad02-001b784bb1cf.png)
+
+[認証してアクセストークンを確認する] をクリックすると、Twitter のアプリ連携画面に遷移します。  
+[連携アプリを認証] をクリックして、アプリ連携を許可してください。
+
+![Screenshot](https://user-images.githubusercontent.com/39271166/159144405-2739c724-090a-4de5-b28a-901781881033.png)
+
+アプリ連携を許可すると [アクセストークン] と [アクセストークンシークレット] が表示されるので、それぞれクリップボードにコピーしてください。
 
 最後に EDCBNotifier.yaml を開き、**クリップボードにコピーした Access Token・Access Token Secret を [Twitter API] セクションの access_token・access_token_secret にそれぞれ設定します。**
 
-これで Twitter にツイートやダイレクトメッセージで通知を送信できる状態になりました！ 
+また、**ダイレクトメッセージの送信先のアカウント** (direct_message_destination) では、**ダイレクトメッセージで通知を送るアカウントを、アカウントの ID (スクリーンネーム) で指定できます。**  
+@ 自体はつけずに記述してください。事前に送信先のアカウントにダイレクトメッセージが送信できる状態になっていないと、送信に失敗します。  
+`null` に設定すると、ダイレクトメッセージを通知を送信するアカウント自身に送信します。  
+デフォルト … 自分宛てに送信する (`null`)
 
-LINE Notify や Discord のように、5 つあるバッチファイルのうちのどれかを実行してみましょう。  
-EDCBNotifier からの通知がツイートされていて、自分宛てに同じく通知のダイレクトメッセージが届いていれば OK です。
+**これで、Twitter にツイートやダイレクトメッセージで通知を送れるようになりました！**
+
+LINE Notify や Discord と同じように、5つあるバッチファイルのうちのどれかを実行してみましょう。  
+EDCBNotifier からの通知がツイートされていて、自分宛てに通知のダイレクトメッセージが届いていれば OK です。
 
 -----
 
