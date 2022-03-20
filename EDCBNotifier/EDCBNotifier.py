@@ -10,7 +10,7 @@ from SendLINE import LINE
 from SendTwitter import Twitter
 
 # バージョン情報
-VERSION = '1.2.0'
+VERSION = '2.0.0'
 
 # ベースディレクトリ
 BASE_DIR = os.path.dirname(os.path.abspath(sys.argv[0]))
