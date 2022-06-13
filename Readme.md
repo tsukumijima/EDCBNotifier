@@ -111,6 +111,12 @@ EDCBNotifier.exe をビルドする場合は、`pipenv run build` を実行し�
 
 EpgTimerSrv.exe のあるフォルダに EDCBNotifier フォルダと PostAddReserve.bat・PostChgReserve.bat・PostRecStart.bat・PostRecEnd.bat・PostNotify.bat が配置されていれば OK です。
 
+> **Warning**  
+> **Windows Defender などのウイルス対策ソフトにより、EDCBNotifier.exe がウイルスやマルウェアとしてブロックされてしまう事例が報告されています。**  
+> 一般に Python プログラムを exe 化した実行ファイルは、残念ながらウイルスやマルウェアとして誤検知されてしまうことが多いです。  
+> EDCBNotifier では、特に誤検知率の高い [PyInstaller](https://pyinstaller.org/en/stable/) の代わりに [Nuitka](https://nuitka.net/) というツールで実行ファイル (.exe) にコンパイルしています。ただ、Nuitka でも完全に誤検知されなくなる訳ではありません。  
+> **適宜、ウイルス対策ソフトの保護対象から除外するなどの対応をお願いします。**
+
 ### 2. 設定ファイルの作成
 
 EDCB 内に配置した EDCBNotifier フォルダ内の EDCBNotifier.example.yaml は、設定ファイルのひな形になるファイルです。  
