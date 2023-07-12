@@ -12,7 +12,7 @@
         # ====================  全般  ====================
 
         # ***** 通知タイプ *****
-        # LINE (LINE Notify)・Discord (Discord Webhook)・Tweet (ツイート)・DirectMessage (ダイレクトメッセージ) から選択します。
+        # LINE (LINE Notify)・Discord (Discord Webhook)・Tweet (ツイート)・Toot（トゥート）・DirectMessage (ダイレクトメッセージ) ・MastodonDirectMessage（Mastodon のダイレクトメッセージ）から選択します。
         # [] 内にカンマ区切りで複数の通知タイプを設定できます。
 
         # ex (LINE Notify): ['LINE']
@@ -185,5 +185,30 @@
 
         # ***** Twitter API の Access Token Secret *****
         'access_token_secret': 'YOUR_TWITTER_ACCESS_TOKEN_SECRET',
-    }
+    },
+
+    'mastodon': {
+
+        # ======================  Mastodon  ======================
+
+        # *** ダイレクトメッセージの送信先のアカウント ***
+        # notify_type で DirectMessage (ダイレクトメッセージ) を選択した場合に利用されます。
+        # ActivityPub 上の acct で指定します。@ 自体はつけずに記述してください。
+        # あらかじめ、送信先のアカウントに DM が送信できる状態になっていないと送信に失敗します。
+        # null に設定すると、DM を通知を送信するアカウント自身に送信します。
+
+        # ex (DM を @Mastodon@mastodon.social に送信する): '@Mastodon@mastodon.social'
+        # ex (DM を通知を送信するアカウント自身に送信する): null
+
+        'direct_message_destination': null,
+
+        # ***** インスタンス URL *****
+        # EDCBNotifier を稼働させる Mastodon インスタンスの URL を指定します。
+        # ex (ドメインが mastodon.social の場合): 'https://mastodon.social'
+        'base_url': 'YOUR_MASTODON_BASE_URL',
+
+        # ***** Mastodon API の アクセス トークン *****
+        # Mastodon の API にアクセスするためのアクセス トークンを指定します。
+        'access_token': 'YOUR_MASTODON_ACCESS_TOKEN',
+    },
 }
