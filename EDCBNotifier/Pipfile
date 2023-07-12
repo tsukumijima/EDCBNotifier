@@ -1,4 +1,3 @@
-
 [[source]]
 url = "https://pypi.org/simple"
 verify_ssl = true
@@ -9,6 +8,7 @@ build = "nuitka --mingw64 --follow-imports --onefile --windows-icon-from-ico='ED
 
 [packages]
 colorama = "*"
+"mastodon.py" = "*"
 nuitka = "*"
 jaconv = "*"
 requests = "*"
